@@ -219,7 +219,7 @@ export function IndustryPageTemplate(partialProps: Partial<IndustryPageTemplateP
                 <Button
                   asChild
                   size="lg"
-                  className="w-full sm:w-auto bg-blue-600 sm:bg-gradient-to-r sm:from-blue-600 sm:to-purple-600 hover:bg-blue-700 sm:hover:from-blue-700 sm:hover:to-purple-700 text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-10 sm:py-6 rounded-md sm:rounded-lg shadow-sm sm:shadow-lg shadow-blue-600/20 sm:shadow-blue-700/20 hover:shadow-blue-600/30 sm:hover:shadow-blue-700/40 transition-all duration-150 sm:duration-300 active:scale-[0.98] sm:hover:scale-105 border-0 touch-manipulation select-none"
+                  className="w-full sm:w-auto bg-blue-600 sm:bg-gradient-to-r sm:from-blue-600 sm:to-purple-600 hover:bg-blue-700 sm:hover:from-blue-700 sm:hover:to-purple-700 text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-10 sm:py-6 rounded-lg shadow-sm sm:shadow-lg shadow-blue-700/5 sm:shadow-blue-700/20 hover:shadow-blue-700/10 sm:hover:shadow-blue-700/40 transition-all duration-150 sm:duration-300 transform active:scale-95 sm:hover:scale-105 border-0 touch-manipulation select-none"
                 >
                   <Link href={pageCta.buttonLink}>
                     {pageCta.buttonText.replace(/\[Industry Name\]/g, currentIndustryName)}
@@ -465,7 +465,7 @@ export function IndustryPageTemplate(partialProps: Partial<IndustryPageTemplateP
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-auto bg-blue-600 sm:bg-gradient-to-r sm:from-blue-600 sm:to-purple-600 hover:bg-blue-700 sm:hover:from-blue-700 sm:hover:to-purple-700 text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-10 sm:py-6 rounded-md sm:rounded-lg shadow-sm sm:shadow-lg shadow-blue-600/20 sm:shadow-blue-700/20 hover:shadow-blue-600/30 sm:hover:shadow-blue-700/40 transition-all duration-150 sm:duration-300 active:scale-[0.98] sm:hover:scale-105 border-0 touch-manipulation select-none"
+                className="w-full sm:w-auto bg-blue-600 sm:bg-gradient-to-r sm:from-blue-600 sm:to-purple-600 hover:bg-blue-700 sm:hover:from-blue-700 sm:hover:to-purple-700 text-white font-semibold text-base sm:text-lg px-6 py-3 sm:px-10 sm:py-6 rounded-lg shadow-sm sm:shadow-lg shadow-blue-700/5 sm:shadow-blue-700/20 hover:shadow-blue-700/10 sm:hover:shadow-blue-700/40 transition-all duration-150 sm:duration-300 transform active:scale-95 sm:hover:scale-105 border-0 touch-manipulation select-none"
               >
                 <Link href={pageCta.buttonLink}>
                   {pageCta.buttonText.replace(/\[Industry Name\]/g, currentIndustryName)}
