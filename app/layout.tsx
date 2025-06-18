@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import MainNavigation from "@/components/main-navigation"
 import MainFooter from "@/components/main-footer"
 import ProactiveChatAgent from "@/components/proactive-chat-agent"
-import Script from 'next/script' // Added for Google Analytics
+import GoogleAnalytics from "@/components/GoogleAnalytics" // <-- Import the new component
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -40,31 +40,17 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "bg-white dark:bg-slate-950 flex flex-col min-h-screen")}>
+        {/* The Google Analytics component is now here, safely outside the ThemeProvider */}
+        <GoogleAnalytics measurementId="G-DTG535C7QL" />
+        
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <MainNavigation />
           <main className="pt-16 flex-grow relative">
-            {" "}
-            {/* Added relative positioning here as a precaution */}
             {children}
           </main>
           <MainFooter />
           <ProactiveChatAgent proactiveTriggers={chatProactiveTriggers} />
         </ThemeProvider>
-
-        {/* --- Google Analytics Scripts Added Here --- */}
-        <Script 
-          strategy="afterInteractive" 
-          src="https://www.googletagmanager.com/gtag/js?id=G-DTG535C7QL" 
-        />
-        <Script id="google-analytics-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-DTG535C7QL');
-          `}
-        </Script>
-        
       </body>
     </html>
   )
