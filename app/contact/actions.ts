@@ -20,7 +20,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     // This is a more robust way to call the API
     const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev',
-      to: 'contact@novagent.io',
+      to: 'contact@novagent.io', 
       subject: `New NovaGent Inquiry - ${inquiryType}`,
       reply_to: email, // Set the user's email as the reply-to address
       html: `
