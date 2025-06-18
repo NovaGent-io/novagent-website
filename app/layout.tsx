@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import MainNavigation from "@/components/main-navigation"
 import MainFooter from "@/components/main-footer"
 import ProactiveChatAgent from "@/components/proactive-chat-agent"
+import Script from 'next/script' // Added for Google Analytics
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -34,12 +35,6 @@ export default function RootLayout({
       message:
         "Exploring custom AI solutions? We excel at architecting systems for unique challenges. What specific problem are you looking to solve?",
     },
-    // Example of a trigger for all pages after a longer delay, if no specific trigger matched
-    // {
-    //   pagePath: "*",
-    //   delaySeconds: 60,
-    //   message: "Welcome to NovaGent! I'm Nova, your AI assistant. Let me know if you have any questions as you explore our site."
-    // }
   ]
 
   return (
@@ -53,9 +48,23 @@ export default function RootLayout({
             {children}
           </main>
           <MainFooter />
-          {/* ProactiveChatAgent is outside main and footer, directly under ThemeProvider for global fixed positioning */}
           <ProactiveChatAgent proactiveTriggers={chatProactiveTriggers} />
         </ThemeProvider>
+
+        {/* --- Google Analytics Scripts Added Here --- */}
+        <Script 
+          strategy="afterInteractive" 
+          src="https://www.googletagmanager.com/gtag/js?id=G-DTG535C7QL" 
+        />
+        <Script id="google-analytics-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DTG535C7QL');
+          `}
+        </Script>
+        
       </body>
     </html>
   )
