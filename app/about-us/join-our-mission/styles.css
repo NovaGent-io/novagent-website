@@ -1,0 +1,11 @@
+/* Keep this file for any minor global tweaks or if specific non-Tailwind CSS is needed later. */
+/* For now, most styles are inline with Tailwind or handled by Framer Motion. */
+
+/* Example: Smooth scroll behavior for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Any previous flip-card or swiper styles can be removed if no longer used by the new design */
+/* .flip-card-outer, .flip-card-inner, etc. */
+/* .swiper-pagination-custom, .swiper-button-prev-custom, etc. */
