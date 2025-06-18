@@ -14,7 +14,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     const message = formData.get("message") as string;
 
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev', // This is the sender address Resend uses
+      from: 'contact@novagent.io', // This is the sender address Resend uses
       to: 'contact@novagent.io',      // This is your inbox where the email will be sent
       subject: `New NovaGent Inquiry - ${inquiryType}`,
       reply_to: email,                 // This ensures when you reply, it goes to the user
