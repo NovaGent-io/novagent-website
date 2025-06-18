@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider"
 import MainNavigation from "@/components/main-navigation"
 import MainFooter from "@/components/main-footer"
 import ProactiveChatAgent from "@/components/proactive-chat-agent"
-import Script from "next/script"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
   title: "NovaGent | Managed AI for Business Outcomes",
   description:
     "NovaGent designs, deploys, and continuously optimizes autonomous software agents for revenue, marketing, and operations teams.",
-  generator: "v0.dev",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -57,16 +56,6 @@ export default function RootLayout({
           {/* ProactiveChatAgent is outside main and footer, directly under ThemeProvider for global fixed positioning */}
           <ProactiveChatAgent proactiveTriggers={chatProactiveTriggers} />
         </ThemeProvider>
-        {/* Google Analytics Scripts */}
-        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-DTG535C7QL" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-DTG535C7QL');
-          `}
-        </Script>
       </body>
     </html>
   )
