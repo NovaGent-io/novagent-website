@@ -20,7 +20,7 @@ export default function VideoIntroSection({ onVideoFinishScroll }: VideoIntroSec
         loop
         preload="auto"
       >
-        <source src="/videos/novagent-logo-reveal.mp4" type="video/mp4" />
+        <source src="/videos/novagent-hero.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </section>
