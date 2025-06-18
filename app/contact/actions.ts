@@ -3,8 +3,6 @@
 import { Resend } from 'resend';
 
 export async function submitContactForm(prevState: any, formData: FormData) {
-  console.log("--- SERVER ACTION STARTED ---"); // Log 1
-
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
@@ -15,14 +13,11 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     const inquiryType = formData.get("inquiry-type") as string;
     const message = formData.get("message") as string;
 
-    console.log("Data extracted, preparing to call Resend API..."); // Log 2
-
-    // This is a more robust way to call the API
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'contact@novagent.io', 
+      from: 'onboarding@resend.dev', // This is the sender address Resend uses
+      to: 'contact@novagent.io',      // This is your inbox where the email will be sent
       subject: `New NovaGent Inquiry - ${inquiryType}`,
-      reply_to: email, // Set the user's email as the reply-to address
+      reply_to: email,                 // This ensures when you reply, it goes to the user
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${fullName}</p>
@@ -36,20 +31,16 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       `,
     });
 
-    // Check if Resend itself returned an error
     if (error) {
-      console.error("--- RESEND API ERROR ---", error); // Log 3
-      return { success: false, message: `Error from email service: ${error.message}` };
+      return { success: false, message: `Error: ${error.message}` };
     }
 
-    console.log("--- EMAIL SENT SUCCESSFULLY --- Resend ID:", data?.id); // Log 4
     return {
       success: true,
       message: "Thank you for your inquiry! We'll get back to you within 24 hours.",
     };
 
   } catch (exception) {
-    console.error("--- CAUGHT AN EXCEPTION ---", exception); // Log 5
     return {
       success: false,
       message: "An unexpected server error occurred.",
