@@ -75,14 +75,14 @@ export default function MeetTheFoundersPage() {
 
                 <div className="flex justify-center space-x-3 mb-6">
                   <Link
-                    href="https://linkedin.com"
+                    href="https://linkedin.com/company/novagent/"
                     className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                   >
                     <Linkedin className="w-6 h-6" />
                     <span className="sr-only">LinkedIn</span>
                   </Link>
                   <Link
-                    href="https://twitter.com"
+                    href="https://twitter.com/Novagent1"
                     className="text-slate-600 hover:text-blue-400 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                   >
                     <Twitter className="w-6 h-6" />
@@ -143,14 +143,14 @@ export default function MeetTheFoundersPage() {
 
                 <div className="flex justify-center space-x-3 mb-6">
                   <Link
-                    href="https://linkedin.com"
+                    href="https://linkedin.com/company/novagent/"
                     className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                   >
                     <Linkedin className="w-6 h-6" />
                     <span className="sr-only">LinkedIn</span>
                   </Link>
                   <Link
-                    href="https://twitter.com"
+                    href="https://twitter.com/Novagent1"
                     className="text-slate-600 hover:text-blue-400 dark:text-slate-400 dark:hover:text-blue-400 transition-colors"
                   >
                     <Twitter className="w-6 h-6" />

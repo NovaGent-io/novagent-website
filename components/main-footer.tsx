@@ -140,7 +140,7 @@ export default function MainFooter() {
           </div>
           <div className="flex space-x-5 mb-6 md:mb-0">
             <a
-              href="https://linkedin.com/company/novagent" // Replace with actual LinkedIn URL
+              href="https://linkedin.com/company/novagent/" // Replace with actual LinkedIn URL
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-400 hover:text-cyan-400 transition-colors p-2"
@@ -149,7 +149,7 @@ export default function MainFooter() {
               <Linkedin className="h-5 w-5" />
             </a>
             <a
-              href="https://twitter.com/novagentai" // Replace with actual Twitter URL
+              href="https://twitter.com/Novagent1" // Replace with actual Twitter URL
               target="_blank"
               rel="noopener noreferrer"
               className="text-slate-400 hover:text-fuchsia-400 transition-colors p-2"
