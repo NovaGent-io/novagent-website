@@ -7,7 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import MainNavigation from "@/components/main-navigation"
 import MainFooter from "@/components/main-footer"
 import ProactiveChatAgent from "@/components/proactive-chat-agent"
-import GoogleAnalytics from "@/components/GoogleAnalytics" // <-- Import the new component
+import GoogleAnalytics from "@/components/GoogleAnalytics"
+import Script from 'next/script' // This import was also missing
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,7 +16,12 @@ export const metadata: Metadata = {
   title: "NovaGent | Managed AI for Business Outcomes",
   description:
     "NovaGent designs, deploys, and continuously optimizes autonomous software agents for revenue, marketing, and operations teams.",
-    generator: 'v0.dev'
+    generator: 'v0.dev',
+  viewport: { // Restoring mobile viewport settings
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 }
 
 export default function RootLayout({
@@ -39,10 +45,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "bg-white dark:bg-slate-950 flex flex-col min-h-screen")}>
-        {/* The Google Analytics component is now here, safely outside the ThemeProvider */}
-        <GoogleAnalytics measurementId="G-DTG535C7QL" />
-        
+      <body className={cn(inter.className, "bg-white dark:bg-slate-950 flex flex-col min-h-screen overflow-x-hidden")}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <MainNavigation />
           <main className="pt-16 flex-grow relative">
@@ -51,6 +54,10 @@ export default function RootLayout({
           <MainFooter />
           <ProactiveChatAgent proactiveTriggers={chatProactiveTriggers} />
         </ThemeProvider>
+
+        {/* --- Google Analytics Scripts Added Here --- */}
+        <GoogleAnalytics measurementId="G-DTG535C7QL" />
+
       </body>
     </html>
   )
