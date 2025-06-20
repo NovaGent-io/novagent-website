@@ -68,7 +68,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     setIsLoading(true)
 
     // --- ADJUSTMENT: ADDED THIS LINE FOR DEBUGGING ---
-    console.log("Verifying API Key:", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
     // ------------------------------------------------
 
     try {
