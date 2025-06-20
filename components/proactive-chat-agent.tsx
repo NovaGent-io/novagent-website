@@ -32,24 +32,20 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
   ])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [showTourSpotlight, setShowTourSpotlight] = useState(false)
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
-  // This effect handles the proactive messages based on page path and delay
+  // This is a placeholder for more advanced logic.
   useEffect(() => {
-    // This is a placeholder for more advanced logic. You would use Next.js's
-    // `usePathname` hook to check the current page and trigger the correct message.
     if (proactiveTriggers.length > 0) {
         const firstTrigger = proactiveTriggers[0];
         const proactiveTimer = setTimeout(() => {
-            if (isOpen) return; // Don't trigger if chat is already open
+            if (isOpen) return;
             setMessages((prevMessages) => [
                 ...prevMessages,
                 { id: "proactive-trigger", sender: "agent", text: firstTrigger.message },
             ]);
             setIsOpen(true);
         }, firstTrigger.delaySeconds * 1000);
-
         return () => clearTimeout(proactiveTimer);
     }
   }, [proactiveTriggers, isOpen]);
@@ -90,7 +86,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
       );
 
       if (!response.ok) {
-        // Log the full response to see more details on the error
         const errorBody = await response.text();
         throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorBody}`);
       }
@@ -112,8 +107,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
       setIsLoading(false);
     }
   }
-  
-  const SpotlightOverlay = () => { /* ... */ }
 
   return (
     <>
@@ -227,7 +220,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           </Button>
         </motion.div>
       )}
-      <SpotlightOverlay />
     </>
   )
 }
