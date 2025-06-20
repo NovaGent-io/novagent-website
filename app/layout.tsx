@@ -8,7 +8,7 @@ import MainNavigation from "@/components/main-navigation"
 import MainFooter from "@/components/main-footer"
 import ProactiveChatAgent from "@/components/proactive-chat-agent"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
-import Script from 'next/script' // This import was also missing
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -16,12 +16,23 @@ export const metadata: Metadata = {
   title: "NovaGent | Managed AI for Business Outcomes",
   description:
     "NovaGent designs, deploys, and continuously optimizes autonomous software agents for revenue, marketing, and operations teams.",
-    generator: 'v0.dev',
-  viewport: { // Restoring mobile viewport settings
+  generator: 'v0.dev',
+  viewport: {
     width: "device-width",
     initialScale: 1,
     maximumScale: 1,
   },
+  // --- FAVICON CODE ADDED HERE (BEST PRACTICE FOR NEXT.JS) ---
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
+  // -----------------------------------------------------------
 }
 
 export default function RootLayout({
