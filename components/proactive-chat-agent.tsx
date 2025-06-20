@@ -70,11 +70,10 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
         'https://hrtzhohxayjjjbutttga.supabase.co/functions/v1/chat-handler', 
         {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-            'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
-          },
+         headers: {
+  'Content-Type': 'application/json',
+  'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
+},
           body: JSON.stringify({ message: currentMessage }),
         }
       );
