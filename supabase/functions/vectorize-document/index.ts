@@ -1,48 +1,73 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+// supabase/functions/vectorize-document/index.ts
+
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { OpenAI } from 'https://deno.land/x/openai@v4.24.1/mod.ts'
+import { OpenAI } from 'https://esm.sh/openai@4.17.0'
 
-// Initialize the OpenAI client with your secret API key
-const openai = new OpenAI({
-  apiKey: Deno.env.get('OPENAI_API_KEY'),
-})
-
-serve(async (req) => {
+Deno.serve(async (req) => {
   try {
-    const { id } = await req.json(); // Get the ID of the new document
+    console.log("--- New invocation received ---");
+    const requestBody = await req.json();
+    console.log("Received request body:", requestBody);
 
-    // Create a Supabase admin client to safely perform database operations
+    const { document_id } = requestBody;
+    console.log(`Extracted document_id: ${document_id}, Type: ${typeof document_id}`);
+
+    if (!document_id || typeof document_id !== 'number') {
+      throw new Error('Valid document_id (number) not found in request body.');
+    }
+
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      throw new Error('Missing environment variable OPENAI_API_KEY');
+    }
+
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    // 1. Get the content of the new document from the database
-    const { data: document, error: fetchError } = await supabaseAdmin
+    const { data: document, error: selectError } = await supabaseAdmin
       .from('documents')
       .select('content')
-      .eq('id', id)
+      .eq('id', document_id)
       .single();
 
-    if (fetchError) throw fetchError;
+    if (selectError) {
+      console.error(`Error fetching document ${document_id}:`, selectError);
+      throw selectError;
+    }
 
-    // 2. Generate the embedding using OpenAI
+    const textContent = document.content;
+    console.log(`Successfully fetched content for document ${document_id}.`);
+
+    const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
     const embeddingResponse = await openai.embeddings.create({
       model: 'text-embedding-ada-002',
-      input: document.content,
+      input: textContent,
     });
-    const newEmbedding = embeddingResponse.data[0].embedding;
 
-    // 3. Update the document row with the new embedding
-    await supabaseAdmin
+    const embedding = embeddingResponse.data[0].embedding;
+
+    const { error: updateError } = await supabaseAdmin
       .from('documents')
-      .update({ embedding: newEmbedding })
-      .eq('id', id);
+      .update({ embedding })
+      .eq('id', document_id);
 
-    return new Response('ok');
+    if (updateError) {
+      console.error(`Error updating document ${document_id}:`, updateError);
+      throw updateError;
+    }
 
-  } catch (error) {
-    console.error(error);
-    return new Response(String(error?.message ?? error), { status: 500 });
+    console.log(`Successfully created and saved embedding for document ${document_id}`);
+
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (e) {
+    console.error('An error occurred in the Edge Function:', e);
+    return new Response(JSON.stringify({ error: e.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
-});
+})

@@ -32,22 +32,31 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
   ])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [hasProactiveTriggered, setHasProactiveTriggered] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (proactiveTriggers.length > 0) {
+    // Only run if there are triggers AND the trigger has NOT already fired
+    if (proactiveTriggers.length > 0 && !hasProactiveTriggered) {
         const firstTrigger = proactiveTriggers[0];
         const proactiveTimer = setTimeout(() => {
+            // If the user already has the chat open, do nothing.
             if (isOpen) return;
+
+            // Show the proactive message
             setMessages((prevMessages) => [
                 ...prevMessages,
                 { id: "proactive-trigger", sender: "agent", text: firstTrigger.message },
             ]);
             setIsOpen(true);
+            
+            // IMPORTANT: Mark the trigger as fired so it won't run again
+            setHasProactiveTriggered(true);
         }, firstTrigger.delaySeconds * 1000);
+        
         return () => clearTimeout(proactiveTimer);
     }
-  }, [proactiveTriggers, isOpen]);
+  }, [proactiveTriggers, isOpen, hasProactiveTriggered]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -71,9 +80,11 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
         {
           method: 'POST',
          headers: {
-  'Content-Type': 'application/json',
-  'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
-},
+            'Content-Type': 'application/json',
+            // --- ADJUSTMENT: Re-added Authorization header ---
+            'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
+          },
           body: JSON.stringify({ message: currentMessage }),
         }
       );
