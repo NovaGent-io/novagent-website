@@ -29,91 +29,25 @@ interface ProactiveChatAgentProps {
 export default function ProactiveChatAgent({ proactiveTriggers = [] }: ProactiveChatAgentProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isMaximized, setIsMaximized] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<Message[]>([
+    { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
+    { id: "2", sender: "agent", text: "What can I help you with today?" },
+  ])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [hasProactiveTriggered, setHasProactiveTriggered] = useState(false)
   const [showQuickActions, setShowQuickActions] = useState(true)
   const [pageVisitTime, setPageVisitTime] = useState<number>(0)
-  const [isInitialized, setIsInitialized] = useState(false)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
-  // Session storage keys
+  // Session storage key for tracking chatbot interactions
   const SESSION_KEY = 'novagent-chatbot-session'
-  const MESSAGES_KEY = 'novagent-chat-messages'
-  const CHAT_STATE_KEY = 'novagent-chat-state'
-
-  // Default welcome messages
-  const defaultMessages: Message[] = [
-    { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
-    { id: "2", sender: "agent", text: "What can I help you with today?", showFollowUp: false },
-  ]
-
-  // Load chat history from sessionStorage on component mount
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    try {
-      // Load messages
-      const savedMessages = sessionStorage.getItem(MESSAGES_KEY)
-      const savedChatState = sessionStorage.getItem(CHAT_STATE_KEY)
-      
-      if (savedMessages) {
-        const parsedMessages = JSON.parse(savedMessages)
-        setMessages(parsedMessages)
-        setShowQuickActions(false) // Hide quick actions if we have chat history
-      } else {
-        setMessages(defaultMessages)
-        setShowQuickActions(true)
-      }
-
-      // Load chat state (open/closed, maximized, etc.)
-      if (savedChatState) {
-        const chatState = JSON.parse(savedChatState)
-        setIsOpen(chatState.isOpen || false)
-        setIsMaximized(chatState.isMaximized || false)
-      }
-
-    } catch (error) {
-      console.error('Error loading chat history:', error)
-      setMessages(defaultMessages)
-    }
-
-    setIsInitialized(true)
-  }, [])
-
-  // Save messages to sessionStorage whenever messages change
-  useEffect(() => {
-    if (!isInitialized) return
-    
-    try {
-      sessionStorage.setItem(MESSAGES_KEY, JSON.stringify(messages))
-    } catch (error) {
-      console.error('Error saving chat messages:', error)
-    }
-  }, [messages, isInitialized])
-
-  // Save chat state to sessionStorage whenever chat state changes
-  useEffect(() => {
-    if (!isInitialized) return
-
-    try {
-      const chatState = {
-        isOpen,
-        isMaximized
-      }
-      sessionStorage.setItem(CHAT_STATE_KEY, JSON.stringify(chatState))
-    } catch (error) {
-      console.error('Error saving chat state:', error)
-    }
-  }, [isOpen, isMaximized, isInitialized])
 
   // Quick action buttons data
   const quickActions = [
     {
       id: "demo",
-      icon: Calendar,
       label: "🚀 Book a Demo",
       message: "I'd like to book a demo",
       response: "Great choice! I'll connect you with our team for a personalized demo. You can schedule a 30-minute session that works for you:",
@@ -122,7 +56,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     },
     {
       id: "pricing",
-      icon: DollarSign,
       label: "💰 See Pricing", 
       message: "I want to see your pricing",
       response: "Perfect! Here's our transparent pricing breakdown. We offer flexible engagement models to fit different business needs:",
@@ -131,7 +64,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     },
     {
       id: "agents",
-      icon: Bot,
       label: "🤖 Learn About AI Agents",
       message: "Tell me about your AI agents",
       response: "Excellent question! Our AI agents are autonomous systems that handle complex business processes. Here are our main solutions:",
@@ -144,7 +76,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     },
     {
       id: "sales",
-      icon: Users,
       label: "💬 Chat with Sales",
       message: "I want to speak with sales",
       response: "Perfect! Our sales team would love to discuss how NovaGent can transform your business operations. Let's get you connected:",
@@ -152,33 +83,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
       linkText: "📞 Book a Sales Call"
     }
   ]
-
-  // Check if chatbot should show based on session storage
-  const shouldShowChatbot = () => {
-    if (typeof window === 'undefined') return false
-    
-    const sessionData = sessionStorage.getItem(SESSION_KEY)
-    if (!sessionData) return true
-
-    try {
-      const parsedData = JSON.parse(sessionData)
-      const currentPath = pathname
-
-      // Check if this specific page has already triggered
-      if (parsedData.triggeredPages?.includes(currentPath)) {
-        return false
-      }
-
-      // Check if we've shown globally once this session (for pages without specific triggers)
-      if (parsedData.hasShownGlobally && !hasMatchingTrigger(currentPath)) {
-        return false
-      }
-
-      return true
-    } catch {
-      return true
-    }
-  }
 
   // Check if current path has a matching trigger
   const hasMatchingTrigger = (path: string) => {
@@ -200,32 +104,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
       }
       return path === trigger.pagePath
     })
-  }
-
-  // Update session storage when chatbot is shown
-  const updateSessionStorage = (path: string, isGlobal: boolean = false) => {
-    if (typeof window === 'undefined') return
-
-    const sessionData = sessionStorage.getItem(SESSION_KEY)
-    let parsedData = { triggeredPages: [], hasShownGlobally: false }
-
-    if (sessionData) {
-      try {
-        parsedData = JSON.parse(sessionData)
-      } catch {
-        // If parsing fails, use default
-      }
-    }
-
-    if (isGlobal) {
-      parsedData.hasShownGlobally = true
-    } else {
-      if (!parsedData.triggeredPages.includes(path)) {
-        parsedData.triggeredPages.push(path)
-      }
-    }
-
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(parsedData))
   }
 
   // Handle quick action button clicks
@@ -295,40 +173,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     setHasProactiveTriggered(false)
   }, [pathname])
 
-  // Main proactive trigger logic
-  useEffect(() => {
-    if (!isInitialized || hasProactiveTriggered || !shouldShowChatbot()) return
-
-    const currentPath = pathname
-    const matchingTrigger = getMatchingTrigger(currentPath)
-
-    if (!matchingTrigger) return
-
-    const proactiveTimer = setTimeout(() => {
-      if (isOpen) return
-
-      // Add the proactive message to existing messages
-      setMessages(prev => [
-        ...prev,
-        { 
-          id: `proactive-trigger-${Date.now()}`, 
-          sender: "agent", 
-          text: matchingTrigger.message 
-        },
-      ])
-
-      setIsOpen(true)
-      setHasProactiveTriggered(true)
-      setShowQuickActions(true)
-
-      // Update session storage
-      updateSessionStorage(currentPath, false)
-
-    }, matchingTrigger.delaySeconds * 1000)
-
-    return () => clearTimeout(proactiveTimer)
-  }, [pathname, proactiveTriggers, isOpen, hasProactiveTriggered, isInitialized])
-
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -342,11 +186,70 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
 
     const userMessage: Message = { id: Date.now().toString(), sender: "user", text: inputValue }
     setMessages((prevMessages) => [...prevMessages, userMessage])
-    const currentMessage = inputValue;
+    const currentMessage = inputValue.toLowerCase();
+    const originalMessage = inputValue;
     setInputValue("")
     setIsLoading(true)
     setShowQuickActions(false)
 
+    // Check if the user's message is a DIRECT REQUEST (not just mentioning topics)
+    const checkForDirectRequest = (message: string) => {
+      // Only trigger on very specific, direct requests
+      if ((message.includes('book a demo') || message.includes('schedule a demo') || message.includes('book demo')) && 
+          !message.includes('tell me about') && !message.includes('what is') && !message.includes('how does')) {
+        return {
+          type: 'demo',
+          response: "I'd be happy to help you book a demo! You can schedule a 30-minute session with our team:",
+          link: "https://calendly.com/gladiator-novagent/30min",
+          linkText: "📅 Schedule Your Demo"
+        }
+      }
+      
+      // Only for direct pricing requests
+      if ((message.includes('show me pricing') || message.includes('see pricing') || message.includes('view pricing')) && 
+          !message.includes('tell me about') && !message.includes('how much') && !message.includes('what does')) {
+        return {
+          type: 'pricing',
+          response: "Here's our transparent pricing breakdown with flexible engagement models:",
+          link: "https://novagent.io/pricing",
+          linkText: "💰 View Pricing Details"
+        }
+      }
+      
+      return null // Let AI handle everything else
+    }
+
+    // Check for direct requests only
+    const directRequest = checkForDirectRequest(currentMessage)
+    
+    if (directRequest) {
+      // Handle direct requests with links
+      setTimeout(() => {
+        let responseContent: React.ReactNode = (
+          <div className="space-y-3">
+            <p>{directRequest.response}</p>
+            <a
+              href={directRequest.link}
+              className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+            >
+              {directRequest.linkText} →
+            </a>
+          </div>
+        )
+
+        const aiMessage: Message = { 
+          id: Date.now().toString(), 
+          sender: "agent", 
+          text: responseContent 
+        }
+        setMessages((prevMessages) => [...prevMessages, aiMessage])
+        setIsLoading(false)
+      }, 500)
+      
+      return // Don't make API call for direct requests
+    }
+
+    // For all other messages, let the AI handle discovery and qualification
     try {
       const response = await fetch(
         'https://hrtzhohxayjjjbutttga.supabase.co/functions/v1/chat-handler', 
@@ -357,7 +260,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
             'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
           },
-          body: JSON.stringify({ message: currentMessage }),
+          body: JSON.stringify({ message: originalMessage }),
         }
       );
 
@@ -369,7 +272,50 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
       const data = await response.json();
 
       if (data.reply) {
-        const aiMessage: Message = { id: Date.now().toString(), sender: "agent", text: data.reply };
+        // Check if the AI response should include helpful links
+        const aiResponseLower = data.reply.toLowerCase();
+        let enhancedResponse = data.reply;
+        
+        // Add helpful links to AI responses when appropriate
+        if (aiResponseLower.includes('demo') || aiResponseLower.includes('schedule') || aiResponseLower.includes('meeting')) {
+          enhancedResponse = (
+            <div className="space-y-3">
+              <p>{data.reply}</p>
+              <a
+                href="https://calendly.com/gladiator-novagent/30min"
+                className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+              >
+                📅 Schedule Your Demo →
+              </a>
+            </div>
+          )
+        } else if (aiResponseLower.includes('pricing') || aiResponseLower.includes('cost')) {
+          enhancedResponse = (
+            <div className="space-y-3">
+              <p>{data.reply}</p>
+              <a
+                href="https://novagent.io/pricing"
+                className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+              >
+                💰 View Pricing Details →
+              </a>
+            </div>
+          )
+        } else if (aiResponseLower.includes('solutions') || aiResponseLower.includes('agents')) {
+          enhancedResponse = (
+            <div className="space-y-3">
+              <p>{data.reply}</p>
+              <div className="flex flex-col gap-2">
+                <a href="https://novagent.io/solutions/ai-agent-suite" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🤖 AI Agent Suite →</a>
+                <a href="https://novagent.io/solutions/custom-agentic-systems" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">⚙️ Custom Agentic Systems →</a>
+                <a href="https://novagent.io/how-it-works" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🔧 How It Works →</a>
+                <a href="https://novagent.io/why-novagent" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🎯 Why NovaGent →</a>
+              </div>
+            </div>
+          )
+        }
+        
+        const aiMessage: Message = { id: Date.now().toString(), sender: "agent", text: enhancedResponse };
         setMessages((prevMessages) => [...prevMessages, aiMessage]);
       } else {
         throw new Error("Invalid response format from server.");
@@ -382,23 +328,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     } finally {
       setIsLoading(false);
     }
-  }
-
-  // Clear chat history function (optional - you can add a button for this)
-  const clearChatHistory = () => {
-    try {
-      sessionStorage.removeItem(MESSAGES_KEY)
-      sessionStorage.removeItem(CHAT_STATE_KEY)
-      setMessages(defaultMessages)
-      setShowQuickActions(true)
-    } catch (error) {
-      console.error('Error clearing chat history:', error)
-    }
-  }
-
-  // Don't render until initialized to prevent flash
-  if (!isInitialized) {
-    return null
   }
 
   return (
@@ -534,9 +463,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           <Button
             onClick={() => {
               setIsOpen(true)
-              if (messages.length <= 2) {
-                setShowQuickActions(true)
-              }
+              setShowQuickActions(true)
             }}
             className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 via-cyan-400 to-purple-500 shadow-xl text-white shadow-2xl hover:scale-110 hover:shadow-2xl transition-transform duration-200 ease-in-out flex items-center justify-center"
             aria-label="Open chat"
