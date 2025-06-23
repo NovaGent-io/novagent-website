@@ -29,20 +29,85 @@ interface ProactiveChatAgentProps {
 export default function ProactiveChatAgent({ proactiveTriggers = [] }: ProactiveChatAgentProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isMaximized, setIsMaximized] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([
-    { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
-    { id: "2", sender: "agent", text: "What can I help you with today?", showFollowUp: false },
-  ])
+  const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [hasProactiveTriggered, setHasProactiveTriggered] = useState(false)
   const [showQuickActions, setShowQuickActions] = useState(true)
   const [pageVisitTime, setPageVisitTime] = useState<number>(0)
+  const [isInitialized, setIsInitialized] = useState(false)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
-  // Session storage key for tracking chatbot interactions
+  // Session storage keys
   const SESSION_KEY = 'novagent-chatbot-session'
+  const MESSAGES_KEY = 'novagent-chat-messages'
+  const CHAT_STATE_KEY = 'novagent-chat-state'
+
+  // Default welcome messages
+  const defaultMessages: Message[] = [
+    { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
+    { id: "2", sender: "agent", text: "What can I help you with today?", showFollowUp: false },
+  ]
+
+  // Load chat history from sessionStorage on component mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    try {
+      // Load messages
+      const savedMessages = sessionStorage.getItem(MESSAGES_KEY)
+      const savedChatState = sessionStorage.getItem(CHAT_STATE_KEY)
+      
+      if (savedMessages) {
+        const parsedMessages = JSON.parse(savedMessages)
+        setMessages(parsedMessages)
+        setShowQuickActions(false) // Hide quick actions if we have chat history
+      } else {
+        setMessages(defaultMessages)
+        setShowQuickActions(true)
+      }
+
+      // Load chat state (open/closed, maximized, etc.)
+      if (savedChatState) {
+        const chatState = JSON.parse(savedChatState)
+        setIsOpen(chatState.isOpen || false)
+        setIsMaximized(chatState.isMaximized || false)
+      }
+
+    } catch (error) {
+      console.error('Error loading chat history:', error)
+      setMessages(defaultMessages)
+    }
+
+    setIsInitialized(true)
+  }, [])
+
+  // Save messages to sessionStorage whenever messages change
+  useEffect(() => {
+    if (!isInitialized) return
+    
+    try {
+      sessionStorage.setItem(MESSAGES_KEY, JSON.stringify(messages))
+    } catch (error) {
+      console.error('Error saving chat messages:', error)
+    }
+  }, [messages, isInitialized])
+
+  // Save chat state to sessionStorage whenever chat state changes
+  useEffect(() => {
+    if (!isInitialized) return
+
+    try {
+      const chatState = {
+        isOpen,
+        isMaximized
+      }
+      sessionStorage.setItem(CHAT_STATE_KEY, JSON.stringify(chatState))
+    } catch (error) {
+      console.error('Error saving chat state:', error)
+    }
+  }, [isOpen, isMaximized, isInitialized])
 
   // Quick action buttons data
   const quickActions = [
@@ -232,7 +297,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
 
   // Main proactive trigger logic
   useEffect(() => {
-    if (hasProactiveTriggered || !shouldShowChatbot()) return
+    if (!isInitialized || hasProactiveTriggered || !shouldShowChatbot()) return
 
     const currentPath = pathname
     const matchingTrigger = getMatchingTrigger(currentPath)
@@ -242,9 +307,9 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     const proactiveTimer = setTimeout(() => {
       if (isOpen) return
 
-      // Add the proactive message
-      setMessages((prevMessages) => [
-        { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
+      // Add the proactive message to existing messages
+      setMessages(prev => [
+        ...prev,
         { 
           id: `proactive-trigger-${Date.now()}`, 
           sender: "agent", 
@@ -262,7 +327,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     }, matchingTrigger.delaySeconds * 1000)
 
     return () => clearTimeout(proactiveTimer)
-  }, [pathname, proactiveTriggers, isOpen, hasProactiveTriggered])
+  }, [pathname, proactiveTriggers, isOpen, hasProactiveTriggered, isInitialized])
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -317,6 +382,23 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     } finally {
       setIsLoading(false);
     }
+  }
+
+  // Clear chat history function (optional - you can add a button for this)
+  const clearChatHistory = () => {
+    try {
+      sessionStorage.removeItem(MESSAGES_KEY)
+      sessionStorage.removeItem(CHAT_STATE_KEY)
+      setMessages(defaultMessages)
+      setShowQuickActions(true)
+    } catch (error) {
+      console.error('Error clearing chat history:', error)
+    }
+  }
+
+  // Don't render until initialized to prevent flash
+  if (!isInitialized) {
+    return null
   }
 
   return (
@@ -452,7 +534,9 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           <Button
             onClick={() => {
               setIsOpen(true)
-              setShowQuickActions(true)
+              if (messages.length <= 2) {
+                setShowQuickActions(true)
+              }
             }}
             className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 via-cyan-400 to-purple-500 shadow-xl text-white shadow-2xl hover:scale-110 hover:shadow-2xl transition-transform duration-200 ease-in-out flex items-center justify-center"
             aria-label="Open chat"
