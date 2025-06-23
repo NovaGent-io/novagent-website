@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import { usePathname } from "next/navigation"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Send, X, Sparkles, Maximize2, Minimize2, MessageSquare, Calendar, DollarSign, Bot, Users, Plus, Clock, ArrowLeft } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
@@ -57,7 +58,37 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
   const SESSION_KEY = 'novagent-chatbot-session'
   const CHAT_SESSIONS_KEY = 'novagent-chat-sessions'
 
-  // Quick action buttons data
+  // Helper function to determine if URL is internal
+  const isInternalUrl = (url: string): boolean => {
+    return url.startsWith('/') || url.includes('novagent.io')
+  }
+
+  // Helper function to convert external URL to internal path
+  const getInternalPath = (url: string): string => {
+    if (url.startsWith('/')) return url
+    if (url.includes('novagent.io')) {
+      const urlObj = new URL(url)
+      return urlObj.pathname
+    }
+    return url
+  }
+
+  // Component for smart links (internal vs external)
+  const SmartLink = ({ href, children, className }: { href: string, children: React.ReactNode, className: string }) => {
+    if (isInternalUrl(href)) {
+      return (
+        <Link href={getInternalPath(href)} className={className}>
+          {children}
+        </Link>
+      )
+    } else {
+      return (
+        <a href={href} className={className}>
+          {children}
+        </a>
+      )
+    }
+  }
   const quickActions = [
     {
       id: "demo",
@@ -171,7 +202,13 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
 
   // Load a chat session
   const loadChatSession = (session: ChatSession) => {
-    setMessages(session.messages)
+    // Convert any React nodes back to strings for saved sessions
+    const cleanedMessages = session.messages.map(msg => ({
+      ...msg,
+      text: typeof msg.text === 'object' ? 'Previous message with links' : msg.text
+    }))
+    
+    setMessages(cleanedMessages)
     setCurrentSessionId(session.id)
     setShowChatHistory(false)
     setShowQuickActions(false)
@@ -225,22 +262,22 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           {action.links ? (
             <div className="flex flex-col gap-2">
               {action.links.map((link, index) => (
-                <a
+                <SmartLink
                   key={index}
                   href={link.url}
                   className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center"
                 >
                   {link.text} →
-                </a>
+                </SmartLink>
               ))}
             </div>
           ) : action.link ? (
-            <a
+            <SmartLink
               href={action.link}
               className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
             >
               {action.linkText} →
-            </a>
+            </SmartLink>
           ) : null}
         </div>
       )
@@ -335,12 +372,12 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
         let responseContent: React.ReactNode = (
           <div className="space-y-3">
             <p>{directRequest.response}</p>
-            <a
+            <SmartLink
               href={directRequest.link}
               className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
             >
               {directRequest.linkText} →
-            </a>
+            </SmartLink>
           </div>
         )
 
@@ -387,24 +424,24 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           enhancedResponse = (
             <div className="space-y-3">
               <p>{data.reply}</p>
-              <a
+              <SmartLink
                 href="https://calendly.com/gladiator-novagent/30min"
                 className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
               >
                 📅 Schedule Your Demo →
-              </a>
+              </SmartLink>
             </div>
           )
         } else if (aiResponseLower.includes('pricing') || aiResponseLower.includes('cost')) {
           enhancedResponse = (
             <div className="space-y-3">
               <p>{data.reply}</p>
-              <a
+              <SmartLink
                 href="https://novagent.io/pricing"
                 className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
               >
                 💰 View Pricing Details →
-              </a>
+              </SmartLink>
             </div>
           )
         } else if (aiResponseLower.includes('solutions') || aiResponseLower.includes('agents')) {
@@ -412,10 +449,10 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
             <div className="space-y-3">
               <p>{data.reply}</p>
               <div className="flex flex-col gap-2">
-                <a href="https://novagent.io/solutions/ai-agent-suite" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🤖 AI Agent Suite →</a>
-                <a href="https://novagent.io/solutions/custom-agentic-systems" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">⚙️ Custom Agentic Systems →</a>
-                <a href="https://novagent.io/how-it-works" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🔧 How It Works →</a>
-                <a href="https://novagent.io/why-novagent" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🎯 Why NovaGent →</a>
+                <SmartLink href="https://novagent.io/solutions/ai-agent-suite" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🤖 AI Agent Suite →</SmartLink>
+                <SmartLink href="https://novagent.io/solutions/custom-agentic-systems" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">⚙️ Custom Agentic Systems →</SmartLink>
+                <SmartLink href="https://novagent.io/how-it-works" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🔧 How It Works →</SmartLink>
+                <SmartLink href="https://novagent.io/why-novagent" className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center">🎯 Why NovaGent →</SmartLink>
               </div>
             </div>
           )
