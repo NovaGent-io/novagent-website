@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Send, X, Sparkles, Maximize2, Minimize2, MessageSquare } from "lucide-react"
+import { Send, X, Sparkles, Maximize2, Minimize2, MessageSquare, Calendar, DollarSign, Bot, Users } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -14,6 +14,7 @@ interface Message {
   id: string
   sender: "user" | "agent"
   text: string | React.ReactNode
+  showFollowUp?: boolean
 }
 
 interface ProactiveChatAgentProps {
@@ -30,17 +31,62 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
   const [isMaximized, setIsMaximized] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
-    { id: "2", sender: "agent", text: "Do you need help finding anything?" },
+    { id: "2", sender: "agent", text: "What can I help you with today?", showFollowUp: false },
   ])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [hasProactiveTriggered, setHasProactiveTriggered] = useState(false)
+  const [showQuickActions, setShowQuickActions] = useState(true)
   const [pageVisitTime, setPageVisitTime] = useState<number>(0)
   const chatContainerRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
   // Session storage key for tracking chatbot interactions
   const SESSION_KEY = 'novagent-chatbot-session'
+
+  // Quick action buttons data
+  const quickActions = [
+    {
+      id: "demo",
+      icon: Calendar,
+      label: "🚀 Book a Demo",
+      message: "I'd like to book a demo",
+      response: "Great choice! I'll connect you with our team for a personalized demo. You can schedule a 30-minute session that works for you:",
+      link: "https://calendly.com/gladiator-novagent/30min",
+      linkText: "📅 Schedule Your Demo"
+    },
+    {
+      id: "pricing",
+      icon: DollarSign,
+      label: "💰 See Pricing", 
+      message: "I want to see your pricing",
+      response: "Perfect! Here's our transparent pricing breakdown. We offer flexible engagement models to fit different business needs:",
+      link: "https://novagent.io/pricing",
+      linkText: "💰 View Pricing Details"
+    },
+    {
+      id: "agents",
+      icon: Bot,
+      label: "🤖 Learn About AI Agents",
+      message: "Tell me about your AI agents",
+      response: "Excellent question! Our AI agents are autonomous systems that handle complex business processes. Here are our main solutions:",
+      links: [
+        { url: "https://novagent.io/solutions/ai-agent-suite", text: "🤖 AI Agent Suite" },
+        { url: "https://novagent.io/solutions/custom-agentic-systems", text: "⚙️ Custom Agentic Systems" },
+        { url: "https://novagent.io/how-it-works", text: "🔧 How It Works" },
+        { url: "https://novagent.io/why-novagent", text: "🎯 Why NovaGent" }
+      ]
+    },
+    {
+      id: "sales",
+      icon: Users,
+      label: "💬 Chat with Sales",
+      message: "I want to speak with sales",
+      response: "Perfect! Our sales team would love to discuss how NovaGent can transform your business operations. Let's get you connected:",
+      link: "https://calendly.com/gladiator-novagent/30min",
+      linkText: "📞 Book a Sales Call"
+    }
+  ]
 
   // Check if chatbot should show based on session storage
   const shouldShowChatbot = () => {
@@ -117,6 +163,71 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(parsedData))
   }
 
+  // Handle quick action button clicks
+  const handleQuickAction = (action: typeof quickActions[0]) => {
+    // Add user message
+    const userMessage: Message = { 
+      id: Date.now().toString(), 
+      sender: "user", 
+      text: action.message 
+    }
+    setMessages(prev => [...prev, userMessage])
+
+    // Add bot response with links
+    setTimeout(() => {
+      let responseContent: React.ReactNode = (
+        <div className="space-y-3">
+          <p>{action.response}</p>
+          {action.links ? (
+            <div className="flex flex-col gap-2">
+              {action.links.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center"
+                >
+                  {link.text} →
+                </a>
+              ))}
+            </div>
+          ) : action.link ? (
+            <a
+              href={action.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+            >
+              {action.linkText} →
+            </a>
+          ) : null}
+        </div>
+      )
+
+      const botMessage: Message = { 
+        id: (Date.now() + 1).toString(), 
+        sender: "agent", 
+        text: responseContent,
+        showFollowUp: true
+      }
+      setMessages(prev => [...prev, botMessage])
+
+      // Add follow-up question
+      setTimeout(() => {
+        const followUpMessage: Message = {
+          id: (Date.now() + 2).toString(),
+          sender: "agent", 
+          text: "Was this helpful? Is there anything else I can help you with?"
+        }
+        setMessages(prev => [...prev, followUpMessage])
+      }, 1000)
+
+    }, 500)
+
+    setShowQuickActions(false)
+  }
+
   // Reset page visit time when pathname changes
   useEffect(() => {
     setPageVisitTime(Date.now())
@@ -137,7 +248,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
 
       // Add the proactive message
       setMessages((prevMessages) => [
-        ...prevMessages,
+        { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋" },
         { 
           id: `proactive-trigger-${Date.now()}`, 
           sender: "agent", 
@@ -147,6 +258,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
 
       setIsOpen(true)
       setHasProactiveTriggered(true)
+      setShowQuickActions(true)
 
       // Update session storage
       updateSessionStorage(currentPath, false)
@@ -172,6 +284,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     const currentMessage = inputValue;
     setInputValue("")
     setIsLoading(true)
+    setShowQuickActions(false)
 
     try {
       const response = await fetch(
@@ -256,7 +369,7 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
                 <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                   <div
                     className={cn(
-                      "rounded-xl px-3 py-2 text-sm max-w-[75%] w-fit",
+                      "rounded-xl px-3 py-2 text-sm max-w-[85%] w-fit",
                       message.sender === "user" ? "bg-sky-500 text-white" : "bg-slate-800 text-slate-300",
                     )}
                   >
@@ -264,6 +377,33 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
                   </div>
                 </div>
               ))}
+
+              {/* Quick Actions */}
+              {showQuickActions && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex justify-start"
+                >
+                  <div className="bg-slate-800 rounded-xl p-3 max-w-[85%]">
+                    <p className="text-slate-300 text-sm mb-3">Choose an option or type your question:</p>
+                    <div className="grid grid-cols-1 gap-2">
+                      {quickActions.map((action) => (
+                        <Button
+                          key={action.id}
+                          onClick={() => handleQuickAction(action)}
+                          variant="outline"
+                          size="sm"
+                          className="justify-start text-left h-auto py-2 px-3 bg-slate-700 border-slate-600 text-slate-200 hover:bg-slate-600 hover:text-white transition-all duration-200"
+                        >
+                          {action.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="rounded-xl px-3 py-2 text-sm max-w-[75%] w-fit bg-slate-800 text-slate-300">
@@ -314,7 +454,10 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           className="fixed bottom-4 right-4 z-[999]"
         >
           <Button
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              setIsOpen(true)
+              setShowQuickActions(true)
+            }}
             className="w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 via-cyan-400 to-purple-500 shadow-xl text-white shadow-2xl hover:scale-110 hover:shadow-2xl transition-transform duration-200 ease-in-out flex items-center justify-center"
             aria-label="Open chat"
           >
