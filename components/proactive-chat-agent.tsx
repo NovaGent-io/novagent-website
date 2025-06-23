@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Send, X, Sparkles, Maximize2, Minimize2, MessageSquare, Calendar, DollarSign, Bot, Users, Plus, Clock, ArrowLeft } from "lucide-react"
+import { Send, X, Sparkles, Maximize2, Minimize2, MessageSquare, Calendar, DollarSign, Bot, Users, Plus, Clock, ArrowLeft, Trash2 } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { AnimatePresence, motion } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -200,7 +200,21 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
     setCurrentSessionId(sessionId)
   }
 
-  // Load a chat session
+  // Delete a chat session
+  const deleteChatSession = (sessionId: string, e: React.MouseEvent) => {
+    e.stopPropagation() // Prevent triggering the session click
+    setChatSessions(prev => prev.filter(session => session.id !== sessionId))
+    
+    // If we're deleting the current session, reset to default
+    if (currentSessionId === sessionId) {
+      setMessages([
+        { id: "1", sender: "agent", text: "Hi there! I'm here to help. 👋", timestamp: Date.now() },
+        { id: "2", sender: "agent", text: "What can I help you with today?", timestamp: Date.now() },
+      ])
+      setCurrentSessionId("")
+      setShowQuickActions(true)
+    }
+  }
   const loadChatSession = (session: ChatSession) => {
     // Convert any React nodes back to strings for saved sessions
     const cleanedMessages = session.messages.map(msg => ({
@@ -573,20 +587,33 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
                       {chatSessions.map((session) => (
                         <div
                           key={session.id}
-                          onClick={() => loadChatSession(session)}
-                          className="p-3 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 cursor-pointer transition-colors"
+                          className="group relative p-3 rounded-lg bg-slate-800/50 hover:bg-slate-700/50 transition-colors"
                         >
-                          <div className="flex justify-between items-start mb-1">
-                            <h4 className="text-sm font-medium text-white truncate pr-2">
-                              {session.title}
-                            </h4>
-                            <span className="text-xs text-slate-400 whitespace-nowrap">
-                              {formatRelativeTime(session.lastActivity)}
-                            </span>
+                          <div
+                            onClick={() => loadChatSession(session)}
+                            className="cursor-pointer pr-8"
+                          >
+                            <div className="flex justify-between items-start mb-1">
+                              <h4 className="text-sm font-medium text-white truncate pr-2">
+                                {session.title}
+                              </h4>
+                              <span className="text-xs text-slate-400 whitespace-nowrap">
+                                {formatRelativeTime(session.lastActivity)}
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-400 truncate">
+                              {session.preview}
+                            </p>
                           </div>
-                          <p className="text-xs text-slate-400 truncate">
-                            {session.preview}
-                          </p>
+                          
+                          {/* Delete Button */}
+                          <div
+                            onClick={(e) => deleteChatSession(session.id, e)}
+                            className="absolute top-2 right-2 h-6 w-6 flex items-center justify-center rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-slate-400 hover:text-red-400 hover:bg-red-500/20"
+                            title="Delete chat"
+                          >
+                            <Trash2 size={14} />
+                          </div>
                         </div>
                       ))}
                     </div>
