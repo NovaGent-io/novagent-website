@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Send, X, Sparkles, Maximize2, Minimize2, MessageSquare } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
@@ -20,6 +21,7 @@ interface ProactiveChatAgentProps {
     pagePath: string
     delaySeconds: number
     message: string
+    showOncePerSession?: boolean
   }[]
 }
 
@@ -32,32 +34,129 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
   ])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [hasProactiveTriggered, setHasProactiveTriggered] = useState(false);
+  const [hasProactiveTriggered, setHasProactiveTriggered] = useState(false)
+  const [pageVisitTime, setPageVisitTime] = useState<number>(0)
   const chatContainerRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
-  useEffect(() => {
-    // Only run if there are triggers AND the trigger has NOT already fired
-    if (proactiveTriggers.length > 0 && !hasProactiveTriggered) {
-        const firstTrigger = proactiveTriggers[0];
-        const proactiveTimer = setTimeout(() => {
-            // If the user already has the chat open, do nothing.
-            if (isOpen) return;
+  // Session storage key for tracking chatbot interactions
+  const SESSION_KEY = 'novagent-chatbot-session'
 
-            // Show the proactive message
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { id: "proactive-trigger", sender: "agent", text: firstTrigger.message },
-            ]);
-            setIsOpen(true);
-            
-            // IMPORTANT: Mark the trigger as fired so it won't run again
-            setHasProactiveTriggered(true);
-        }, firstTrigger.delaySeconds * 1000);
-        
-        return () => clearTimeout(proactiveTimer);
+  // Check if chatbot should show based on session storage
+  const shouldShowChatbot = () => {
+    if (typeof window === 'undefined') return false
+    
+    const sessionData = sessionStorage.getItem(SESSION_KEY)
+    if (!sessionData) return true
+
+    try {
+      const parsedData = JSON.parse(sessionData)
+      const currentPath = pathname
+
+      // Check if this specific page has already triggered
+      if (parsedData.triggeredPages?.includes(currentPath)) {
+        return false
+      }
+
+      // Check if we've shown globally once this session (for pages without specific triggers)
+      if (parsedData.hasShownGlobally && !hasMatchingTrigger(currentPath)) {
+        return false
+      }
+
+      return true
+    } catch {
+      return true
     }
-  }, [proactiveTriggers, isOpen, hasProactiveTriggered]);
+  }
 
+  // Check if current path has a matching trigger
+  const hasMatchingTrigger = (path: string) => {
+    return proactiveTriggers.some(trigger => {
+      if (trigger.pagePath.endsWith('*')) {
+        const basePath = trigger.pagePath.slice(0, -1)
+        return path.startsWith(basePath)
+      }
+      return path === trigger.pagePath
+    })
+  }
+
+  // Get matching trigger for current path
+  const getMatchingTrigger = (path: string) => {
+    return proactiveTriggers.find(trigger => {
+      if (trigger.pagePath.endsWith('*')) {
+        const basePath = trigger.pagePath.slice(0, -1)
+        return path.startsWith(basePath)
+      }
+      return path === trigger.pagePath
+    })
+  }
+
+  // Update session storage when chatbot is shown
+  const updateSessionStorage = (path: string, isGlobal: boolean = false) => {
+    if (typeof window === 'undefined') return
+
+    const sessionData = sessionStorage.getItem(SESSION_KEY)
+    let parsedData = { triggeredPages: [], hasShownGlobally: false }
+
+    if (sessionData) {
+      try {
+        parsedData = JSON.parse(sessionData)
+      } catch {
+        // If parsing fails, use default
+      }
+    }
+
+    if (isGlobal) {
+      parsedData.hasShownGlobally = true
+    } else {
+      if (!parsedData.triggeredPages.includes(path)) {
+        parsedData.triggeredPages.push(path)
+      }
+    }
+
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(parsedData))
+  }
+
+  // Reset page visit time when pathname changes
+  useEffect(() => {
+    setPageVisitTime(Date.now())
+    setHasProactiveTriggered(false)
+  }, [pathname])
+
+  // Main proactive trigger logic
+  useEffect(() => {
+    if (hasProactiveTriggered || !shouldShowChatbot()) return
+
+    const currentPath = pathname
+    const matchingTrigger = getMatchingTrigger(currentPath)
+
+    if (!matchingTrigger) return
+
+    const proactiveTimer = setTimeout(() => {
+      if (isOpen) return
+
+      // Add the proactive message
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { 
+          id: `proactive-trigger-${Date.now()}`, 
+          sender: "agent", 
+          text: matchingTrigger.message 
+        },
+      ])
+
+      setIsOpen(true)
+      setHasProactiveTriggered(true)
+
+      // Update session storage
+      updateSessionStorage(currentPath, false)
+
+    }, matchingTrigger.delaySeconds * 1000)
+
+    return () => clearTimeout(proactiveTimer)
+  }, [pathname, proactiveTriggers, isOpen, hasProactiveTriggered])
+
+  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
@@ -79,9 +178,8 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
         'https://hrtzhohxayjjjbutttga.supabase.co/functions/v1/chat-handler', 
         {
           method: 'POST',
-         headers: {
+          headers: {
             'Content-Type': 'application/json',
-            // --- ADJUSTMENT: Re-added Authorization header ---
             'apikey': `${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
             'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
           },

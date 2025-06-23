@@ -42,16 +42,41 @@ export default function RootLayout({
 }>) {
   const chatProactiveTriggers = [
     {
+      pagePath: "/",
+      delaySeconds: 20,
+      message: "Welcome to NovaGent! I can help you understand how our AI agents can transform your business operations. What brings you here today?",
+      showOncePerSession: true
+    },
+    {
       pagePath: "/pricing",
-      delaySeconds: 10,
-      message: "Thinking about our pricing? I can help clarify our engagement models or discuss custom solutions.",
+      delaySeconds: 30,
+      message: "Thinking about our pricing? I can help clarify our engagement models or discuss custom solutions that fit your budget.",
+      showOncePerSession: true
     },
     {
       pagePath: "/solutions/custom-agentic-systems",
-      delaySeconds: 15,
-      message:
-        "Exploring custom AI solutions? We excel at architecting systems for unique challenges. What specific problem are you looking to solve?",
+      delaySeconds: 25,
+      message: "Exploring custom AI solutions? We excel at architecting systems for unique challenges. What specific problem are you looking to solve?",
+      showOncePerSession: true
     },
+    {
+      pagePath: "/solutions/*", // Matches any other solutions page
+      delaySeconds: 25,
+      message: "Exploring our AI solutions? I can help clarify how they'd work for your specific industry and use case.",
+      showOncePerSession: true
+    },
+    {
+      pagePath: "/how-it-works",
+      delaySeconds: 35,
+      message: "Questions about our process? I can walk you through exactly how we build and deploy AI agents for businesses like yours.",
+      showOncePerSession: true
+    },
+    {
+      pagePath: "/about-us",
+      delaySeconds: 40,
+      message: "Want to know more about our team and approach? I'm happy to share what makes NovaGent different in the AI space.",
+      showOncePerSession: true
+    }
   ]
 
   return (
