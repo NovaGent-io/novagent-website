@@ -184,8 +184,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
                 <a
                   key={index}
                   href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 text-center"
                 >
                   {link.text} →
@@ -195,8 +193,6 @@ export default function ProactiveChatAgent({ proactiveTriggers = [] }: Proactive
           ) : action.link ? (
             <a
               href={action.link}
-              target="_blank"
-              rel="noopener noreferrer"
               className="inline-block bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-600 hover:to-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
             >
               {action.linkText} →
