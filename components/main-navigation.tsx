@@ -50,6 +50,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const getNavItemClasses = (
   currentPathname: string,
@@ -504,6 +505,10 @@ export function MainNavigation() {
         </NavigationMenu>
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {/* Theme Toggle for Desktop View */}
+          <div className="hidden lg:flex">
+             <ThemeToggle />
+          </div>
           <Button
             asChild
             variant="ghost"
@@ -759,6 +764,10 @@ export function MainNavigation() {
                   </SheetClose>
                 </nav>
                 <div className="border-t border-slate-200 dark:border-slate-800 p-4 space-y-3">
+                  {/* Theme Toggle for Mobile View */}
+                  <div className="flex justify-center pt-2 pb-4">
+                    <ThemeToggle />
+                  </div>
                   <Button
                     asChild
                     variant="ghost"
