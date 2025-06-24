@@ -46,6 +46,7 @@ import {
   Building,
   Newspaper,
   Sparkles,
+  Grid3X3,
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -353,8 +354,6 @@ export function MainNavigation() {
               <Link href="/how-it-works" legacyBehavior passHref>
                 <NavigationMenuLink {...commonLinkProps("/how-it-works")}>
                   <span>
-                    {" "}
-                    {/* Wrap content in a single span */}
                     How It Works
                     {activeIndicatorSpan("/how-it-works")}
                   </span>
@@ -366,8 +365,6 @@ export function MainNavigation() {
               <Link href="/solutions/custom-agentic-systems" legacyBehavior passHref>
                 <NavigationMenuLink {...commonLinkProps("/solutions/custom-agentic-systems", true)}>
                   <span>
-                    {" "}
-                    {/* Wrap content in a single span */}
                     Enterprise
                     {activeIndicatorSpan("/solutions/custom-agentic-systems", true)}
                   </span>
@@ -378,10 +375,6 @@ export function MainNavigation() {
             <NavigationMenuItem>
               <NavigationMenuTrigger {...commonTriggerProps("/solutions")}>
                 Solutions
-                <ChevronDown
-                  className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[450px] gap-x-4 gap-y-3 p-4 md:w-[550px] md:grid-cols-2 lg:w-[650px] bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
@@ -411,10 +404,6 @@ export function MainNavigation() {
             <NavigationMenuItem>
               <NavigationMenuTrigger {...commonTriggerProps("/industries")}>
                 Industries
-                <ChevronDown
-                  className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="w-[800px] p-6 bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
@@ -424,6 +413,28 @@ export function MainNavigation() {
                       Discover how NovaGent's AI solutions transform businesses across diverse sectors.
                     </p>
                   </div>
+                  
+                  {/* Industries Overview Link - Added Here */}
+                  <div className="mb-4 pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/industries"
+                        className="flex items-center space-x-3 rounded-md p-3 bg-gradient-to-r from-cyan-50 to-purple-50 dark:from-cyan-900/20 dark:to-purple-900/20 hover:from-cyan-100 hover:to-purple-100 dark:hover:from-cyan-900/30 dark:hover:to-purple-900/30 transition-all duration-200"
+                      >
+                        <Grid3X3 className="h-6 w-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-purple-600" />
+                        <div>
+                          <div className="text-base font-semibold bg-gradient-to-r from-cyan-600 to-purple-600 dark:from-cyan-400 dark:to-purple-400 bg-clip-text text-transparent">
+                            Industries Overview
+                          </div>
+                          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                            Explore all industries and discover tailored AI solutions for your sector
+                          </p>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                  
+                  {/* Individual Industries Grid */}
                   <div className="grid grid-cols-4 gap-3">
                     {industriesLinks.map((industry) => (
                       <IndustryItem
@@ -443,8 +454,6 @@ export function MainNavigation() {
               <Link href="/pricing" legacyBehavior passHref>
                 <NavigationMenuLink {...commonLinkProps("/pricing")}>
                   <span>
-                    {" "}
-                    {/* Wrap content in a single span */}
                     Pricing
                     {activeIndicatorSpan("/pricing")}
                   </span>
@@ -455,10 +464,6 @@ export function MainNavigation() {
             <NavigationMenuItem>
               <NavigationMenuTrigger {...commonTriggerProps("/about-us")}>
                 About Us
-                <ChevronDown
-                  className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-x-4 gap-y-3 p-4 md:w-[500px] bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
@@ -489,8 +494,6 @@ export function MainNavigation() {
               <Link href="/why-novagent" legacyBehavior passHref>
                 <NavigationMenuLink {...commonLinkProps("/why-novagent")}>
                   <span>
-                    {" "}
-                    {/* Wrap content in a single span */}
                     Why NovaGent?
                     {activeIndicatorSpan("/why-novagent")}
                   </span>
