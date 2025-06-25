@@ -24,8 +24,8 @@ const AnimatedBackground: React.FC = () => {
 
     let animationFrameId: number
     let particles: Particle[] = []
-    const particleCount = 50 // Adjust for density
-    const maxDistance = 120 // Max distance to draw a line between particles
+    const particleCount = 50
+    const maxDistance = 120
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
@@ -42,7 +42,7 @@ const AnimatedBackground: React.FC = () => {
           radius: Math.random() * 2 + 1,
           vx: Math.random() * 0.5 - 0.25,
           vy: Math.random() * 0.5 - 0.25,
-          color: `rgba(192, 132, 252, ${Math.random() * 0.5 + 0.2})`, // Fuchsia/Purple tones with varying opacity
+          color: `rgba(192, 132, 252, ${Math.random() * 0.5 + 0.2})`,
         })
       }
     }
@@ -78,7 +78,7 @@ const AnimatedBackground: React.FC = () => {
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
             const opacity = 1 - distance / maxDistance
-            ctx.strokeStyle = `rgba(165, 180, 252, ${opacity * 0.3})` // Lighter indigo/blue for lines
+            ctx.strokeStyle = `rgba(165, 180, 252, ${opacity * 0.3})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
@@ -95,7 +95,7 @@ const AnimatedBackground: React.FC = () => {
     }
 
     window.addEventListener("resize", resizeCanvas)
-    resizeCanvas() // Initial setup
+    resizeCanvas()
     animate()
 
     return () => {
@@ -107,7 +107,7 @@ const AnimatedBackground: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 opacity-50" // Adjust opacity as needed
+      className="absolute inset-0 z-0 opacity-50"
     />
   )
 }
