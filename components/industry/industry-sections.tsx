@@ -489,109 +489,59 @@ export function ResultsSection({ industry }: { industry: IndustryData }) {
 
 export function FinalCTA({ industry }: { industry: IndustryData }) {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-black">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-slate-950">
+      {/* Liquid Morphing Background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-purple-600 to-pink-500 opacity-20"></div>
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-600"
+          style={{
+            background: `
+              linear-gradient(45deg, #06b6d4, #8b5cf6, #ec4899, #06b6d4),
+              linear-gradient(135deg, #8b5cf6, #ec4899, #06b6d4, #8b5cf6),
+              linear-gradient(225deg, #ec4899, #06b6d4, #8b5cf6, #ec4899)
+            `,
+            backgroundSize: '400% 400%, 300% 300%, 500% 500%',
+            animation: `
+              liquidFlow1 8s ease-in-out infinite,
+              liquidFlow2 12s ease-in-out infinite reverse,
+              liquidFlow3 15s ease-in-out infinite
+            `,
+            opacity: 0.25,
+            mixBlendMode: 'multiply'
+          }}
+        />
+      </div>
+
+      {/* Additional liquid layers for more complexity */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-cyan-300 via-purple-400 to-pink-400 opacity-15"
+          style={{
+            background: `
+              radial-gradient(ellipse at 20% 50%, #06b6d4 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, #8b5cf6 0%, transparent 50%),
+              radial-gradient(ellipse at 40% 80%, #ec4899 0%, transparent 50%)
+            `,
+            animation: 'liquidPulse 10s ease-in-out infinite'
+          }}
+        />
+      </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* 3D Animated Title */}
+        {/* Clean Title */}
         <motion.div 
           className="relative mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-center relative"
-            style={{ 
-              transformStyle: "preserve-3d",
-              perspective: "1000px" 
-            }}
-            animate={{
-              rotateX: [0, 2, -2, 0],
-              rotateY: [0, -5, 5, 0],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            {/* Base layer */}
-            <span className="block relative z-30 text-white">
-              {industry.cta.title}
-            </span>
-            
-            {/* 3D layers with different colors */}
-            <motion.span 
-              className="absolute inset-0 block text-cyan-400"
-              style={{ 
-                transform: "translateZ(-2px) translateX(2px) translateY(2px)",
-              }}
-              animate={{
-                transform: [
-                  "translateZ(-2px) translateX(2px) translateY(2px)",
-                  "translateZ(-2px) translateX(3px) translateY(3px)",
-                  "translateZ(-2px) translateX(1px) translateY(1px)",
-                  "translateZ(-2px) translateX(2px) translateY(2px)",
-                ]
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              {industry.cta.title}
-            </motion.span>
-            
-            <motion.span 
-              className="absolute inset-0 block text-purple-400"
-              style={{ 
-                transform: "translateZ(-4px) translateX(4px) translateY(4px)",
-              }}
-              animate={{
-                transform: [
-                  "translateZ(-4px) translateX(4px) translateY(4px)",
-                  "translateZ(-4px) translateX(6px) translateY(6px)",
-                  "translateZ(-4px) translateX(2px) translateY(2px)",
-                  "translateZ(-4px) translateX(4px) translateY(4px)",
-                ]
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              {industry.cta.title}
-            </motion.span>
-            
-            <motion.span 
-              className="absolute inset-0 block text-pink-400"
-              style={{ 
-                transform: "translateZ(-6px) translateX(6px) translateY(6px)",
-              }}
-              animate={{
-                transform: [
-                  "translateZ(-6px) translateX(6px) translateY(6px)",
-                  "translateZ(-6px) translateX(9px) translateY(9px)",
-                  "translateZ(-6px) translateX(3px) translateY(3px)",
-                  "translateZ(-6px) translateX(6px) translateY(6px)",
-                ]
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              {industry.cta.title}
-            </motion.span>
-          </motion.h2>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white">
+            {industry.cta.title}
+          </h2>
         </motion.div>
 
-        {/* Subtitle with fade-in animation */}
+        {/* Subtitle */}
         <motion.p 
           className="text-center text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -601,7 +551,7 @@ export function FinalCTA({ industry }: { industry: IndustryData }) {
           {industry.cta.subtitle}
         </motion.p>
 
-        {/* CTA Button with enhanced effects */}
+        {/* CTA Button */}
         <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -630,30 +580,71 @@ export function FinalCTA({ industry }: { industry: IndustryData }) {
           </Button>
         </motion.div>
 
-        {/* Optional: Floating particles for additional depth */}
+        {/* Floating particles - restored */}
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(6)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-white/20 rounded-full"
+              className="absolute w-2 h-2 bg-white/30 rounded-full"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
               }}
               animate={{
-                y: [0, -30, 0],
-                opacity: [0.2, 0.5, 0.2],
+                y: [0, -50, 0],
+                x: [0, Math.random() * 20 - 10, 0],
+                opacity: [0.1, 0.4, 0.1],
+                scale: [0.5, 1, 0.5],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: 6 + Math.random() * 4,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                delay: Math.random() * 3,
                 ease: "easeInOut",
               }}
             />
           ))}
         </div>
       </div>
+
+      {/* CSS Keyframes for liquid animation */}
+      <style jsx>{`
+        @keyframes liquidFlow1 {
+          0%, 100% { background-position: 0% 50%, 100% 0%, 50% 100%; }
+          25% { background-position: 100% 0%, 0% 100%, 100% 50%; }
+          50% { background-position: 100% 100%, 50% 0%, 0% 50%; }
+          75% { background-position: 0% 100%, 100% 50%, 50% 0%; }
+        }
+        
+        @keyframes liquidFlow2 {
+          0%, 100% { background-position: 50% 0%, 100% 100%, 0% 50%; }
+          33% { background-position: 0% 50%, 50% 0%, 100% 100%; }
+          66% { background-position: 100% 50%, 0% 100%, 50% 0%; }
+        }
+        
+        @keyframes liquidFlow3 {
+          0%, 100% { background-position: 100% 50%, 0% 0%, 50% 100%; }
+          20% { background-position: 0% 100%, 100% 50%, 0% 0%; }
+          40% { background-position: 50% 0%, 0% 100%, 100% 50%; }
+          60% { background-position: 100% 100%, 50% 0%, 0% 50%; }
+          80% { background-position: 0% 50%, 100% 100%, 50% 0%; }
+        }
+        
+        @keyframes liquidPulse {
+          0%, 100% { 
+            opacity: 0.15;
+          }
+          25% { 
+            opacity: 0.25;
+          }
+          50% { 
+            opacity: 0.1;
+          }
+          75% { 
+            opacity: 0.2;
+          }
+        }
+      `}</style>
     </section>
   );
 }
