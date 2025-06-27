@@ -1,0 +1,8 @@
+{
+  "dependencies_to_install": [
+    "@supabase/supabase-js",
+    "@supabase/auth-helpers-nextjs", 
+    "chargebee",
+    "lucide-react",
+    "clsx",
+    "
