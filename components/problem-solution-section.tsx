@@ -29,7 +29,7 @@ export default function ProblemSolutionSection() {
   }, [])
 
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-white relative overflow-hidden">
       {/* Liquid Background Effects */}
       <div 
         ref={liquidBgRef}
@@ -37,16 +37,16 @@ export default function ProblemSolutionSection() {
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-800 leading-tight mb-6">
+        <div className="text-center mb-12 md:mb-20">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 leading-tight mb-4 md:mb-6">
             Not Just a Service. Not Just a Tool.
             <br />
             <span className="bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
               NovaGent is a Platform.
             </span>
           </h2>
-          <p className="text-lg text-slate-600 max-w-3xl mx-auto">
-            Most companies either sell you a tool or offer you a service. We built something better — a scalable, 
+          <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto px-4">
+            Most companies either sell you a tool or offer you a service. We built something better ? a scalable, 
             intelligent platform that deploys and manages AI agents for any business need.
           </p>
         </div>
@@ -54,83 +54,83 @@ export default function ProblemSolutionSection() {
         {/* Comparison Chart */}
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="grid grid-cols-3 mb-12 px-8">
-            <div className="text-lg font-semibold text-slate-600 uppercase tracking-wide opacity-0">
+          <div className="grid grid-cols-3 mb-8 md:mb-12 px-2 sm:px-4 md:px-8 gap-1 md:gap-4">
+            <div className="text-sm md:text-lg font-semibold text-slate-600 uppercase tracking-wide opacity-0">
               Platform Features
             </div>
-            <div className="text-lg font-semibold text-rose-400 uppercase tracking-wide text-center border-b-3 border-rose-300 pb-6">
+            <div className="text-sm md:text-lg font-semibold text-rose-400 uppercase tracking-wide text-center border-b-2 md:border-b-3 border-rose-300 pb-3 md:pb-6">
               Traditional
             </div>
-            <div className="text-lg font-semibold text-emerald-400 uppercase tracking-wide text-center border-b-3 border-emerald-300 pb-6">
+            <div className="text-sm md:text-lg font-semibold text-emerald-400 uppercase tracking-wide text-center border-b-2 md:border-b-3 border-emerald-300 pb-3 md:pb-6">
               NovaGent
             </div>
           </div>
 
           {/* Comparison Rows */}
           <div className="space-y-0">
-            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
+            <div className="grid grid-cols-3 py-3 md:py-5 px-2 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-1 md:gap-4">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">System Integration</div>
+              <div className="font-medium text-gray-700 flex items-center text-sm md:text-base">System Integration</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">✗</span>
+                <span className="text-red-500 font-bold text-lg">?</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">✓</span>
+                <span className="text-green-500 font-bold text-lg">?</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
+            <div className="grid grid-cols-3 py-3 md:py-5 px-2 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-1 md:gap-4">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">Expert Management</div>
+              <div className="font-medium text-gray-700 flex items-center text-sm md:text-base">Expert Management</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">✗</span>
+                <span className="text-red-500 font-bold text-lg">?</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">✓</span>
+                <span className="text-green-500 font-bold text-lg">?</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
+            <div className="grid grid-cols-3 py-3 md:py-5 px-2 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-1 md:gap-4">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">Setup Complexity</div>
+              <div className="font-medium text-gray-700 flex items-center text-sm md:text-base">Setup Complexity</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-slate-500 text-sm font-medium">High</span>
+                <span className="text-slate-500 text-xs md:text-sm font-medium">High</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-slate-500 text-sm font-medium">None</span>
+                <span className="text-slate-500 text-xs md:text-sm font-medium">None</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
+            <div className="grid grid-cols-3 py-3 md:py-5 px-2 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-1 md:gap-4">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">ROI Visibility</div>
+              <div className="font-medium text-gray-700 flex items-center text-sm md:text-base">ROI Visibility</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">✗</span>
+                <span className="text-red-500 font-bold text-lg">?</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">✓</span>
+                <span className="text-green-500 font-bold text-lg">?</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
+            <div className="grid grid-cols-3 py-3 md:py-5 px-2 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-1 md:gap-4">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">Maintenance Required</div>
+              <div className="font-medium text-gray-700 flex items-center text-sm md:text-base">Maintenance Required</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">✓</span>
+                <span className="text-green-500 font-bold text-lg">?</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">✗</span>
+                <span className="text-red-500 font-bold text-lg">?</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-5 px-8 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
+            <div className="grid grid-cols-3 py-3 md:py-5 px-2 sm:px-4 md:px-8 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-1 md:gap-4">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">Outcome Focused</div>
+              <div className="font-medium text-gray-700 flex items-center text-sm md:text-base">Outcome Focused</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-amber-500 font-bold text-lg">◐</span>
+                <span className="text-amber-500 font-bold text-lg">?</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">✓</span>
+                <span className="text-green-500 font-bold text-lg">?</span>
               </div>
             </div>
           </div>
