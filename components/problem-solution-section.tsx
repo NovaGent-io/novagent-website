@@ -53,26 +53,80 @@ export default function ProblemSolutionSection() {
 
         {/* Comparison Chart */}
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="grid grid-cols-3 mb-8 md:mb-12 px-1 sm:px-4 md:px-8 gap-0 md:gap-4">
-            <div className="text-xs md:text-lg font-semibold text-slate-600 uppercase tracking-wide opacity-0">
-              Platform Features
-            </div>
-            <div className="text-xs md:text-lg font-semibold text-rose-400 uppercase tracking-tight md:tracking-wide text-center border-b-2 md:border-b-3 border-rose-300 pb-3 md:pb-6">
-              <span className="block sm:hidden">TRAD.</span>
-              <span className="hidden sm:block">Traditional</span>
-            </div>
-            <div className="text-xs md:text-lg font-semibold text-emerald-400 uppercase tracking-tight md:tracking-wide text-center border-b-2 md:border-b-3 border-emerald-300 pb-3 md:pb-6">
-              <span className="block sm:hidden">NOVA</span>
-              <span className="hidden sm:block">NovaGent</span>
+          {/* Mobile Header (visible only on small screens) */}
+          <div className="block sm:hidden mb-6">
+            <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
+              <div className="text-center">
+                <div className="text-sm font-semibold text-rose-400 uppercase border-b-2 border-rose-300 pb-2">
+                  Traditional
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-sm font-semibold text-emerald-400 uppercase border-b-2 border-emerald-300 pb-2">
+                  NovaGent
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Comparison Rows */}
-          <div className="space-y-0">
-            <div className="grid grid-cols-3 py-3 md:py-5 px-1 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-0 md:gap-4">
+          {/* Desktop Header (hidden on small screens) */}
+          <div className="hidden sm:grid grid-cols-3 mb-8 md:mb-12 px-4 md:px-8 gap-4">
+            <div className="text-lg font-semibold text-slate-600 uppercase tracking-wide opacity-0">
+              Platform Features
+            </div>
+            <div className="text-lg font-semibold text-rose-400 uppercase tracking-wide text-center border-b-3 border-rose-300 pb-6">
+              Traditional
+            </div>
+            <div className="text-lg font-semibold text-emerald-400 uppercase tracking-wide text-center border-b-3 border-emerald-300 pb-6">
+              NovaGent
+            </div>
+          </div>
+
+          {/* Mobile Comparison Rows (stacked layout) */}
+          <div className="block sm:hidden space-y-6">
+            {[
+              { feature: "System Integration", traditional: "?", novagent: "?" },
+              { feature: "Expert Management", traditional: "?", novagent: "?" },
+              { feature: "Setup Complexity", traditional: "High", novagent: "None" },
+              { feature: "ROI Visibility", traditional: "?", novagent: "?" },
+              { feature: "Maintenance Required", traditional: "?", novagent: "?" },
+              { feature: "Outcome Focused", traditional: "?", novagent: "?" }
+            ].map((item, index) => (
+              <div key={index} className="bg-white/50 rounded-lg p-4 border border-gray-100">
+                <div className="text-sm font-medium text-gray-700 mb-3 text-center">
+                  {item.feature}
+                </div>
+                <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
+                  <div className="text-center">
+                    <span className={`font-bold ${
+                      item.traditional === "?" ? "text-red-500 text-lg" :
+                      item.traditional === "?" ? "text-green-500 text-lg" :
+                      item.traditional === "?" ? "text-amber-500 text-lg" :
+                      "text-slate-500 text-sm"
+                    }`}>
+                      {item.traditional}
+                    </span>
+                  </div>
+                  <div className="text-center">
+                    <span className={`font-bold ${
+                      item.novagent === "?" ? "text-red-500 text-lg" :
+                      item.novagent === "?" ? "text-green-500 text-lg" :
+                      item.novagent === "?" ? "text-amber-500 text-lg" :
+                      "text-slate-500 text-sm"
+                    }`}>
+                      {item.novagent}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Comparison Rows (original grid layout) */}
+          <div className="hidden sm:block space-y-0">
+            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center text-xs md:text-base pr-1">System Integration</div>
+              <div className="font-medium text-gray-700 flex items-center">System Integration</div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-red-500 font-bold text-lg">?</span>
               </div>
@@ -81,9 +135,9 @@ export default function ProblemSolutionSection() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-3 md:py-5 px-1 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-0 md:gap-4">
+            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center text-xs md:text-base pr-1">Expert Management</div>
+              <div className="font-medium text-gray-700 flex items-center">Expert Management</div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-red-500 font-bold text-lg">?</span>
               </div>
@@ -92,20 +146,20 @@ export default function ProblemSolutionSection() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-3 md:py-5 px-1 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-0 md:gap-4">
+            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center text-xs md:text-base pr-1">Setup Complexity</div>
+              <div className="font-medium text-gray-700 flex items-center">Setup Complexity</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-slate-500 text-xs md:text-sm font-medium">High</span>
+                <span className="text-slate-500 text-sm font-medium">High</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-slate-500 text-xs md:text-sm font-medium">None</span>
+                <span className="text-slate-500 text-sm font-medium">None</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-3 md:py-5 px-1 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-0 md:gap-4">
+            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center text-xs md:text-base pr-1">ROI Visibility</div>
+              <div className="font-medium text-gray-700 flex items-center">ROI Visibility</div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-red-500 font-bold text-lg">?</span>
               </div>
@@ -114,9 +168,9 @@ export default function ProblemSolutionSection() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-3 md:py-5 px-1 sm:px-4 md:px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-0 md:gap-4">
+            <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center text-xs md:text-base pr-1">Maintenance Required</div>
+              <div className="font-medium text-gray-700 flex items-center">Maintenance Required</div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-green-500 font-bold text-lg">?</span>
               </div>
@@ -125,9 +179,9 @@ export default function ProblemSolutionSection() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 py-3 md:py-5 px-1 sm:px-4 md:px-8 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group gap-0 md:gap-4">
+            <div className="grid grid-cols-3 py-5 px-8 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center text-xs md:text-base pr-1">Outcome Focused</div>
+              <div className="font-medium text-gray-700 flex items-center">Outcome Focused</div>
               <div className="text-center flex items-center justify-center">
                 <span className="text-amber-500 font-bold text-lg">?</span>
               </div>
