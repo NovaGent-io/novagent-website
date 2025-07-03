@@ -11,7 +11,7 @@ export default function MainFooter() {
       title: "Explore NovaGent",
       links: [
         { href: "/how-it-works", text: "How It Works" },
-        { href: "/solutions/ai-agent-suite", text: "AI Agent Suite" },
+        { href: "/solutions/novasuite", text: "NovaSuite" },
         { href: "/industries", text: "Industries Served" },
         { href: "/why-novagent", text: "Why NovaGent?" },
         { href: "/pricing", text: "Pricing & Engagement" },

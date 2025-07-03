@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import React from "react"
 import { useState, useEffect, forwardRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
@@ -47,6 +48,10 @@ import {
   Newspaper,
   Sparkles,
   Grid3X3,
+  UserPlus,
+  Briefcase,
+  ShoppingCart,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -102,62 +107,146 @@ const getActiveLinkIndicatorClassName = (
   )
 }
 
-const solutionsLinks: SolutionLink[] = [
+const solutionsLinks: SolutionLink[] = []
+
+// Define the 14 Agent Skills for the new dropdown
+const novaSuiteSkills = [
   {
-    href: "/solutions/ai-agent-suite",
-    title: "AI Agent Suite (Overview)",
-    description: "Get a comprehensive overview of our AI agent capabilities.",
-    icon: <Lightbulb className="h-5 w-5 text-purple-500" />,
-  },
-  {
-    href: "/solutions/lead-generation-agent",
-    title: "Lead Generation Agent",
-    description: "Automate lead discovery and qualification at scale.",
+    id: "prospect-hunter",
+    name: "Prospect Hunter",
+    category: "Sales & Growth",
+    description: "AI-powered lead generation and qualification",
     icon: <Target className="h-5 w-5 text-blue-500" />,
+    href: "/solutions/novasuite/prospect-hunter",
+    available: true
   },
   {
-    href: "/solutions/appointment-setter-agent",
-    title: "Appointment Setter Agent",
-    description: "Intelligently schedule meetings and manage calendars.",
+    id: "schedule-coordinator", 
+    name: "Schedule Coordinator",
+    category: "Sales & Growth",
+    description: "Automated appointment setting and calendar management",
     icon: <Users className="h-5 w-5 text-fuchsia-500" />,
+    href: "/solutions/novasuite/schedule-coordinator",
+    available: true
   },
   {
-    href: "/solutions/ai-dialer-agent",
-    title: "AI Dialer Agent",
-    description: "Optimize outreach with AI-powered dialing and call analytics.",
+    id: "smart-outreach-dialer",
+    name: "Smart Outreach Dialer", 
+    category: "Sales & Growth",
+    description: "AI-powered calling with transcription and follow-up",
     icon: <PhoneCall className="h-5 w-5 text-sky-500" />,
+    href: "/solutions/novasuite/smart-outreach-dialer",
+    available: true
   },
   {
-    href: "/solutions/customer-support-agent",
-    title: "Customer Support Agent",
-    description: "Provide instant, intelligent support to your customers 24/7.",
+    id: "support-concierge",
+    name: "Support Concierge",
+    category: "Support & Service", 
+    description: "Autonomous customer support with intelligent escalation",
     icon: <MessageSquare className="h-5 w-5 text-emerald-500" />,
+    href: "/solutions/novasuite/support-concierge",
+    available: true
   },
   {
-    href: "/solutions/seo-reputation-agent",
-    title: "SEO + Reputation Agent",
-    description: "Enhance online visibility and manage brand reputation.",
+    id: "visibility-trust-manager",
+    name: "Visibility & Trust Manager",
+    category: "Marketing",
+    description: "SEO optimization and reputation management", 
     icon: <Search className="h-5 w-5 text-amber-500" />,
+    href: "/solutions/novasuite/visibility-trust-manager",
+    available: true
   },
   {
-    href: "/solutions/ad-campaign-manager-agent",
-    title: "Ad Campaign Manager Agent",
-    description: "Automate ad creation, targeting, and performance optimization.",
-    icon: <BarChart2 className="h-5 w-5 text-rose-500" />,
+    id: "talent-welcome-suite",
+    name: "Talent Welcome Suite",
+    category: "HR & Operations",
+    description: "Automated employee onboarding and integration",
+    icon: <UserPlus className="h-5 w-5 text-green-500" />,
+    href: "/solutions/novasuite/talent-welcome-suite", 
+    available: true
   },
   {
-    href: "/solutions/social-media-manager-agent",
-    title: "Social Media Manager Agent",
-    description: "Streamline content scheduling, engagement, and analytics.",
-    icon: <Share2 className="h-5 w-5 text-indigo-500" />,
+    id: "regulatory-risk-guard",
+    name: "Regulatory Risk Guard",
+    category: "HR & Operations",
+    description: "Compliance monitoring and risk management",
+    icon: <ShieldCheck className="h-5 w-5 text-red-500" />,
+    href: "/solutions/novasuite/regulatory-risk-guard",
+    available: true
   },
   {
-    href: "/solutions/custom-agentic-systems",
-    title: "Custom Agentic Systems",
-    description: "Bespoke, enterprise-grade AI solutions for your most complex challenges.",
-    icon: <Sparkles className="h-5 w-5 text-yellow-400" />,
+    id: "talent-scout-engine", 
+    name: "Talent Scout Engine",
+    category: "HR & Operations",
+    description: "End-to-end recruitment and candidate management",
+    icon: <Briefcase className="h-5 w-5 text-indigo-500" />,
+    href: "/solutions/novasuite/talent-scout-engine",
+    available: true
   },
+  {
+    id: "insight-intelligence",
+    name: "Insight Intelligence", 
+    category: "Analytics & Intelligence",
+    description: "Automated reporting and data analysis",
+    icon: <BarChart2 className="h-5 w-5 text-purple-500" />,
+    href: "/solutions/novasuite/insight-intelligence",
+    available: true
+  },
+  {
+    id: "workflow-navigator",
+    name: "Workflow Navigator",
+    category: "Operations", 
+    description: "Project management and task coordination",
+    icon: <Grid3X3 className="h-5 w-5 text-slate-500" />,
+    href: "/solutions/novasuite/workflow-navigator",
+    available: true
+  },
+  {
+    id: "finance-flow-manager",
+    name: "Finance Flow Manager",
+    category: "Finance & Legal",
+    description: "Transaction processing and financial operations", 
+    icon: <CreditCard className="h-5 w-5 text-green-600" />,
+    href: "/solutions/novasuite/finance-flow-manager",
+    available: true
+  },
+  {
+    id: "legal-logic-hub",
+    name: "Legal Logic Hub",
+    category: "Finance & Legal",
+    description: "Contract drafting and legal document management",
+    icon: <BookOpen className="h-5 w-5 text-blue-600" />,
+    href: "/solutions/novasuite/legal-logic-hub", 
+    available: true
+  },
+  {
+    id: "property-intelligence-manager",
+    name: "Property Intelligence Manager",
+    category: "Industry Specific",
+    description: "Real estate operations and MLS integration",
+    icon: <Building className="h-5 w-5 text-orange-500" />,
+    href: "/solutions/novasuite/property-intelligence-manager",
+    available: true
+  },
+  {
+    id: "commerceops-manager",
+    name: "CommerceOps Manager", 
+    category: "Industry Specific",
+    description: "E-commerce inventory and pricing management",
+    icon: <ShoppingCart className="h-5 w-5 text-pink-500" />,
+    href: "/solutions/novasuite/commerceops-manager",
+    available: true
+  }
 ]
+
+// Group skills by category for organized display
+const skillsByCategory = novaSuiteSkills.reduce((acc, skill) => {
+  if (!acc[skill.category]) {
+    acc[skill.category] = []
+  }
+  acc[skill.category].push(skill)
+  return acc
+}, {} as Record<string, typeof novaSuiteSkills>)
 
 interface IndustryLink {
   href: string
@@ -352,6 +441,17 @@ export function MainNavigation() {
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList className="space-x-1">
             <NavigationMenuItem>
+              <Link href="/platform" legacyBehavior passHref>
+                <NavigationMenuLink {...commonLinkProps("/platform")}>
+                  <span>
+                    Platform
+                    {activeIndicatorSpan("/platform")}
+                  </span>
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
               <Link href="/how-it-works" legacyBehavior passHref>
                 <NavigationMenuLink {...commonLinkProps("/how-it-works")}>
                   <span>
@@ -362,6 +462,7 @@ export function MainNavigation() {
               </Link>
             </NavigationMenuItem>
 
+            {/* TEMPORARILY HIDDEN - Enterprise link moved to footer only
             <NavigationMenuItem>
               <Link href="/solutions/custom-agentic-systems" legacyBehavior passHref>
                 <NavigationMenuLink {...commonLinkProps("/solutions/custom-agentic-systems", true)}>
@@ -372,39 +473,133 @@ export function MainNavigation() {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+            */}
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger {...commonTriggerProps("/solutions")}>
-                Solutions
+              <NavigationMenuTrigger {...commonTriggerProps("/solutions", true)}>
+                NovaSuite
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[450px] gap-x-4 gap-y-3 p-4 md:w-[550px] md:grid-cols-2 lg:w-[650px] bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
-                  <li className="md:col-span-2">
-                    <div className="p-3 pb-1">
-                      <h3 className="text-sm font-medium text-fuchsia-600 dark:text-fuchsia-400">OUR AI AGENTS</h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Explore specialized agents designed to automate and optimize your business.
-                      </p>
-                    </div>
-                  </li>
-                  {solutionsLinks.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                      icon={component.icon}
-                      className="hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-md transition-colors duration-150"
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
+                <div className="w-[950px] p-4 bg-white dark:bg-slate-950 shadow-2xl rounded-xl border border-slate-200 dark:border-slate-800">
+                  {/* Header Section */}
+                  <div className="mb-4">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/solutions/novasuite"
+                        className="group flex items-center space-x-3 rounded-lg p-3 bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-cyan-900/20 hover:from-purple-100 hover:via-blue-100 hover:to-cyan-100 dark:hover:from-purple-900/30 dark:hover:via-blue-900/30 dark:hover:to-cyan-900/30 transition-all duration-300 border border-purple-200/50 dark:border-purple-700/50"
+                      >
+                        <div className="flex-shrink-0">
+                          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                            <Sparkles className="h-4 w-4 text-white" />
+                          </div>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="text-base font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-600 dark:from-purple-400 dark:via-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                            NovaSuite - Configure Your Agent
+                          </div>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            One intelligent agent, 14+ modular skills. Configure the exact capabilities your business needs.
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <div className="w-6 h-6 rounded-full bg-white/50 dark:bg-slate-800/50 flex items-center justify-center">
+                            <ArrowRight className="h-3 w-3 text-purple-600 dark:text-purple-400" />
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+
+                  {/* Skills Grid - Multi-column layout with visual indicators */}
+                  <div className="grid grid-cols-3 gap-6">
+                    {Object.entries(skillsByCategory).map(([category, skills]) => (
+                      <div key={category} className="space-y-2">
+                        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 px-2 border-b border-slate-200 dark:border-slate-700 pb-1">
+                          {category}
+                        </h3>
+                        <div className="space-y-1">
+                          {skills.map((skill) => (
+                            <NavigationMenuLink key={skill.id} asChild>
+                              <Link
+                                href={skill.href}
+                                className={`group flex items-center space-x-2 rounded-md p-2 transition-all duration-200 border ${
+                                  skill.available 
+                                    ? 'hover:bg-slate-50 dark:hover:bg-slate-800/60 border-transparent hover:border-slate-200 dark:hover:border-slate-700' 
+                                    : 'opacity-60 cursor-not-allowed border-slate-100 dark:border-slate-800'
+                                }`}
+                              >
+                                <div className={`flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center ${
+                                  skill.available 
+                                    ? 'bg-slate-100 dark:bg-slate-800 group-hover:scale-105' 
+                                    : 'bg-slate-50 dark:bg-slate-900'
+                                } transition-transform`}>
+                                  {React.cloneElement(skill.icon, { className: "h-3.5 w-3.5" })}
+                                </div>
+                                <div className="flex-grow min-w-0">
+                                  <div className={`text-xs font-medium ${
+                                    skill.available 
+                                      ? 'text-slate-800 dark:text-slate-200' 
+                                      : 'text-slate-500 dark:text-slate-500'
+                                  }`}>
+                                    {skill.name}
+                                    {!skill.available && (
+                                      <span className="ml-1 text-xs bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400 px-1.5 py-0.5 rounded">
+                                        Soon
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className={`text-xs line-clamp-1 mt-0.5 ${
+                                    skill.available 
+                                      ? 'text-slate-500 dark:text-slate-400' 
+                                      : 'text-slate-400 dark:text-slate-500'
+                                  }`}>
+                                    {skill.description}
+                                  </p>
+                                </div>
+                                {skill.available && (
+                                  <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ArrowRight className="h-3 w-3 text-slate-400" />
+                                  </div>
+                                )}
+                              </Link>
+                            </NavigationMenuLink>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Enterprise Solutions Footer */}
+                  <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/solutions/custom-agentic-systems"
+                        className="group flex items-center space-x-3 rounded-lg p-3 hover:bg-gradient-to-r hover:from-pink-50 hover:to-fuchsia-50 dark:hover:from-pink-900/20 dark:hover:to-fuchsia-900/20 transition-all duration-200 border border-transparent hover:border-pink-200 dark:hover:border-pink-700"
+                      >
+                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-fuchsia-600 flex items-center justify-center group-hover:scale-105 transition-transform shadow-md">
+                          <Sparkles className="h-4 w-4 text-white" />
+                        </div>
+                        <div className="flex-grow">
+                          <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            Enterprise
+                          </div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                            Custom agentic systems designed for large-scale operations and complex business needs
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <ArrowRight className="h-4 w-4 text-slate-400" />
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
               <NavigationMenuTrigger {...commonTriggerProps("/industries")}>
-                Industries
+                Industry Solutions
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <div className="w-[800px] p-6 bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
@@ -590,6 +785,20 @@ export function MainNavigation() {
                 <nav className="flex-grow space-y-1 p-4 overflow-y-auto">
                   <SheetClose asChild>
                     <Link
+                      href="/platform"
+                      className={cn(
+                        "block rounded-md px-3 py-2.5 text-base font-medium transition-colors",
+                        pathname === "/platform"
+                          ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                          : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
+                      )}
+                    >
+                      Platform
+                    </Link>
+                  </SheetClose>
+
+                  <SheetClose asChild>
+                    <Link
                       href="/how-it-works"
                       className={cn(
                         "block rounded-md px-3 py-2.5 text-base font-medium transition-colors",
@@ -602,6 +811,7 @@ export function MainNavigation() {
                     </Link>
                   </SheetClose>
 
+                  {/* TEMPORARILY HIDDEN - Enterprise link moved to footer only
                   <SheetClose asChild>
                     <Link
                       href="/solutions/custom-agentic-systems"
@@ -615,34 +825,70 @@ export function MainNavigation() {
                       Enterprise
                     </Link>
                   </SheetClose>
+                  */}
 
                   <div>
                     <button
                       onClick={() => setIsMobileSolutionsOpen(!isMobileSolutionsOpen)}
-                      className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                      className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-semibold text-pink-500 hover:bg-pink-100/80 dark:text-pink-400 dark:hover:bg-pink-900/30 transition-colors"
                     >
-                      Solutions
+                      NovaSuite
                       <ChevronDown
                         className={cn("h-4 w-4 transition-transform", isMobileSolutionsOpen && "rotate-180")}
                       />
                     </button>
                     {isMobileSolutionsOpen && (
                       <div className="ml-4 mt-1 space-y-1 border-l border-slate-200 dark:border-slate-700 pl-3 py-1">
-                        {solutionsLinks.map((link) => (
-                          <SheetClose key={link.href} asChild>
+                        <SheetClose asChild>
+                          <Link
+                            href="/solutions/novasuite"
+                            className={cn(
+                              "block rounded-md px-3 py-2 text-sm font-semibold transition-colors bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-700",
+                              pathname === "/solutions/novasuite"
+                                ? "bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 dark:from-purple-800/40 dark:to-blue-800/40 dark:text-purple-300"
+                                : "text-purple-600 hover:from-purple-100 hover:to-blue-100 dark:text-purple-400 dark:hover:from-purple-800/30 dark:hover:to-blue-800/30",
+                            )}
+                          >
+                            ? NovaSuite - Configure Your Agent
+                          </Link>
+                        </SheetClose>
+                        
+                        <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 px-3 py-2 mt-3">
+                          All 14 Agent Skills
+                        </div>
+                        {novaSuiteSkills.map((skill) => (
+                          <SheetClose key={skill.id} asChild>
                             <Link
-                              href={link.href}
+                              href={skill.href}
                               className={cn(
                                 "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                                pathname === link.href
+                                pathname === skill.href
                                   ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
                                   : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
                               )}
                             >
-                              {link.title}
+                              {skill.name}
                             </Link>
                           </SheetClose>
                         ))}
+                        
+                        {/* TEMPORARILY HIDDEN - Enterprise link moved to footer only
+                        <div className="border-t border-slate-200 dark:border-slate-700 mt-2 pt-2">
+                          <SheetClose asChild>
+                            <Link
+                              href="/solutions/custom-agentic-systems"
+                              className={cn(
+                                "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                                pathname === "/solutions/custom-agentic-systems"
+                                  ? "bg-yellow-500/10 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400"
+                                  : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
+                              )}
+                            >
+                              ? Custom Agentic Systems
+                            </Link>
+                          </SheetClose>
+                        </div>
+                        */}
                       </div>
                     )}
                   </div>
@@ -652,7 +898,7 @@ export function MainNavigation() {
                       onClick={() => setIsMobileIndustriesOpen(!isMobileIndustriesOpen)}
                       className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
                     >
-                      Industries
+                      Industry Solutions
                       <ChevronDown
                         className={cn("h-4 w-4 transition-transform", isMobileIndustriesOpen && "rotate-180")}
                       />

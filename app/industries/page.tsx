@@ -94,7 +94,7 @@ const industries: Industry[] = [
     id: "energy-utilities",
     name: "Energy & Utilities",
     icon: Zap,
-    path: "/industries/energy-utilities",
+    path: "/industries/energy-and-utilities",
     challenges: ["operations", "sales"],
     metrics: [
       "30% reduction in outage response time",
@@ -106,7 +106,7 @@ const industries: Industry[] = [
     id: "engineering-construction",
     name: "Engineering & Construction",
     icon: Hammer,
-    path: "/industries/engineering-construction",
+    path: "/industries/engineering-and-construction",
     challenges: ["sales", "operations"],
     metrics: ["35% faster project scheduling", "50% improvement in lead nurturing", "25% reduction in inspection time"],
   },
@@ -126,7 +126,7 @@ const industries: Industry[] = [
     id: "healthcare-life-sciences",
     name: "Healthcare & Life Sciences",
     icon: Heart,
-    path: "/industries/healthcare-life-sciences",
+    path: "/industries/healthcare",
     challenges: ["operations", "marketing"],
     metrics: [
       "70% reduction in documentation time",
@@ -150,7 +150,7 @@ const industries: Industry[] = [
     id: "media",
     name: "Media & Entertainment",
     icon: Camera,
-    path: "/industries/media",
+    path: "/industries/media-and-entertainment",
     challenges: ["marketing", "operations"],
     metrics: [
       "50% faster video editing",
@@ -222,7 +222,7 @@ const industries: Industry[] = [
     id: "travel-transportation-hospitality",
     name: "Travel & Hospitality",
     icon: Plane,
-    path: "/industries/travel-transportation-hospitality",
+    path: "/industries/travel-and-hospitality",
     challenges: ["sales", "operations"],
     metrics: [
       "45% increase in booking conversions",
@@ -333,7 +333,7 @@ export default function IndustriesPage() {
                         fortifying HIPAA compliance, reducing documentation time by 70% and improving patient
                         satisfaction scores.
                       </p>
-                      <Link href="/industries/healthcare-life-sciences">
+                      <Link href="/industries/healthcare">
                         <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 text-lg">
                           Explore Our Healthcare Solutions
                         </Button>

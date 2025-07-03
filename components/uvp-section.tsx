@@ -7,22 +7,22 @@ export default function UVPSection() {
   const features = [
     {
       icon: Brain,
-      title: "Expert-Managed Solutions",
-      description: "Our AI specialists design, deploy, monitor, and continuously optimize your agents for peak performance. Human expertise guides AI power.",
+      title: "Modular Power",
+      description: "One agent, infinite capabilities. Your AI adapts to your exact business needs with configurable skills from the NovaCore Suite. Stop managing multiple bots?deploy one intelligent agent that does it all.",
       borderColor: "border-l-cyan-400",
       number: "01"
     },
     {
       icon: Target,
-      title: "Outcome-Driven Agents", 
-      description: "Our Core Agents are engineered to achieve your specific business objectives – from lead generation to ad campaign management and customer support.",
+      title: "The Command Center", 
+      description: "Transparent control and real-time insights. Communicate directly with your AI through our new interactive agent interface -ask questions, get status updates, and give instructions in natural language. Monitor every action, track ROI, and configure your agent through our powerful platform. No more black boxes -see and interact with exactly what your AI is doing and why.",
       borderColor: "border-l-purple-400",
       number: "02"
     },
     {
       icon: BarChart3,
-      title: "Transparent Performance & ROI",
-      description: "Gain clear visibility into your AI agents' performance and tangible value via your dedicated NovaGent platform and regular strategic reviews.",
+      title: "Managed Ingenuity",
+      description: "Expert human oversight amplifies AI power. Our specialists design, deploy, and continuously optimize your agent for peak performance. Get the power of custom AI without the penalty of managing it.",
       borderColor: "border-l-pink-400", 
       number: "03"
     }
@@ -40,29 +40,29 @@ export default function UVPSection() {
             
             <div className="space-y-8">
               <div className="text-sm font-semibold text-slate-400 uppercase tracking-[4px]">
-                Beyond Basic Bots
+                Three Strategic Pillars
               </div>
               
               <h2 className="text-5xl lg:text-6xl font-extrabold leading-tight">
-                Experience True
+                The Power of the
                 <br />
                 <span className="relative inline-block">
                   <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    'Managed-AI'
+                    NovaGent Platform
                   </span>
                   <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 opacity-30 rounded-full"></div>
                 </span>
               </h2>
               
               <p className="text-xl text-slate-300 leading-relaxed max-w-lg">
-                NovaGent offers more than just software. We provide a fully managed service, ensuring your AI solutions deliver exceptional results and evolve with your business.
+                The NovaGent Platform provides the power. Our experts provide the guidance. You get the results. Experience the perfect fusion of advanced AI technology and human expertise.
               </p>
               
               <Link 
-                href="/why-novagent"
+                href="/platform"
                 className="inline-flex items-center gap-2 py-4 text-purple-300 font-semibold border-b-2 border-transparent hover:border-purple-300 transition-all duration-300 hover:translate-x-1"
               >
-                Discover Why NovaGent Excels
+                Tour the Platform
                 <LinkIcon className="w-4 h-4" />
               </Link>
             </div>

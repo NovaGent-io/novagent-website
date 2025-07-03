@@ -15,12 +15,15 @@ export default function HeroSection({ id }: { id?: string }) {
           </div>
 
           <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Automate Your Outcomes. Not Just Your Tasks.
+            One Agent.
+            <br />
+            Infinite Capabilities.
+            <br />
+            Expertly Managed.
           </h1>
 
           <p className="mx-auto mb-10 max-w-2xl text-xl text-slate-200">
-            We build and manage intelligent AI agents to solve your most complex challenges and unlock new levels of
-            efficiency. You define the goal; our platform delivers the results.
+            NovaGent provides a single, powerful AI agent tailored to your exact business needs. Configure its skills, monitor its performance on our transparent platform, and let our experts handle the rest.
           </p>
 
           <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
@@ -35,7 +38,7 @@ export default function HeroSection({ id }: { id?: string }) {
               variant="outline"
               className="h-12 px-8 text-base font-medium border-purple-400 text-purple-300 hover:bg-purple-900/50 hover:text-purple-200"
             >
-              <Link href="/solutions/ai-agent-suite">Explore Our AI Agent Suite</Link>
+              <Link href="/capabilities">Explore Agent Skills</Link>
             </Button>
           </div>
         </div>

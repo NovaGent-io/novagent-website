@@ -46,8 +46,9 @@ export default function ProblemSolutionSection() {
             </span>
           </h2>
           <p className="text-base md:text-lg text-slate-600 max-w-3xl mx-auto px-4">
-            Most companies either sell you a tool or offer you a service. We built something better ? a scalable, 
-            intelligent platform that deploys and manages AI agents for any business need.
+            Most companies either sell you a tool or offer you a service. We built something better - a scalable, 
+            intelligent platform that delivers bespoke AI-driven business outcomes through a single, modular agent, 
+            fully configured and optimized by a dedicated team of AI experts.
           </p>
         </div>
 
@@ -58,7 +59,7 @@ export default function ProblemSolutionSection() {
             <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
               <div className="text-center">
                 <div className="text-sm font-semibold text-rose-400 uppercase border-b-2 border-rose-300 pb-2">
-                  Traditional
+                  DIY Builders
                 </div>
               </div>
               <div className="text-center">
@@ -75,7 +76,7 @@ export default function ProblemSolutionSection() {
               Platform Features
             </div>
             <div className="text-lg font-semibold text-rose-400 uppercase tracking-wide text-center border-b-3 border-rose-300 pb-6">
-              Traditional
+              DIY Builders
             </div>
             <div className="text-lg font-semibold text-emerald-400 uppercase tracking-wide text-center border-b-3 border-emerald-300 pb-6">
               NovaGent
@@ -85,12 +86,12 @@ export default function ProblemSolutionSection() {
           {/* Mobile Comparison Rows (stacked layout) */}
           <div className="block sm:hidden space-y-6">
             {[
-              { feature: "System Integration", traditional: "?", novagent: "?" },
-              { feature: "Expert Management", traditional: "?", novagent: "?" },
-              { feature: "Setup Complexity", traditional: "High", novagent: "None" },
-              { feature: "ROI Visibility", traditional: "?", novagent: "?" },
-              { feature: "Maintenance Required", traditional: "?", novagent: "?" },
-              { feature: "Outcome Focused", traditional: "?", novagent: "?" }
+              { feature: "Agent Architecture", diy: "Multiple Bots", novagent: "Single Modular Agent" },
+              { feature: "Expert Management", diy: "Self-Managed", novagent: "Fully Managed" },
+              { feature: "Setup Complexity", diy: "High", novagent: "None" },
+              { feature: "Platform Transparency", diy: "Limited", novagent: "Full Visibility" },
+              { feature: "Ongoing Optimization", diy: "Manual", novagent: "Continuous" },
+              { feature: "Outcome Focus", diy: "Task-Based", novagent: "Result-Driven" }
             ].map((item, index) => (
               <div key={index} className="bg-white/50 rounded-lg p-4 border border-gray-100">
                 <div className="text-sm font-medium text-gray-700 mb-3 text-center">
@@ -98,22 +99,12 @@ export default function ProblemSolutionSection() {
                 </div>
                 <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
                   <div className="text-center">
-                    <span className={`font-bold ${
-                      item.traditional === "?" ? "text-red-500 text-lg" :
-                      item.traditional === "?" ? "text-green-500 text-lg" :
-                      item.traditional === "?" ? "text-amber-500 text-lg" :
-                      "text-slate-500 text-sm"
-                    }`}>
-                      {item.traditional}
+                    <span className="font-bold text-red-500 text-sm">
+                      {item.diy}
                     </span>
                   </div>
                   <div className="text-center">
-                    <span className={`font-bold ${
-                      item.novagent === "?" ? "text-red-500 text-lg" :
-                      item.novagent === "?" ? "text-green-500 text-lg" :
-                      item.novagent === "?" ? "text-amber-500 text-lg" :
-                      "text-slate-500 text-sm"
-                    }`}>
+                    <span className="font-bold text-green-500 text-sm">
                       {item.novagent}
                     </span>
                   </div>
@@ -126,12 +117,12 @@ export default function ProblemSolutionSection() {
           <div className="hidden sm:block space-y-0">
             <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">System Integration</div>
+              <div className="font-medium text-gray-700 flex items-center">Agent Architecture</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">?</span>
+                <span className="text-red-500 font-bold text-sm">Multiple Bots</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">?</span>
+                <span className="text-green-500 font-bold text-sm">Single Modular Agent</span>
               </div>
             </div>
 
@@ -139,10 +130,10 @@ export default function ProblemSolutionSection() {
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
               <div className="font-medium text-gray-700 flex items-center">Expert Management</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">?</span>
+                <span className="text-red-500 font-bold text-sm">Self-Managed</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">?</span>
+                <span className="text-green-500 font-bold text-sm">Fully Managed</span>
               </div>
             </div>
 
@@ -159,34 +150,34 @@ export default function ProblemSolutionSection() {
 
             <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">ROI Visibility</div>
+              <div className="font-medium text-gray-700 flex items-center">Platform Transparency</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">?</span>
+                <span className="text-red-500 font-bold text-sm">Limited</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">?</span>
+                <span className="text-green-500 font-bold text-sm">Full Visibility</span>
               </div>
             </div>
 
             <div className="grid grid-cols-3 py-5 px-8 border-b border-black/5 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">Maintenance Required</div>
+              <div className="font-medium text-gray-700 flex items-center">Ongoing Optimization</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">?</span>
+                <span className="text-red-500 font-bold text-sm">Manual</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-red-500 font-bold text-lg">?</span>
+                <span className="text-green-500 font-bold text-sm">Continuous</span>
               </div>
             </div>
 
             <div className="grid grid-cols-3 py-5 px-8 hover:bg-gradient-to-r hover:from-cyan-500/3 hover:via-transparent hover:to-cyan-500/3 transition-all duration-300 relative group">
               <div className="absolute right-1/3 top-0 bottom-0 w-px bg-black/8"></div>
-              <div className="font-medium text-gray-700 flex items-center">Outcome Focused</div>
+              <div className="font-medium text-gray-700 flex items-center">Outcome Focus</div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-amber-500 font-bold text-lg">?</span>
+                <span className="text-red-500 font-bold text-sm">Task-Based</span>
               </div>
               <div className="text-center flex items-center justify-center">
-                <span className="text-green-500 font-bold text-lg">?</span>
+                <span className="text-green-500 font-bold text-sm">Result-Driven</span>
               </div>
             </div>
           </div>

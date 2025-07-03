@@ -1,0 +1,44 @@
+// Mobile Optimization Notes for industry-sections.tsx
+// These changes ensure better mobile responsiveness:
+
+// 1. Add mobile-specific grid layouts:
+// - Change lg:grid-cols-4 to lg:grid-cols-3 or lg:grid-cols-2 for better mobile spacing
+// - Use grid-cols-1 for mobile by default
+
+// 2. Adjust padding and spacing for mobile:
+// - Use responsive padding: px-4 sm:px-6 lg:px-8
+// - Reduce gap sizes on mobile: gap-4 sm:gap-6 lg:gap-8
+
+// 3. Fix text sizes for mobile:
+// - Hero title: text-3xl sm:text-4xl md:text-5xl lg:text-6xl
+// - Section titles: text-2xl sm:text-3xl md:text-4xl
+// - Body text: text-sm sm:text-base
+
+// 4. Mobile-specific CTA adjustments:
+// - Button size: size="default" on mobile, size="lg" on desktop
+// - Full width buttons on mobile: w-full sm:w-auto
+
+// 5. Challenge cards for mobile:
+// - Reduce circle size: w-32 h-32 on mobile, w-40 h-40 on desktop
+// - Stack content vertically on mobile
+
+// 6. Solutions cards:
+// - Single column on mobile
+// - Reduce padding: p-4 sm:p-6 lg:p-8
+
+// 7. Results cards:
+// - Remove 3D effects on mobile for performance
+// - Use simpler card design on small screens
+
+// 8. Final CTA:
+// - Reduce animation complexity on mobile
+// - Ensure button is easily tappable (min 44px height)
+
+// Example mobile-optimized grid:
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+
+// Example mobile-optimized text:
+<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
+
+// Example mobile-optimized padding:
+<div className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">

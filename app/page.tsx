@@ -26,13 +26,6 @@ export default function HomePage() {
           <HeroSection />
         </div>
         <ProblemSolutionSection />
-        <section className="py-12 md:py-16 bg-slate-50">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-lg md:text-xl font-medium text-slate-600">
-              Our Platform Was Built to Solve These Core Challenges.
-            </h2>
-          </div>
-        </section>
         <UVPSection />
         <AgentSolutionsSection />
         <WhoWeHelpSection />

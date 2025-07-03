@@ -1,4 +1,4 @@
-import { TrendingUp, Megaphone, Users, ArrowRight, CheckCircle2 } from "lucide-react"
+import { TrendingUp, Settings, Users, ArrowRight, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -6,36 +6,39 @@ export default function AgentSolutionsSection() {
   const agentCategories = [
     {
       icon: TrendingUp,
-      title: "AI for Accelerated Sales & Growth",
+      title: "Sales & Growth",
       bullets: [
-        "Drives intelligent lead generation to fill your pipeline.",
-        "Automates multi-channel outreach effectively.",
-        "Secures qualified appointments, accelerating revenue.",
+        "Prospect Hunter: Intelligent lead generation that fills your pipeline",
+        "Schedule Coordinator: Books qualified meetings directly into calendars",
+        "Smart Outreach Dialer: AI-powered calls with real-time transcription",
+        "Visibility & Trust Manager: SEO optimization and reputation management",
       ],
-      iconColor: "text-blue-400",
-      gradientFromTo: "from-blue-500/10 to-cyan-500/10", // Subtle gradient for icon background
+      iconColor: "text-cyan-400",
+      gradientFromTo: "from-cyan-500/10 to-blue-500/10",
     },
     {
-      icon: Megaphone,
-      title: "AI for Dominant Marketing & Brand Presence",
+      icon: Settings,
+      title: "Operations & Management",
       bullets: [
-        "Powers AI-driven ad campaign optimization for maximum ROI.",
-        "Enhances your SEO and online reputation significantly.",
-        "Manages engaging social media strategies that convert.",
+        "Workflow Navigator: Intelligent project management and task coordination",
+        "Finance Flow Manager: Transaction processing and financial operations",
+        "Talent Welcome Suite: Automated employee onboarding workflows",
+        "Regulatory Risk Guard: Compliance monitoring and management",
       ],
-      iconColor: "text-fuchsia-400",
+      iconColor: "text-purple-400",
       gradientFromTo: "from-purple-500/10 to-fuchsia-500/10",
     },
     {
       icon: Users,
-      title: "AI for Enhanced Customer Experience & Operations",
+      title: "Support & Intelligence",
       bullets: [
-        "Provides intelligent, 24/7 customer support.",
-        "Streamlines complex operational workflows for peak efficiency.",
-        "Resolves inquiries faster, boosting satisfaction.",
+        "Support Concierge: 24/7 intelligent customer support automation",
+        "Insight Intelligence: Advanced analytics and reporting capabilities",
+        "Talent Scout Engine: Recruitment and hiring automation",
+        "Legal Logic Hub: Document generation and contract management",
       ],
-      iconColor: "text-cyan-400",
-      gradientFromTo: "from-cyan-500/10 to-sky-500/10",
+      iconColor: "text-pink-400",
+      gradientFromTo: "from-pink-500/10 to-rose-500/10",
     },
   ]
 
@@ -44,15 +47,15 @@ export default function AgentSolutionsSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:whitespace-nowrap">
-            Meet Your Dedicated AI Specialists: Our{" "}
+            Equip Your Agent with Skills from the{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-fuchsia-500">
-              Core Agent Suite
+              NovaCore Suite
             </span>
           </h2>
           <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-            NovaGent delivers sophisticated, expertly engineered Core AI Agents. These aren't simple task automators;
-            they are comprehensive AI systems, fully managed and continuously optimized by our team to deliver
-            transformative results without the DIY burden.
+            NovaGent delivers a single, sophisticated AI agent equipped with any combination of Agent Skills you need. 
+            These aren't simple task automators; this is a comprehensive AI system, fully managed and continuously 
+            optimized by our team to deliver transformative results without the DIY burden.
           </p>
         </div>
 
@@ -85,14 +88,17 @@ export default function AgentSolutionsSection() {
         </div>
 
         <div className="text-center mt-12 md:mt-16">
+          <div className="mb-4">
+            <span className="text-slate-400 text-sm">+ 2 additional specialized skills for industry-specific needs</span>
+          </div>
           <Button
             asChild
             size="lg"
             className="bg-white text-slate-900 hover:bg-slate-200 h-12 px-8 text-base font-semibold shadow-md hover:shadow-lg transition-all duration-300 group"
           >
-            <Link href="/solutions/ai-agent-suite">
+            <Link href="/capabilities">
               <span className="flex items-center">
-                Explore Our Full Suite of Core Agents
+                Configure Your Agent
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </Link>

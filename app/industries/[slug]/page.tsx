@@ -19,8 +19,8 @@ export async function generateStaticParams() {
   return industries.map((industry) => ({ slug: industry.slug }));
 }
 
-export default function IndustryPage({ params }: IndustryPageProps) {
-  const { slug } = params;
+export default async function IndustryPage({ params }: IndustryPageProps) {
+  const { slug } = await params;
   const industryData = getIndustryDataBySlug(slug);
 
   if (!industryData) {
@@ -46,7 +46,8 @@ export default function IndustryPage({ params }: IndustryPageProps) {
 }
 
 export async function generateMetadata({ params }: IndustryPageProps) {
-  const industryData = getIndustryDataBySlug(params.slug);
+  const { slug } = await params;
+  const industryData = getIndustryDataBySlug(slug);
   if (!industryData) {
     return { title: 'Industry Not Found' };
   }
