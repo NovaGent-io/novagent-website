@@ -1,6 +1,7 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -20,9 +21,16 @@ export default function ModalWrapper({
   children,
   maxWidth = "max-w-2xl"
 }: ModalWrapperProps) {
-  if (!isOpen) return null
+  const [mounted, setMounted] = useState(false)
 
-  return (
+  useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  if (!mounted || !isOpen) return null
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -32,12 +40,12 @@ export default function ModalWrapper({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998]"
             style={{ position: 'fixed' }}
           />
           
           {/* Modal Container */}
-          <div className="fixed inset-0 z-[101] flex items-center justify-center p-4" style={{ position: 'fixed' }}>
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4" style={{ position: 'fixed' }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -70,6 +78,7 @@ export default function ModalWrapper({
           </div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

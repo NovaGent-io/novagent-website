@@ -1,120 +1,144 @@
-"use client"
-
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { ArrowLeft, DollarSign, CheckCircle2, TrendingUp } from "lucide-react"
+import InteractiveCapabilitiesSection from '@/components/InteractiveCapabilitiesSection'
+import CTASection from '@/components/CTASection'
+import EnhancedHeroSection from '@/components/EnhancedHeroSection'
+import AnimatedHowItWorksSection from '@/components/AnimatedHowItWorksSection'
+import IntegrationsAndFeaturesSection from '@/components/IntegrationsAndFeaturesSection'
 
 export default function FinanceFlowManagerPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-green-900 to-emerald-900 text-white py-24 sm:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link 
-              href="/solutions/novasuite"
-              className="inline-flex items-center text-green-300 hover:text-green-200 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to NovaSuite
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="mb-6 inline-flex items-center rounded-full bg-green-500/10 px-4 py-1.5 text-sm font-medium text-green-300">
-                <DollarSign className="mr-2 h-4 w-4" />
-                Finance & Legal Skill
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400">
-                  Finance Flow Manager
-                </span>
-              </h1>
-
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                Transaction processing and financial operations powered by AI. 
-                Automate reconciliation, detect anomalies, and generate insights for smarter financial management.
-              </p>
-
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-green-400">99.9%</div>
-                  <div className="text-sm text-slate-400">Accuracy Rate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-400">85%</div>
-                  <div className="text-sm text-slate-400">Time Savings</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-teal-400">24/7</div>
-                  <div className="text-sm text-slate-400">Processing</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-green-600 hover:bg-green-700" asChild>
-                  <Link href="/contact">Optimize Your Finance Ops</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur border-white/20">
-                <CardHeader>
-                  <CardTitle className="text-white">Financial Dashboard</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">127 transactions processed...</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">All reconciliations complete...</span>
-                  </div>
-                  <div className="bg-green-500/20 rounded-lg p-3 mt-4">
-                    <span className="text-green-300 font-medium">? $2.3M processed today</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Notice */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Detailed Information
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600"> Coming Soon</span>
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+      <EnhancedHeroSection
+        className="hero-section bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-950 dark:to-slate-900 text-white"
+        headingText="Finance Flow Manager"
+        subheadingText="Automate financial operations with AI that manages invoicing, tracks expenses, and optimizes cash flow 24/7."
+        primaryButtonText="See It In Action"
+        primaryButtonHref="#demo"
+        secondaryButtonText="View Pricing"
+        secondaryButtonHref="/pricing"
+        stats={[
+          { value: "98%", label: "Invoice Accuracy Rate" },
+          { value: "85%", label: "Faster Collections" },
+          { value: "40%", label: "Cash Flow Improvement" }
+        ]}
+      />
+      
+      <InteractiveCapabilitiesSection
+        heading="AI-Powered Finance That Runs Itself"
+        subheading="Finance Flow Manager combines intelligent automation with real-time insights to transform your financial operations from reactive to proactive."
+        capabilities={[
+          {
+            title: "Automated Invoice Processing",
+            description: "AI generates, sends, and tracks invoices automatically while managing follow-ups and payment reminders.",
+            icon: "FileText",
+            color: "from-blue-500 to-cyan-500",
+            features: [
+              "Smart invoice generation",
+              "Multi-currency support",
+              "Payment tracking",
+              "Automated reminders"
+            ],
+            metric: { value: "3min", label: "per invoice" }
+          },
+          {
+            title: "Intelligent Expense Management",
+            description: "Automatically capture, categorize, and approve expenses with AI that learns your policies and patterns.",
+            icon: "Receipt",
+            color: "from-purple-500 to-pink-500",
+            features: [
+              "Receipt scanning & OCR",
+              "Auto-categorization",
+              "Policy enforcement",
+              "Fraud detection"
+            ],
+            metric: { value: "95%", label: "accuracy rate" }
+          },
+          {
+            title: "Cash Flow Optimization",
+            description: "Predictive analytics forecast cash positions and recommend actions to maintain healthy working capital.",
+            icon: "TrendingUp",
+            color: "from-emerald-500 to-teal-500",
+            features: [
+              "30-90 day forecasting",
+              "Scenario modeling",
+              "Collection optimization",
+              "Payment scheduling"
+            ],
+            metric: { value: "92%", label: "forecast accuracy" }
+          },
+          {
+            title: "Real-Time Financial Insights",
+            description: "Get instant visibility into financial health with dashboards that update automatically and alert on anomalies.",
+            icon: "BarChart3",
+            color: "from-orange-500 to-red-500",
+            features: [
+              "Live P&L tracking",
+              "Budget vs actual",
+              "Variance analysis",
+              "Custom KPI monitoring"
+            ],
+            metric: { value: "24/7", label: "monitoring" }
+          }
+        ]}
+      />
+      
+      <AnimatedHowItWorksSection
+        heading="How Finance Flow Manager Works"
+        subheading="A comprehensive system that transforms financial chaos into streamlined operations"
+        steps={[
+          {
+            title: "Connect Your Systems",
+            description: "Integrate with your accounting software, bank accounts, and payment processors for unified financial management."
+          },
+          {
+            title: "AI Learns Your Patterns",
+            description: "The system analyzes your historical data to understand your business cycles, policies, and preferences."
+          },
+          {
+            title: "Automated Execution",
+            description: "From invoice generation to expense approval, AI handles routine tasks while flagging exceptions for review."
+          },
+          {
+            title: "Continuous Optimization",
+            description: "Machine learning improves accuracy over time while providing insights to optimize your financial operations."
+          }
+        ]}
+      />
+      
+      <IntegrationsAndFeaturesSection />
+      
+      <div className="relative bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+        <div className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6 text-slate-900 dark:text-white">
+              Financial Impact You Can Bank On
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We're building out comprehensive details for each Agent Skill as part of our Lightning Strategy Phase 2 rollout.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <Link href="/contact">Learn More About Finance Flow Manager</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/solutions/novasuite">Back to NovaSuite</Link>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12">
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">12?3</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Days sales outstanding reduced from 12 to 3</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">$185K</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Annual savings from automation efficiency</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">99.7%</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Financial reporting accuracy achieved</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      
+      <CTASection
+        heading="Ready to Put Your Finances on Autopilot?"
+        subheading="Let Finance Flow Manager transform your financial operations with AI that ensures accuracy, improves cash flow, and saves countless hours."
+        primaryButtonText="Schedule a Demo"
+        primaryButtonHref="/contact"
+        secondaryButtonText="Explore Our Platform"
+        secondaryButtonHref="/platform"
+        className="bg-slate-900 dark:bg-slate-950"
+      />
+    </main>
   )
 }

@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -13,7 +29,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 262.1 83.3% 57.8%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -22,21 +38,21 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%; /* Consider updating this to a brand color */
-    --accent-foreground: 222.2 47.4% 11.2%; /* Consider updating this */
+    --accent: 262.1 83.3% 57.8%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%; /* Ring color, can be a brand color */
+    --ring: 262.1 83.3% 57.8%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%; /* e.g. slate-950 */
+    --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -45,8 +61,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 40% 98%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -54,15 +70,15 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%; /* Consider updating this */
-    --accent-foreground: 210 40% 98%; /* Consider updating this */
+    --accent: 262.1 83.3% 57.8%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 215 20.2% 65.1%; /* Ring color for dark mode */
+    --ring: 262.1 83.3% 57.8%;
   }
 }
 
@@ -72,6 +88,47 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Enhanced contrast for light mode */
+@layer components {
+  /* Text contrast improvements for light mode */
+  .text-slate-600 {
+    color: rgb(51 65 85); /* slate-700 */
+  }
+  
+  .text-slate-500 {
+    color: rgb(71 85 105); /* slate-600 */
+  }
+  
+  /* Button improvements for better contrast */
+  .btn-primary-light {
+    background-color: rgb(147 51 234); /* purple-600 */
+    color: white;
+  }
+  
+  .btn-primary-light:hover {
+    background-color: rgb(126 34 206); /* purple-700 */
+  }
+  
+  .btn-primary-light:focus {
+    --tw-ring-color: rgb(147 51 234); /* purple-600 */
+  }
+  
+  .btn-secondary-light {
+    background-color: white;
+    color: rgb(147 51 234); /* purple-600 */
+    border-width: 2px;
+    border-color: rgb(147 51 234); /* purple-600 */
+  }
+  
+  .btn-secondary-light:hover {
+    background-color: rgb(250 245 255); /* purple-50 */
+  }
+  
+  .btn-secondary-light:focus {
+    --tw-ring-color: rgb(147 51 234); /* purple-600 */
   }
 }
 
@@ -120,6 +177,70 @@
   .animation-delay-700 {
     animation-delay: 0.7s;
   }
+  
+  /* Animation for gradient backgrounds */
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+  }
+}
+
+/* Enhanced Hero Section Animations */
+@layer utilities {
+  .animate-grid-move {
+    animation: grid-move 20s linear infinite;
+  }
+  
+  .animate-stream {
+    animation: stream 3s linear infinite;
+  }
+  
+  .animate-orb-pulse {
+    animation: orb-pulse 4s ease-in-out infinite;
+  }
+  
+  .animate-ring-rotate {
+    animation: ring-rotate 20s linear infinite;
+  }
+  
+  .animate-ring-rotate-reverse {
+    animation: ring-rotate-reverse 15s linear infinite;
+  }
+  
+  .animate-ring-rotate-slow {
+    animation: ring-rotate-slow 25s linear infinite;
+  }
+  
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  .particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00ffff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particle-float 10s infinite;
+  }
+  
+  .bg-radial-gradient {
+    background: radial-gradient(circle, #00ffff 0%, transparent 70%);
+  }
 }
 
 @keyframes fadeInUp {
@@ -140,4 +261,195 @@
   50% {
     transform: translateY(-10px);
   }
+}
+
+/* Enhanced Hero Animations */
+@keyframes grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes stream {
+  0% { transform: translateY(-100px); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+@keyframes ring-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes ring-rotate-reverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+@keyframes ring-rotate-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Light mode specific styles for better contrast */
+@media (prefers-color-scheme: light) {
+  /* Ensure good contrast for all text elements */
+  .text-muted-foreground {
+    color: rgb(71 85 105) !important; /* slate-600 */
+  }
+  
+  /* Card borders with better visibility */
+  .border {
+    border-color: rgb(226 232 240) !important; /* slate-200 */
+  }
+  
+  /* Input fields with clear borders */
+  input, textarea, select {
+    border-color: rgb(203 213 225) !important; /* slate-300 */
+  }
+  
+  /* Focus states with good contrast */
+  *:focus {
+    outline-color: rgb(147 51 234) !important; /* purple-600 */
+  }
+}
+
+/* Ensure light mode is properly applied */
+body:not(.dark) {
+  /* Text contrast improvements */
+  .text-slate-400 {
+    color: rgb(100 116 139) !important; /* slate-500 */
+  }
+  
+  .text-slate-500 {
+    color: rgb(71 85 105) !important; /* slate-600 */
+  }
+  
+  .text-slate-600 {
+    color: rgb(51 65 85) !important; /* slate-700 */
+  }
+  
+  /* Border contrast improvements */
+  .border-slate-200 {
+    border-color: rgb(203 213 225) !important; /* slate-300 */
+  }
+  
+  .border-slate-300 {
+    border-color: rgb(148 163 184) !important; /* slate-400 */
+  }
+  
+  /* Background adjustments for better contrast */
+  .bg-slate-50 {
+    background-color: rgb(248 250 252) !important;
+  }
+  
+  .bg-slate-100 {
+    background-color: rgb(241 245 249) !important;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Larger touch targets for mobile */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Responsive text sizes */
+  h1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+/* CTA Button specific styles for high contrast */
+.cta-primary {
+  background-color: white;
+  color: rgb(88 28 135); /* purple-900 */
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 200ms;
+}
+
+.cta-primary:hover {
+  background-color: rgb(243 244 246); /* gray-100 */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.cta-secondary {
+  border-width: 2px;
+  border-color: white;
+  color: white;
+  font-weight: 600;
+  transition: all 200ms;
+}
+
+.cta-secondary:hover {
+  background-color: white;
+  color: rgb(88 28 135); /* purple-900 */
+}
+
+/* Light mode CTA variants */
+.light-cta-primary {
+  background-color: rgb(147 51 234); /* purple-600 */
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: all 200ms;
+}
+
+.light-cta-primary:hover {
+  background-color: rgb(126 34 206); /* purple-700 */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.light-cta-secondary {
+  border-width: 2px;
+  border-color: rgb(147 51 234); /* purple-600 */
+  color: rgb(147 51 234); /* purple-600 */
+  background-color: white;
+  font-weight: 600;
+  transition: all 200ms;
+}
+
+.light-cta-secondary:hover {
+  background-color: rgb(250 245 255); /* purple-50 */
 }

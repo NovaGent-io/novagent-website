@@ -122,10 +122,10 @@ export default function ROICalculator() {
   return (
     <div className="space-y-6">
       {/* Instructions */}
-      <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+      <div className="bg-purple-100 dark:bg-purple-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
         <div className="flex items-start space-x-3">
-          <Info className="h-5 w-5 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-purple-800 dark:text-purple-200">
+          <Info className="h-5 w-5 text-purple-700 dark:text-purple-400 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-purple-900 dark:text-purple-200">
             <p className="font-medium mb-1">Calculate your potential return:</p>
             <p>Enter your current business metrics below to see how NovaGent can impact your bottom line through automation and efficiency gains.</p>
           </div>
@@ -152,7 +152,7 @@ export default function ROICalculator() {
                   />
                   <Label
                     htmlFor={type.value}
-                    className="flex items-center gap-2 rounded-lg border-2 border-slate-200 bg-white p-3 hover:bg-slate-50 peer-data-[state=checked]:border-purple-600 peer-data-[state=checked]:bg-purple-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:peer-data-[state=checked]:border-purple-500 dark:peer-data-[state=checked]:bg-purple-900/20 cursor-pointer transition-all"
+                    className="flex items-center gap-2 rounded-lg border-2 border-slate-300 bg-white p-3 hover:bg-slate-100 peer-data-[state=checked]:border-purple-600 peer-data-[state=checked]:bg-purple-100 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:peer-data-[state=checked]:border-purple-500 dark:peer-data-[state=checked]:bg-purple-900/20 cursor-pointer transition-all"
                   >
                     {type.icon}
                     <span className="text-sm font-medium">{type.label}</span>
@@ -169,7 +169,7 @@ export default function ROICalculator() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
+                    <span className="text-sm text-slate-700 dark:text-slate-400">
                       {inputs.teamSize} people
                     </span>
                   </TooltipTrigger>
@@ -193,7 +193,7 @@ export default function ROICalculator() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="avgSalary" className="text-base font-medium">Average Annual Salary</Label>
-              <span className="text-sm text-slate-600 dark:text-slate-400">
+              <span className="text-sm text-slate-700 dark:text-slate-400">
                 ${inputs.avgSalary.toLocaleString()}
               </span>
             </div>
@@ -212,7 +212,7 @@ export default function ROICalculator() {
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="hoursPerWeek" className="text-base font-medium">Hours on Repetitive Tasks</Label>
-              <span className="text-sm text-slate-600 dark:text-slate-400">
+              <span className="text-sm text-slate-700 dark:text-slate-400">
                 {inputs.hoursPerWeek} hrs/week
               </span>
             </div>
@@ -224,14 +224,14 @@ export default function ROICalculator() {
               min={5}
               max={40}
             />
-            <p className="text-xs text-slate-600 dark:text-slate-400">Per team member, per week</p>
+            <p className="text-xs text-slate-700 dark:text-slate-400">Per team member, per week</p>
           </div>
 
           {/* Current Tool Cost */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="currentToolCost" className="text-base font-medium">Current Tool Costs</Label>
-              <span className="text-sm text-slate-600 dark:text-slate-400">
+              <span className="text-sm text-slate-700 dark:text-slate-400">
                 ${inputs.currentToolCost}/mo
               </span>
             </div>
@@ -262,14 +262,14 @@ export default function ROICalculator() {
                     step={0.5}
                     className="flex-1"
                   />
-                  <span className="text-sm text-slate-600 dark:text-slate-400">%</span>
+                  <span className="text-sm text-slate-700 dark:text-slate-400">%</span>
                 </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="avgDealSize" className="text-base font-medium">Average Deal Size</Label>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-slate-600 dark:text-slate-400">$</span>
+                  <span className="text-sm text-slate-700 dark:text-slate-400">$</span>
                   <Input
                     id="avgDealSize"
                     type="number"
@@ -290,27 +290,27 @@ export default function ROICalculator() {
           <h3 className="text-lg font-semibold">Your Projected ROI</h3>
           
           {/* Main ROI Card */}
-          <Card className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-700">
+          <Card className="p-6 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 border-green-300 dark:border-green-700">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">Monthly Net ROI</p>
-                  <p className="text-3xl font-bold text-green-700 dark:text-green-400">
+                  <p className="text-sm text-slate-700 dark:text-slate-400">Monthly Net ROI</p>
+                  <p className="text-3xl font-bold text-green-800 dark:text-green-400">
                     ${results.netROI.toLocaleString()}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-slate-600 dark:text-slate-400">ROI Percentage</p>
-                  <p className="text-2xl font-bold text-green-700 dark:text-green-400">
+                  <p className="text-sm text-slate-700 dark:text-slate-400">ROI Percentage</p>
+                  <p className="text-2xl font-bold text-green-800 dark:text-green-400">
                     {results.roiPercentage}%
                   </p>
                 </div>
               </div>
               
-              <div className="pt-4 border-t border-green-200 dark:border-green-700">
+              <div className="pt-4 border-t border-green-300 dark:border-green-700">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-600 dark:text-slate-400">Payback Period</span>
-                  <span className="font-semibold text-green-700 dark:text-green-400">
+                  <span className="text-slate-700 dark:text-slate-400">Payback Period</span>
+                  <span className="font-semibold text-green-800 dark:text-green-400">
                     {results.paybackPeriod} days
                   </span>
                 </div>
@@ -320,70 +320,70 @@ export default function ROICalculator() {
 
           {/* Breakdown Cards */}
           <div className="space-y-3">
-            <h4 className="text-sm font-medium text-slate-600 dark:text-slate-400">Monthly Value Breakdown</h4>
+            <h4 className="text-sm font-medium text-slate-700 dark:text-slate-400">Monthly Value Breakdown</h4>
             
-            <Card className="p-4">
+            <Card className="p-4 border-slate-300 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-blue-500" />
+                  <Clock className="h-5 w-5 text-blue-600 dark:text-blue-500" />
                   <div>
-                    <p className="text-sm font-medium">Time Saved</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">{results.timeSaved} hours/month</p>
+                    <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Time Saved</p>
+                    <p className="text-xs text-slate-700 dark:text-slate-400">{results.timeSaved} hours/month</p>
                   </div>
                 </div>
-                <p className="font-semibold">${results.laborCostSaved.toLocaleString()}</p>
+                <p className="font-semibold text-slate-900 dark:text-slate-100">${results.laborCostSaved.toLocaleString()}</p>
               </div>
             </Card>
 
-            <Card className="p-4">
+            <Card className="p-4 border-slate-300 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <TrendingUp className="h-5 w-5 text-purple-500" />
+                  <TrendingUp className="h-5 w-5 text-purple-600 dark:text-purple-500" />
                   <div>
-                    <p className="text-sm font-medium">Productivity Gains</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Additional capacity</p>
+                    <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Productivity Gains</p>
+                    <p className="text-xs text-slate-700 dark:text-slate-400">Additional capacity</p>
                   </div>
                 </div>
-                <p className="font-semibold">${results.productivityGain.toLocaleString()}</p>
+                <p className="font-semibold text-slate-900 dark:text-slate-100">${results.productivityGain.toLocaleString()}</p>
               </div>
             </Card>
 
             {inputs.businessType === 'sales' && (
-              <Card className="p-4">
+              <Card className="p-4 border-slate-300 dark:border-slate-700">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <DollarSign className="h-5 w-5 text-green-500" />
+                    <DollarSign className="h-5 w-5 text-green-600 dark:text-green-500" />
                     <div>
-                      <p className="text-sm font-medium">Revenue Increase</p>
-                      <p className="text-xs text-slate-600 dark:text-slate-400">From improved conversion</p>
+                      <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Revenue Increase</p>
+                      <p className="text-xs text-slate-700 dark:text-slate-400">From improved conversion</p>
                     </div>
                   </div>
-                  <p className="font-semibold">${results.revenueIncrease.toLocaleString()}</p>
+                  <p className="font-semibold text-slate-900 dark:text-slate-100">${results.revenueIncrease.toLocaleString()}</p>
                 </div>
               </Card>
             )}
 
-            <Card className="p-4">
+            <Card className="p-4 border-slate-300 dark:border-slate-700">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <PiggyBank className="h-5 w-5 text-amber-500" />
+                  <PiggyBank className="h-5 w-5 text-amber-600 dark:text-amber-500" />
                   <div>
-                    <p className="text-sm font-medium">Tool Consolidation</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-400">Replace existing tools</p>
+                    <p className="text-sm font-medium text-slate-900 dark:text-slate-100">Tool Consolidation</p>
+                    <p className="text-xs text-slate-700 dark:text-slate-400">Replace existing tools</p>
                   </div>
                 </div>
-                <p className="font-semibold">${inputs.currentToolCost.toLocaleString()}</p>
+                <p className="font-semibold text-slate-900 dark:text-slate-100">${inputs.currentToolCost.toLocaleString()}</p>
               </div>
             </Card>
 
-            <div className="pt-3 border-t">
+            <div className="pt-3 border-t border-slate-300 dark:border-slate-700">
               <div className="flex items-center justify-between text-sm">
-                <span className="font-medium">Total Monthly Benefit</span>
-                <span className="font-bold text-lg">${results.totalBenefit.toLocaleString()}</span>
+                <span className="font-medium text-slate-900 dark:text-slate-100">Total Monthly Benefit</span>
+                <span className="font-bold text-lg text-slate-900 dark:text-slate-100">${results.totalBenefit.toLocaleString()}</span>
               </div>
               <div className="flex items-center justify-between text-sm mt-2">
-                <span className="font-medium">NovaGent Investment</span>
-                <span className="font-bold text-lg text-purple-600 dark:text-purple-400">
+                <span className="font-medium text-slate-900 dark:text-slate-100">NovaGent Investment</span>
+                <span className="font-bold text-lg text-purple-700 dark:text-purple-400">
                   -${results.novagentCost.toLocaleString()}
                 </span>
               </div>

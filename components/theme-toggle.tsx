@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import { Moon, Sun, Monitor } from 'lucide-react'
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes"
+import { Moon, Sun } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
 
 export function ThemeToggle() {
-  const [mounted, setMounted] = React.useState(false)
-  const { theme, setTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  // Prevent hydration mismatch
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true)
   }, [])
 
@@ -18,42 +18,15 @@ export function ThemeToggle() {
   }
 
   return (
-    <div className="flex items-center bg-slate-200 dark:bg-slate-800/50 backdrop-blur-sm rounded-full p-1 border border-slate-300 dark:border-slate-700/50">
-      <button
-        onClick={() => setTheme('light')}
-        className={`p-2 rounded-full transition-all duration-200 ${
-          theme === 'light'
-            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-purple-500/25'
-            : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300'
-        }`}
-        aria-label="Light mode"
-      >
-        <Sun size={16} />
-      </button>
-      
-      <button
-        onClick={() => setTheme('system')}
-        className={`p-2 rounded-full transition-all duration-200 ${
-          theme === 'system'
-            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-purple-500/25'
-            : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300'
-        }`}
-        aria-label="System mode"
-      >
-        <Monitor size={16} />
-      </button>
-      
-      <button
-        onClick={() => setTheme('dark')}
-        className={`p-2 rounded-full transition-all duration-200 ${
-          theme === 'dark'
-            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-pink-500/25'
-            : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300'
-        }`}
-        aria-label="Dark mode"
-      >
-        <Moon size={16} />
-      </button>
-    </div>
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      className="fixed bottom-4 right-4 z-50 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-600"
+    >
+      <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+      <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   )
 }

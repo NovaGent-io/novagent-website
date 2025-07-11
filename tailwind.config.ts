@@ -11,6 +11,8 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+  			'nova-dark': '#0a0e27',
+  			'nova-darker': '#1a1f3a',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

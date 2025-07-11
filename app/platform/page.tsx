@@ -49,8 +49,13 @@ import {
 import Link from "next/link"
 import AnimatedBackground from "@/components/animated-background"
 import { motion } from "framer-motion"
+import { useState } from "react"
+import ModalWrapper from "@/components/novasuite/modals/modal-wrapper"
+import ROICalculator from "@/components/novasuite/modals/roi-calculator"
 
 export default function PlatformPage() {
+  const [showROIModal, setShowROIModal] = useState(false)
+  
   return (
     <div className="bg-slate-950 text-gray-100 min-h-screen">
       {/* Hero Section */}
@@ -104,8 +109,8 @@ export default function PlatformPage() {
               asChild
             >
               <Link href="#architecture">
-                <Eye className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="whitespace-nowrap">See Inside the Platform</span>
+                <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="whitespace-nowrap">Explore Platform Features</span>
               </Link>
             </Button>
             <Button
@@ -201,19 +206,19 @@ export default function PlatformPage() {
               </div>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Steep learning curves and technical complexity
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Your team spends time building instead of executing
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Constant maintenance and optimization burden
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Limited sophistication for complex business logic
                 </li>
               </ul>
@@ -232,19 +237,19 @@ export default function PlatformPage() {
               </div>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Zero visibility into what's actually happening
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   No control over customization or optimization
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Unclear ROI and performance metrics
                 </li>
                 <li className="flex items-start">
-                  <span className="text-red-400 mr-2">?</span>
+                  <span className="text-red-400 mr-2">•</span>
                   Generic solutions that don't fit your business
                 </li>
               </ul>
@@ -280,7 +285,7 @@ export default function PlatformPage() {
               One Platform. One Agent. Zero Complexity.
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
-              Your AI agent isn't an add-on?it's a first-class citizen of the NovaGent Platform, 
+              Your AI agent isn't an add-on -it's a first-class citizen of the NovaGent Platform, 
               designed from the ground up for seamless integration and intelligent operation.
             </p>
           </motion.div>
@@ -395,7 +400,7 @@ export default function PlatformPage() {
                     <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Contextual Intelligence</h4>
                     <p className="text-gray-600 dark:text-gray-300">
                       Every action your agent takes is informed by your business rules, customer history, 
-                      and strategic objectives?not generic templates.
+                      and strategic objectives -not generic templates.
                     </p>
                   </div>
                 </div>
@@ -449,6 +454,21 @@ export default function PlatformPage() {
                   <span className="text-sm text-gray-900 dark:text-white">Financial Data</span>
                 </div>
               </div>
+              <motion.div
+                className="mt-6 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <Link
+                  href="/platform/integrations"
+                  className="inline-flex items-center text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors font-medium"
+                >
+                  <span>View All Integrations</span>
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -611,7 +631,7 @@ export default function PlatformPage() {
             >
               <Link href="/contact">
                 <MessageSquare className="mr-2 h-5 w-5" />
-                Chat with an AI Agent Demo
+                Schedule a Consultation
               </Link>
             </Button>
           </motion.div>
@@ -709,36 +729,58 @@ export default function PlatformPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-xl font-bold text-center mb-6 text-gray-900 dark:text-white">Secure Technology Stack</h3>
+            <h3 className="text-xl font-bold text-center mb-6 text-gray-900 dark:text-white">Multi-Layered Security Architecture</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center p-4 bg-white dark:bg-slate-700/50 rounded-lg">
                 <Server className="w-8 h-8 text-cyan-600 dark:text-cyan-400 mx-auto mb-2" />
-                <span className="text-sm text-gray-900 dark:text-gray-300">Next.js</span>
-                <p className="text-xs text-gray-500 mt-1">Secure Frontend</p>
+                <span className="text-sm text-gray-900 dark:text-gray-300">Single-Tenant Isolation</span>
+                <p className="text-xs text-gray-500 mt-1">Dedicated infrastructure per client</p>
               </div>
               <div className="text-center p-4 bg-white dark:bg-slate-700/50 rounded-lg">
                 <Database className="w-8 h-8 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
-                <span className="text-sm text-gray-900 dark:text-gray-300">Supabase</span>
-                <p className="text-xs text-gray-500 mt-1">Enterprise Backend</p>
+                <span className="text-sm text-gray-900 dark:text-gray-300">Zero-Trust Architecture</span>
+                <p className="text-xs text-gray-500 mt-1">Every request verified</p>
               </div>
               <div className="text-center p-4 bg-white dark:bg-slate-700/50 rounded-lg">
                 <CloudCog className="w-8 h-8 text-fuchsia-600 dark:text-fuchsia-400 mx-auto mb-2" />
-                <span className="text-sm text-gray-900 dark:text-gray-300">Docker</span>
-                <p className="text-xs text-gray-500 mt-1">Secure Containers</p>
+                <span className="text-sm text-gray-900 dark:text-gray-300">Real-Time Monitoring</span>
+                <p className="text-xs text-gray-500 mt-1">24/7 security oversight</p>
               </div>
               <div className="text-center p-4 bg-white dark:bg-slate-700/50 rounded-lg">
                 <Shield className="w-8 h-8 text-cyan-600 dark:text-cyan-400 mx-auto mb-2" />
-                <span className="text-sm text-gray-900 dark:text-gray-300">LangSmith</span>
-                <p className="text-xs text-gray-500 mt-1">AI Monitoring</p>
+                <span className="text-sm text-gray-900 dark:text-gray-300">Defense in Depth</span>
+                <p className="text-xs text-gray-500 mt-1">Multiple security layers</p>
               </div>
             </div>
+            <motion.div
+              className="mt-8 text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                href="/platform/security"
+                className="inline-flex items-center text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 transition-colors font-medium"
+              >
+                <Shield className="w-4 h-4 mr-2" />
+                <span>View Complete Security Details</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* A Glimpse Inside */}
-      <section className="py-12 sm:py-16 md:py-24 bg-gray-50 dark:bg-slate-900">
-        <div className="container mx-auto px-4 sm:px-6">
+      {/* Measurable Business Impact */}
+      <section className="py-12 sm:py-16 md:py-24 bg-gray-50 dark:bg-gradient-to-b dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5 dark:opacity-10">
+          <div className="absolute top-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-cyan-500 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-purple-500 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -746,119 +788,191 @@ export default function PlatformPage() {
             viewport={{ once: true }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
-              A Glimpse Inside the Platform
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500 dark:border-cyan-500/50 rounded-full text-cyan-600 dark:text-cyan-400 text-xs sm:text-sm font-medium mb-4 sm:mb-6">
+              <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+              <span>Real Results, Not Promises</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-cyan-400 dark:via-purple-400 dark:to-fuchsia-400">
+              Measurable Business Impact
             </h2>
-            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0">
-              Experience the intuitive interface that puts you in complete control of your AI operations.
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4 sm:px-0">
+              NovaGent clients see transformational results within the first 30 days. 
+              Here's what happens when AI meets expert management.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            {/* Time Saved Card */}
             <motion.div
-              className="bg-white dark:bg-slate-800/30 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-slate-700 order-2 lg:order-1"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              className="relative group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center mb-6">
-                <Settings className="w-6 h-6 sm:w-8 sm:h-8 text-cyan-600 dark:text-cyan-400 mr-3" />
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Agent Builder Interface</h3>
-              </div>
-              <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Prospect Hunter</span>
-                    <div className="w-10 h-5 sm:w-12 sm:h-6 bg-cyan-500 rounded-full relative flex-shrink-0">
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full absolute top-0.5 right-0.5"></div>
-                    </div>
-                  </div>
-                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Generate and qualify leads automatically</p>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-2xl blur-xl opacity-10 dark:opacity-20 group-hover:opacity-20 dark:group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white dark:bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-cyan-500/30 hover:border-cyan-500 dark:hover:border-cyan-500/50 transition-all duration-300 shadow-lg">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 mx-auto transform group-hover:scale-110 transition-transform">
+                  <Clock className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Schedule Coordinator</span>
-                    <div className="w-10 h-5 sm:w-12 sm:h-6 bg-gray-400 dark:bg-gray-600 rounded-full relative flex-shrink-0">
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full absolute top-0.5 left-0.5"></div>
-                    </div>
+                
+                <motion.div
+                  className="text-4xl sm:text-5xl font-bold text-cyan-600 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-cyan-400 dark:to-cyan-600 mb-2 text-center"
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  viewport={{ once: true }}
+                >
+                  40+
+                </motion.div>
+                
+                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white text-center">Hours Saved Weekly</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 text-center">
+                  Automate repetitive tasks and free your team for strategic work that drives growth
+                </p>
+                
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Lead qualification</span>
+                    <span className="text-xs sm:text-sm font-semibold text-cyan-600 dark:text-cyan-400">12 hrs/week</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Book meetings and manage calendars</p>
-                </div>
-                <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Support Concierge</span>
-                    <div className="w-10 h-5 sm:w-12 sm:h-6 bg-purple-500 rounded-full relative flex-shrink-0">
-                      <div className="w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full absolute top-0.5 right-0.5"></div>
-                    </div>
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Appointment scheduling</span>
+                    <span className="text-xs sm:text-sm font-semibold text-cyan-600 dark:text-cyan-400">8 hrs/week</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Handle customer inquiries 24/7</p>
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Customer support</span>
+                    <span className="text-xs sm:text-sm font-semibold text-cyan-600 dark:text-cyan-400">20 hrs/week</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
 
+            {/* ROI Card */}
             <motion.div
-              className="bg-white dark:bg-slate-800/30 rounded-xl p-6 sm:p-8 border border-gray-200 dark:border-slate-700 order-1 lg:order-2"
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
+              className="relative group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="flex items-center mb-6">
-                <BarChart3 className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600 dark:text-purple-400 mr-3" />
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Live Performance Dashboard</h3>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl blur-xl opacity-10 dark:opacity-20 group-hover:opacity-20 dark:group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white dark:bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-purple-500/30 hover:border-purple-500 dark:hover:border-purple-500/50 transition-all duration-300 shadow-lg">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 mx-auto transform group-hover:scale-110 transition-transform">
+                  <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                </div>
+                
+                <motion.div
+                  className="text-4xl sm:text-5xl font-bold text-purple-600 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-purple-400 dark:to-purple-600 mb-2 text-center"
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  viewport={{ once: true }}
+                >
+                  5.2x
+                </motion.div>
+                
+                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white text-center">Average ROI</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 text-center">
+                  Most clients see positive returns within the first month of deployment
+                </p>
+                
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">New leads generated</span>
+                    <span className="text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">+47%</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Conversion rate</span>
+                    <span className="text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">+23%</span>
+                  </div>
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Customer satisfaction</span>
+                    <span className="text-xs sm:text-sm font-semibold text-green-600 dark:text-green-400">+31%</span>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-4">
-                <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Tasks Completed Today</span>
-                    <span className="text-cyan-600 dark:text-cyan-400 font-bold text-lg sm:text-xl">247</span>
-                  </div>
-                  <div className="w-full bg-gray-300 dark:bg-gray-700 rounded-full h-2">
-                    <div className="bg-gradient-to-r from-cyan-500 to-purple-500 h-2 rounded-full" style={{width: '78%'}}></div>
-                  </div>
+            </motion.div>
+
+            {/* 24/7 Operations Card */}
+            <motion.div
+              className="relative group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-500 to-fuchsia-600 rounded-2xl blur-xl opacity-10 dark:opacity-20 group-hover:opacity-20 dark:group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white dark:bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-200 dark:border-fuchsia-500/30 hover:border-fuchsia-500 dark:hover:border-fuchsia-500/50 transition-all duration-300 shadow-lg">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-fuchsia-500 to-fuchsia-600 rounded-xl flex items-center justify-center mb-4 sm:mb-6 mx-auto transform group-hover:scale-110 transition-transform">
+                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                 </div>
-                <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm sm:text-base text-gray-900 dark:text-white font-medium">ROI This Month</span>
-                    <span className="text-green-600 dark:text-green-400 font-bold text-lg sm:text-xl">$24,750</span>
+                
+                <motion.div
+                  className="text-4xl sm:text-5xl font-bold text-fuchsia-600 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-fuchsia-400 dark:to-fuchsia-600 mb-2 text-center"
+                  initial={{ opacity: 0, scale: 0 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  24/7
+                </motion.div>
+                
+                <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900 dark:text-white text-center">Always Working</h3>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 text-center">
+                  Your AI agent never sleeps, ensuring no opportunity is missed
+                </p>
+                
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">After-hours responses</span>
+                    <span className="text-xs sm:text-sm font-semibold text-fuchsia-600 dark:text-fuchsia-400">100%</span>
                   </div>
-                  <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                    <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 mr-1 text-green-600 dark:text-green-400" />
-                    <span>+18% vs last month</span>
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Weekend coverage</span>
+                    <span className="text-xs sm:text-sm font-semibold text-fuchsia-600 dark:text-fuchsia-400">Full</span>
                   </div>
-                </div>
-                <div className="bg-gray-50 dark:bg-slate-700/50 rounded-lg p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm sm:text-base text-gray-900 dark:text-white font-medium">Active Workflows</span>
-                    <span className="text-fuchsia-600 dark:text-fuchsia-400 font-bold text-lg sm:text-xl">12</span>
-                  </div>
-                  <div className="flex items-center text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                    <Activity className="w-3 h-3 sm:w-4 sm:h-4 mr-1 text-fuchsia-600 dark:text-fuchsia-400" />
-                    <span>All systems operational</span>
+                  <div className="flex items-center justify-between bg-gray-100 dark:bg-slate-700/50 rounded-lg px-3 sm:px-4 py-2">
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">Holiday availability</span>
+                    <span className="text-xs sm:text-sm font-semibold text-fuchsia-600 dark:text-fuchsia-400">Active</span>
                   </div>
                 </div>
               </div>
             </motion.div>
           </div>
 
+          {/* Bottom CTAs */}
           <motion.div
-            className="text-center mt-8 sm:mt-12"
+            className="text-center mt-12 sm:mt-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <Button
-              size="lg"
-              className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-semibold py-3 px-6 sm:px-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 text-sm sm:text-base"
-              asChild
-            >
-              <Link href="/contact">
-                <PlayCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                <span className="whitespace-nowrap">Request Interactive Demo</span>
-              </Link>
-            </Button>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 text-sm sm:text-base">Results based on average client performance metrics across all industries</p>
+            
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-semibold py-3 px-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105"
+                onClick={() => setShowROIModal(true)}
+              >
+                <Calculator className="mr-2 h-5 w-5" />
+                Calculate Your ROI
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full sm:w-auto border-purple-500 text-purple-600 dark:border-purple-400 dark:text-purple-400 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-400 dark:hover:text-slate-900 font-semibold py-3 px-6 sm:px-8 rounded-lg transition-all duration-300"
+                asChild
+              >
+                <Link href="/contact">
+                  <Users className="mr-2 h-5 w-5" />
+                  Contact Us
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -992,6 +1106,16 @@ export default function PlatformPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ROI Calculator Modal */}
+      <ModalWrapper
+        isOpen={showROIModal}
+        onClose={() => setShowROIModal(false)}
+        title="ROI Calculator"
+        maxWidth="max-w-4xl"
+      >
+        <ROICalculator />
+      </ModalWrapper>
     </div>
   )
 }

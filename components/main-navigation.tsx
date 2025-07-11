@@ -441,14 +441,72 @@ export function MainNavigation() {
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList className="space-x-1">
             <NavigationMenuItem>
-              <Link href="/platform" legacyBehavior passHref>
-                <NavigationMenuLink {...commonLinkProps("/platform")}>
-                  <span>
-                    Platform
-                    {activeIndicatorSpan("/platform")}
-                  </span>
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuTrigger {...commonTriggerProps("/platform")}>
+                Platform
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <div className="w-[400px] p-4 bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
+                  <NavigationMenuLink asChild>
+                    <Link
+                      href="/platform"
+                      className="group flex flex-col space-y-1 rounded-md p-3 bg-gradient-to-r from-cyan-50 to-purple-50 dark:from-cyan-900/20 dark:to-purple-900/20 hover:from-cyan-100 hover:to-purple-100 dark:hover:from-cyan-900/30 dark:hover:to-purple-900/30 transition-all duration-200"
+                    >
+                      <div className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        The NovaGent Platform
+                      </div>
+                      <p className="text-xs text-slate-600 dark:text-slate-400">
+                        Experience the world's first managed AI platform with complete transparency and control
+                      </p>
+                    </Link>
+                  </NavigationMenuLink>
+                  
+                  <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/platform/integrations"
+                        className="group flex items-center justify-between rounded-md p-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-md bg-gradient-to-br from-cyan-100 to-purple-100 dark:from-cyan-800/30 dark:to-purple-800/30 flex items-center justify-center">
+                            <Share2 className="h-4 w-4 text-cyan-600 dark:text-cyan-400" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                              Integrations
+                            </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                              Connect with 30+ tools you already use
+                            </p>
+                          </div>
+                        </div>
+                        <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </Link>
+                    </NavigationMenuLink>
+                    
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/platform/security"
+                        className="group flex items-center justify-between rounded-md p-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all duration-200 mt-2"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 rounded-md bg-gradient-to-br from-purple-100 to-fuchsia-100 dark:from-purple-800/30 dark:to-fuchsia-800/30 flex items-center justify-center">
+                            <ShieldCheck className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                          </div>
+                          <div>
+                            <div className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                              Security
+                            </div>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">
+                              Enterprise-grade security & compliance
+                            </p>
+                          </div>
+                        </div>
+                        <ArrowRight className="h-4 w-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                </div>
+              </NavigationMenuContent>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
@@ -662,27 +720,98 @@ export function MainNavigation() {
                 About Us
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-x-4 gap-y-3 p-4 md:w-[500px] bg-white dark:bg-slate-950 shadow-xl rounded-lg border border-slate-200 dark:border-slate-800">
-                  <li className="md:col-span-1">
-                    <div className="p-3 pb-1">
-                      <h3 className="text-sm font-medium text-sky-600 dark:text-sky-400">DISCOVER NOVAGENT</h3>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
-                        Learn more about our company, vision, and commitment.
-                      </p>
+                <div className="w-[600px] p-6 bg-white dark:bg-slate-950 shadow-2xl rounded-xl border border-slate-200 dark:border-slate-800">
+                  {/* Header Section with Gradient Background */}
+                  <div className="mb-6">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/about-us/our-story-mission"
+                        className="group block rounded-lg p-4 bg-gradient-to-br from-sky-50 via-indigo-50 to-purple-50 dark:from-sky-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 hover:from-sky-100 hover:via-indigo-100 hover:to-purple-100 dark:hover:from-sky-900/30 dark:hover:via-indigo-900/30 dark:hover:to-purple-900/30 transition-all duration-300 border border-sky-200/50 dark:border-sky-700/50"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h3 className="text-lg font-bold bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 dark:from-sky-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+                              Discover NovaGent
+                            </h3>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                              Learn about our mission to transform businesses through managed AI
+                            </p>
+                          </div>
+                          <div className="flex-shrink-0">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-500 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                              <ArrowRight className="h-5 w-5 text-white" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+
+                  {/* Links Grid - Two columns with visual hierarchy */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {aboutUsLinks.map((component, index) => {
+                      // Special styling for certain items
+                      const isHighlighted = component.title === "Join Our Mission" || component.title === "Trust & Security";
+                      
+                      return (
+                        <NavigationMenuLink key={component.title} asChild>
+                          <Link
+                            href={component.href}
+                            className={cn(
+                              "group relative flex flex-col space-y-2 rounded-lg p-4 transition-all duration-200",
+                              isHighlighted
+                                ? "bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-800/30 border border-slate-200 dark:border-slate-700 hover:border-sky-300 dark:hover:border-sky-600"
+                                : "hover:bg-slate-50 dark:hover:bg-slate-800/50 border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
+                            )}
+                          >
+                            {/* Icon with gradient background */}
+                            <div className="flex items-start space-x-3">
+                              <div className={cn(
+                                "flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105",
+                                isHighlighted
+                                  ? "bg-gradient-to-br from-sky-100 to-purple-100 dark:from-sky-800/30 dark:to-purple-800/30"
+                                  : "bg-slate-100 dark:bg-slate-800"
+                              )}>
+                                {React.cloneElement(component.icon, { 
+                                  className: cn(
+                                    "h-5 w-5",
+                                    isHighlighted ? "text-sky-600 dark:text-sky-400" : component.icon.props.className
+                                  )
+                                })}
+                              </div>
+                              <div className="flex-grow">
+                                <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                                  {component.title}
+                                </div>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">
+                                  {component.description}
+                                </p>
+                              </div>
+                            </div>
+                            
+                            {/* Hover indicator */}
+                            <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-sky-500 to-purple-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                          </Link>
+                        </NavigationMenuLink>
+                      );
+                    })}
+                  </div>
+
+                  {/* Footer CTA */}
+                  <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                      <span>Building the future of Managed AI</span>
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href="/contact"
+                          className="font-medium text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors"
+                        >
+                          Get in touch ?
+                        </Link>
+                      </NavigationMenuLink>
                     </div>
-                  </li>
-                  {aboutUsLinks.map((component) => (
-                    <ListItem
-                      key={component.title}
-                      title={component.title}
-                      href={component.href}
-                      icon={component.icon}
-                      className="hover:bg-slate-100 dark:hover:bg-slate-800/60 rounded-md transition-colors duration-150"
-                    >
-                      {component.description}
-                    </ListItem>
-                  ))}
-                </ul>
+                  </div>
+                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
 
@@ -783,19 +912,49 @@ export function MainNavigation() {
                   </SheetClose>
                 </div>
                 <nav className="flex-grow space-y-1 p-4 overflow-y-auto">
-                  <SheetClose asChild>
-                    <Link
-                      href="/platform"
-                      className={cn(
-                        "block rounded-md px-3 py-2.5 text-base font-medium transition-colors",
-                        pathname === "/platform"
-                          ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
-                          : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
-                      )}
-                    >
-                      Platform
-                    </Link>
-                  </SheetClose>
+                  <div>
+                    <SheetClose asChild>
+                      <Link
+                        href="/platform"
+                        className={cn(
+                          "block rounded-md px-3 py-2.5 text-base font-medium transition-colors",
+                          pathname === "/platform"
+                            ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                            : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
+                        )}
+                      >
+                        Platform
+                      </Link>
+                    </SheetClose>
+                    <div className="ml-4 mt-1 border-l border-slate-200 dark:border-slate-700 pl-3">
+                      <SheetClose asChild>
+                        <Link
+                          href="/platform/integrations"
+                          className={cn(
+                            "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                            pathname === "/platform/integrations"
+                              ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                              : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
+                          )}
+                        >
+                          Integrations
+                        </Link>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <Link
+                          href="/platform/security"
+                          className={cn(
+                            "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                            pathname === "/platform/security"
+                              ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                              : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
+                          )}
+                        >
+                          Security
+                        </Link>
+                      </SheetClose>
+                    </div>
+                  </div>
 
                   <SheetClose asChild>
                     <Link

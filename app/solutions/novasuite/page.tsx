@@ -12,7 +12,7 @@ import ModalWrapper from "@/components/novasuite/modals/modal-wrapper"
 import UsageEstimator from "@/components/novasuite/modals/usage-estimator"
 import ROICalculator from "@/components/novasuite/modals/roi-calculator"
 import IntegrationChecker from "@/components/novasuite/modals/integration-checker"
-import SolutionBundlesBento from "@/components/novasuite/solution-bundles-bento"
+import SolutionKitsBento from "@/components/novasuite/solution-kits-bento"
 import {
   ArrowRight,
   Zap,
@@ -298,52 +298,6 @@ const agentSkills: AgentSkill[] = [
     gradient: "from-teal-500 to-cyan-600"
   },
   {
-    id: "finance-flow-manager",
-    name: "Financial Operations Agent",
-    publicName: "Finance Flow Manager",
-    icon: <DollarSign className="h-8 w-8 text-green-500" />,
-    category: "Finance & Legal",
-    tagline: "Transaction processing and financial operations",
-    outcome: "Reconciles transactions, flags anomalies, and generates invoices automatically",
-    keyActions: [
-      "Transaction reconciliation",
-      "Anomaly detection",
-      "Invoice generation",
-      "Financial reporting"
-    ],
-    priceModel: "Per transaction processed",
-    basePricing: { basic: 500, advanced: 1000, enterprise: 2000 },
-    href: "/solutions/novasuite/finance-flow-manager",
-    priority: 'phase2',
-    automationRate: "96%",
-    timeToValue: "6 hours",
-    integrations: 11,
-    gradient: "from-green-600 to-emerald-600"
-  },
-  {
-    id: "legal-logic-hub",
-    name: "Legal Document Agent",
-    publicName: "Legal Logic Hub",
-    icon: <FileText className="h-8 w-8 text-indigo-500" />,
-    category: "Finance & Legal",
-    tagline: "Contract drafting and legal document management",
-    outcome: "Drafts, redlines, and tracks contracts with regulation-aware templates",
-    keyActions: [
-      "Contract generation from templates",
-      "Clause library management",
-      "Redline tracking",
-      "Compliance validation"
-    ],
-    priceModel: "Per document generated",
-    basePricing: { basic: 800, advanced: 1500, enterprise: 3000 },
-    href: "/solutions/novasuite/legal-logic-hub",
-    priority: 'phase2',
-    automationRate: "89%",
-    timeToValue: "24 hours",
-    integrations: 6,
-    gradient: "from-slate-500 to-indigo-600"
-  },
-  {
     id: "property-intelligence-manager",
     name: "Real Estate Operations Agent",
     publicName: "Property Intelligence Manager",
@@ -367,6 +321,29 @@ const agentSkills: AgentSkill[] = [
     gradient: "from-amber-500 to-orange-600"
   },
   {
+    id: "finance-flow-manager",
+    name: "Financial Operations Agent",
+    publicName: "Finance Flow Manager",
+    icon: <DollarSign className="h-8 w-8 text-green-500" />,
+    category: "Finance & Legal",
+    tagline: "Transaction processing and financial operations",
+    outcome: "Reconciles transactions, flags anomalies, and generates invoices automatically",
+    keyActions: [
+      "Transaction reconciliation",
+      "Anomaly detection",
+      "Invoice generation",
+      "Financial reporting"
+    ],
+    priceModel: "Per transaction processed",
+    basePricing: { basic: 500, advanced: 1000, enterprise: 2000 },
+    href: "/solutions/novasuite/finance-flow-manager",
+    priority: 'phase2',
+    automationRate: "96%",
+    timeToValue: "6 hours",
+    integrations: 11,
+    gradient: "from-green-600 to-emerald-600"
+  },
+  {
     id: "commerceops-manager",
     name: "E-commerce Operations Agent",
     publicName: "CommerceOps Manager",
@@ -388,6 +365,29 @@ const agentSkills: AgentSkill[] = [
     timeToValue: "24 hours",
     integrations: 10,
     gradient: "from-violet-500 to-purple-600"
+  },
+  {
+    id: "legal-logic-hub",
+    name: "Legal Document Agent",
+    publicName: "Legal Logic Hub",
+    icon: <FileText className="h-8 w-8 text-indigo-500" />,
+    category: "Finance & Legal",
+    tagline: "Contract drafting and legal document management",
+    outcome: "Drafts, redlines, and tracks contracts with regulation-aware templates",
+    keyActions: [
+      "Contract generation from templates",
+      "Clause library management",
+      "Redline tracking",
+      "Compliance validation"
+    ],
+    priceModel: "Per document generated",
+    basePricing: { basic: 800, advanced: 1500, enterprise: 3000 },
+    href: "/solutions/novasuite/legal-logic-hub",
+    priority: 'phase2',
+    automationRate: "89%",
+    timeToValue: "24 hours",
+    integrations: 6,
+    gradient: "from-slate-500 to-indigo-600"
   }
 ]
 
@@ -401,21 +401,12 @@ const skillsByCategory = agentSkills.reduce((acc, skill) => {
 }, {} as Record<string, AgentSkill[]>)
 
 export default function NovaSuitePage() {
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
   const [activeCategory, setActiveCategory] = useState('all')
   const [activeModal, setActiveModal] = useState<'usage' | 'roi' | 'integration' | null>(null)
 
-  const toggleSkill = (skillId: string) => {
-    setSelectedSkills(prev => 
-      prev.includes(skillId) 
-        ? prev.filter(id => id !== skillId)
-        : [...prev, skillId]
-    )
-  }
-
-  const calculateEstimatedCost = () => {
-    // Placeholder calculation - would be replaced with actual pricing logic
-    return selectedSkills.length * 500 + 299 // Base platform fee
+  const handleSkillClick = (skill: AgentSkill) => {
+    // Navigate to the individual skill page
+    window.location.href = skill.href
   }
 
   const categories = Object.keys(skillsByCategory)
@@ -452,11 +443,14 @@ export default function NovaSuitePage() {
 
             {/* Main Heading */}
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              One Agent.{" "}
+              One Agent.
+              <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-600 to-fuchsia-600">
                 Infinite Capabilities
               </span>
-              . Expertly Managed.
+              .
+              <br />
+              Expertly Managed.
             </h1>
 
             {/* Description */}
@@ -505,7 +499,7 @@ export default function NovaSuitePage() {
               </span>
             </h2>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-              Configure your agent with business-critical skills. Each skill is expertly managed and optimized for your success.
+              Explore our business-critical skills. Click any skill to learn more about its capabilities and benefits.
             </p>
           </div>
 
@@ -560,16 +554,14 @@ export default function NovaSuitePage() {
                     exit={{ opacity: 0, scale: 0.8 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
                     className={`relative group cursor-pointer ${tileClass}`}
-                    onClick={() => toggleSkill(skill.id)}
+                    onClick={() => handleSkillClick(skill)}
                   >
                     <div className={`h-full min-h-[160px] rounded-xl bg-gradient-to-br ${skill.gradient} p-6 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1`}>
                     <div className="flex items-start justify-between mb-3">
                       <div className="p-2 rounded-lg bg-white/20">
                         {React.cloneElement(skill.icon, { className: "h-6 w-6 text-white" })}
                       </div>
-                      {selectedSkills.includes(skill.id) && (
-                        <CheckCircle2 className="h-5 w-5 text-white" />
-                      )}
+                      <ArrowRight className="h-5 w-5 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <h3 className="text-white font-bold text-lg mb-1">{skill.publicName}</h3>
                     
@@ -609,50 +601,7 @@ export default function NovaSuitePage() {
             </AnimatePresence>
           </motion.div>
 
-          {/* Configuration Summary */}
-          {selectedSkills.length > 0 && (
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mt-12 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl p-6 border border-purple-200 dark:border-purple-700"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">
-                  Your Agent Configuration
-                </h3>
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  ${calculateEstimatedCost().toLocaleString()}/mo
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {selectedSkills.map(skillId => {
-                  const skill = agentSkills.find(s => s.id === skillId)
-                  return skill ? (
-                    <span key={skillId} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-800 dark:bg-purple-800 dark:text-purple-200">
-                      {skill.publicName}
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          toggleSkill(skillId)
-                        }}
-                        className="ml-2 text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-200"
-                      >
-                        ?
-                      </button>
-                    </span>
-                  ) : null
-                })}
-              </div>
-              <div className="flex gap-4">
-                <Button className="bg-purple-600 hover:bg-purple-700 text-white" asChild>
-                  <Link href="/contact">Get Started with This Configuration</Link>
-                </Button>
-                <Button variant="outline" asChild>
-                  <Link href="/pricing">See Detailed Pricing</Link>
-                </Button>
-              </div>
-            </motion.div>
-          )}
+
         </div>
       </section>
 
@@ -827,8 +776,8 @@ export default function NovaSuitePage() {
         </div>
       </section>
 
-      {/* 5. Vertical Solution Bundles - New Bento Design */}
-      <SolutionBundlesBento />
+      {/* 5. Vertical Solution Kits - New Bento Design */}
+      <SolutionKitsBento />
 
       {/* 6. Comparison Section */}
       <section className="py-16 dark:bg-slate-950 sm:py-24">
@@ -836,10 +785,10 @@ export default function NovaSuitePage() {
           <div className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                NovaGent vs.{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-fuchsia-500">
-                  DIY Platforms
+                  NovaGent
                 </span>
+                {" "}vs. DIY Platforms
               </h2>
               <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
                 Why managed AI delivers better results than build-it-yourself solutions
@@ -953,7 +902,7 @@ export default function NovaSuitePage() {
               asChild
               className="h-12 border-white text-white px-8 text-base font-semibold hover:bg-white/10"
             >
-              <Link href="/pricing">Explore Pricing & Bundles</Link>
+              <Link href="/pricing">Explore Pricing & Kits</Link>
             </Button>
           </div>
         </div>

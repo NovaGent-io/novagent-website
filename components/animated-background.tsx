@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useRef, useEffect } from "react"
+import { useTheme } from "next-themes"
 
 interface Particle {
   x: number
@@ -14,6 +15,7 @@ interface Particle {
 
 const AnimatedBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -35,6 +37,7 @@ const AnimatedBackground: React.FC = () => {
 
     const initParticles = () => {
       particles = []
+      const isLight = theme === 'light'
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
@@ -42,7 +45,9 @@ const AnimatedBackground: React.FC = () => {
           radius: Math.random() * 2 + 1,
           vx: Math.random() * 0.5 - 0.25,
           vy: Math.random() * 0.5 - 0.25,
-          color: `rgba(192, 132, 252, ${Math.random() * 0.5 + 0.2})`,
+          color: isLight 
+            ? `rgba(139, 92, 246, ${Math.random() * 0.3 + 0.1})` // Purple with lower opacity for light mode
+            : `rgba(192, 132, 252, ${Math.random() * 0.5 + 0.2})`, // Original for dark mode
         })
       }
     }
@@ -67,6 +72,7 @@ const AnimatedBackground: React.FC = () => {
     }
 
     const drawLines = () => {
+      const isLight = theme === 'light'
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x
@@ -78,7 +84,9 @@ const AnimatedBackground: React.FC = () => {
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
             const opacity = 1 - distance / maxDistance
-            ctx.strokeStyle = `rgba(165, 180, 252, ${opacity * 0.3})`
+            ctx.strokeStyle = isLight
+              ? `rgba(139, 92, 246, ${opacity * 0.2})` // Purple lines with lower opacity for light mode
+              : `rgba(165, 180, 252, ${opacity * 0.3})` // Original for dark mode
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
@@ -102,7 +110,7 @@ const AnimatedBackground: React.FC = () => {
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener("resize", resizeCanvas)
     }
-  }, [])
+  }, [theme])
 
   return (
     <canvas

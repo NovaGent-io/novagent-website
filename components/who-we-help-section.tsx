@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export default function WhoWeHelpSection() {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 text-white">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 dark:from-slate-900 dark:via-slate-800 dark:to-gray-900 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -23,7 +23,7 @@ export default function WhoWeHelpSection() {
             <Link href="/solutions/custom-agentic-systems" passHref>
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105"
+                className="w-full sm:w-auto bg-white text-purple-900 hover:bg-gray-100 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 Explore Custom Solutions
               </Button>
@@ -32,7 +32,7 @@ export default function WhoWeHelpSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-slate-400 text-slate-200 hover:bg-slate-800 hover:text-white hover:border-slate-300 transition-all duration-300 transform hover:scale-105"
+                className="w-full sm:w-auto border-2 border-white text-white hover:bg-white hover:text-purple-900 font-semibold transition-all duration-300 transform hover:scale-105"
               >
                 Schedule a Consultation
               </Button>
@@ -41,7 +41,7 @@ export default function WhoWeHelpSection() {
         </div>
 
         <div>
-          <h3 className="text-3xl md:text-4xl font-semibold text-center mb-12 md:mb-16 text-slate-100">
+          <h3 className="text-3xl md:text-4xl font-semibold text-center mb-12 md:mb-16 text-white">
             Our Collaborative Process
           </h3>
           <div className="relative">
@@ -60,6 +60,9 @@ export default function WhoWeHelpSection() {
                     "We begin with a deep understanding of your business goals, challenges, and existing infrastructure.",
                   Icon: Lightbulb,
                   accentColor: "purple",
+                  iconClass: "text-purple-400",
+                  borderClass: "border-purple-500/30 hover:border-purple-500/70",
+                  glowClass: "from-purple-500/20",
                 },
                 {
                   step: "02",
@@ -68,6 +71,9 @@ export default function WhoWeHelpSection() {
                     "Our expert team architects a bespoke AI agentic system tailored to your exact requirements.",
                   Icon: DraftingCompass,
                   accentColor: "fuchsia",
+                  iconClass: "text-fuchsia-400",
+                  borderClass: "border-fuchsia-500/30 hover:border-fuchsia-500/70",
+                  glowClass: "from-fuchsia-500/20",
                 },
                 {
                   step: "03",
@@ -76,6 +82,9 @@ export default function WhoWeHelpSection() {
                     "We build and integrate your custom solution with a focus on efficiency and seamless deployment.",
                   Icon: GitMerge,
                   accentColor: "pink",
+                  iconClass: "text-pink-400",
+                  borderClass: "border-pink-500/30 hover:border-pink-500/70",
+                  glowClass: "from-pink-500/20",
                 },
                 {
                   step: "04",
@@ -84,25 +93,27 @@ export default function WhoWeHelpSection() {
                     "We provide continuous monitoring, maintenance, and optimization to ensure peak performance and evolving value.",
                   Icon: TrendingUp,
                   accentColor: "sky",
+                  iconClass: "text-sky-400",
+                  borderClass: "border-sky-500/30 hover:border-sky-500/70",
+                  glowClass: "from-sky-500/20",
                 },
               ].map((item, index) => (
                 <div
                   key={index}
-                  className={`relative p-6 rounded-xl shadow-2xl flex flex-col h-full transition-all duration-300 hover:scale-105 group
-                            bg-slate-800/70 backdrop-blur-md border border-${item.accentColor}-500/30 hover:border-${item.accentColor}-500/70`}
+                  className={`relative p-6 rounded-xl shadow-2xl flex flex-col h-full transition-all duration-300 hover:scale-105 group bg-slate-800/70 backdrop-blur-md ${item.borderClass}`}
                   style={{ zIndex: 1 }}
                 >
                   <div
-                    className={`absolute -top-5 -left-3 w-16 h-16 rounded-full bg-slate-700 flex items-center justify-center border-4 border-slate-800 shadow-lg`}
+                    className="absolute -top-5 -left-3 w-16 h-16 rounded-full bg-slate-700 flex items-center justify-center border-4 border-slate-800 shadow-lg"
                   >
-                    <item.Icon className={`w-7 h-7 text-${item.accentColor}-400`} strokeWidth={2} />
+                    <item.Icon className={`w-7 h-7 ${item.iconClass}`} strokeWidth={2} />
                   </div>
 
                   <div className="pt-10">
                     {" "}
                     {/* Add padding to account for the icon circle */}
-                    <h4 className={`text-xl font-semibold text-${item.accentColor}-400 mb-3 flex items-center`}>
-                      <span className="text-3xl font-bold text-slate-600 mr-3 group-hover:text-${item.accentColor}-500 transition-colors">
+                    <h4 className={`text-xl font-semibold ${item.iconClass} mb-3 flex items-center`}>
+                      <span className={`text-3xl font-bold text-slate-600 mr-3 group-hover:${item.iconClass} transition-colors`}>
                         {item.step}
                       </span>
                       {item.title}
@@ -112,8 +123,7 @@ export default function WhoWeHelpSection() {
 
                   {/* Subtle glow effect */}
                   <div
-                    className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 
-                                bg-gradient-to-br from-${item.accentColor}-500/20 via-transparent to-transparent blur-lg`}
+                    className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-gradient-to-br ${item.glowClass} via-transparent to-transparent blur-lg`}
                   ></div>
                 </div>
               ))}

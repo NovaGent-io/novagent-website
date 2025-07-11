@@ -1,0 +1,3 @@
+// Journey Section Component for NovaGent
+// Copy the content from the artifact "journey-section-component" above to complete this file
+// This is a placeholder that needs to be replaced with the full component code

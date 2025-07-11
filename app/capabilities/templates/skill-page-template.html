@@ -1,0 +1,363 @@
+<!-- 
+NOVAGENT SKILL PAGE TEMPLATE
+=============================
+
+TO CREATE A NEW SKILL PAGE:
+1. Copy this entire template
+2. Replace all [PLACEHOLDER] variables with actual content
+3. Convert to React/Next.js component format
+4. Save as: /app/capabilities/[skill-slug]/page.tsx
+
+EXAMPLE PLACEHOLDERS:
+[SKILL_NAME] = "Prospect Hunter"
+[SKILL_TAGLINE] = "AI-Powered Lead Generation"
+[SKILL_DESCRIPTION] = "Transform your lead generation with AI-powered prospect discovery..."
+[METRIC_1_VALUE] = "5x"
+[METRIC_1_LABEL] = "More Qualified Leads"
+[DEMO_STATUS] = "Scanning LinkedIn Sales Navigator..."
+[CAPABILITY_1_TITLE] = "Multi-Source Discovery"
+[CTA_VALUE] = "5x Your Pipeline"
+
+FULL VARIABLE LIST:
+- [SKILL_NAME]
+- [SKILL_TAGLINE]
+- [SKILL_DESCRIPTION]
+- [METRIC_1_VALUE], [METRIC_1_LABEL]
+- [METRIC_2_VALUE], [METRIC_2_LABEL]
+- [METRIC_3_VALUE], [METRIC_3_LABEL]
+- [PROCESS_STEP_1_TITLE], [PROCESS_STEP_1_DESC]
+- [PROCESS_STEP_2_TITLE], [PROCESS_STEP_2_DESC]
+- [PROCESS_STEP_3_TITLE], [PROCESS_STEP_3_DESC]
+- [PROCESS_STEP_4_TITLE], [PROCESS_STEP_4_DESC]
+- [DEMO_STATUS], [DEMO_ITEM_1], [DEMO_ITEM_2], [DEMO_ITEM_3], [DEMO_RESULT]
+- [CAPABILITY_1_TITLE] through [CAPABILITY_6_TITLE]
+- [CAPABILITY_1_DESC] through [CAPABILITY_6_DESC]
+- [CTA_VALUE], [CTA_DESCRIPTION]
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[SKILL_NAME] - [SKILL_TAGLINE] | NovaGent</title>
+    <link rel="stylesheet" href="skill-page-styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo gradient-text">NovaGent</div>
+                <button class="btn-primary" style="padding: 8px 24px;">Book a Demo</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Hero Section -->
+    <section class="hero-section">
+        <!-- Background Effects -->
+        
+        <!-- Grid Network -->
+        <div class="grid-background">
+            <div class="grid-lines"></div>
+            <!-- Glowing nodes -->
+            <div class="node" style="top: 20%; left: 10%;"></div>
+            <div class="node" style="top: 50%; left: 30%; animation-delay: 0.5s;"></div>
+            <div class="node" style="top: 70%; left: 60%; animation-delay: 1s;"></div>
+            <div class="node" style="top: 30%; left: 80%; animation-delay: 1.5s;"></div>
+            <div class="node" style="top: 80%; left: 20%; animation-delay: 2s;"></div>
+        </div>
+        
+        <!-- Data Streams -->
+        <div class="data-stream" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="data-stream" style="left: 25%; animation-delay: 1s;"></div>
+        <div class="data-stream" style="left: 40%; animation-delay: 2s;"></div>
+        <div class="data-stream" style="left: 70%; animation-delay: 0.5s;"></div>
+        <div class="data-stream" style="left: 85%; animation-delay: 1.5s;"></div>
+        
+        <!-- AI Orb Visualization -->
+        <div class="ai-orb">
+            <div class="orb-core"></div>
+            <div class="orb-ring"></div>
+            <div class="orb-ring"></div>
+            <div class="orb-ring"></div>
+        </div>
+        
+        <!-- Floating Cards -->
+        <div class="floating-card card-1">
+            <div class="card-icon"></div>
+            <div class="card-text">[FLOATING_CARD_1_TEXT]</div>
+        </div>
+        
+        <div class="floating-card card-2">
+            <div class="card-icon"></div>
+            <div class="card-text">[FLOATING_CARD_2_TEXT]</div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="hero-content-wrapper">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="badge">
+                        <span class="indicator"></span>
+                        <span>Part of the NovaCore Suite</span>
+                    </div>
+                    
+                    <h1>[SKILL_NAME_PREFIX] <span class="gradient-text">[SKILL_NAME_SUFFIX]</span></h1>
+                    
+                    <p class="hero-description">
+                        [SKILL_DESCRIPTION]
+                    </p>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card enhanced">
+                            <div class="metric-value gradient-text">[METRIC_1_VALUE]</div>
+                            <div class="metric-label">[METRIC_1_LABEL]</div>
+                        </div>
+                        <div class="metric-card enhanced">
+                            <div class="metric-value gradient-text">[METRIC_2_VALUE]</div>
+                            <div class="metric-label">[METRIC_2_LABEL]</div>
+                        </div>
+                        <div class="metric-card enhanced">
+                            <div class="metric-value gradient-text">[METRIC_3_VALUE]</div>
+                            <div class="metric-label">[METRIC_3_LABEL]</div>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <button class="btn-primary enhanced">See [SKILL_NAME] in Action</button>
+                        <button class="btn-secondary enhanced">View Pricing</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section>
+        <div class="container">
+            <h2>How <span class="gradient-text">[SKILL_NAME]</span> Works</h2>
+            <p class="section-subtitle">
+                Your AI agent uses advanced intelligence to [SKILL_CORE_FUNCTION]
+            </p>
+
+            <div class="process-grid">
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>[PROCESS_STEP_1_TITLE]</h3>
+                            <p>[PROCESS_STEP_1_DESC]</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>[PROCESS_STEP_2_TITLE]</h3>
+                            <p>[PROCESS_STEP_2_DESC]</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>[PROCESS_STEP_3_TITLE]</h3>
+                            <p>[PROCESS_STEP_3_DESC]</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>[PROCESS_STEP_4_TITLE]</h3>
+                            <p>[PROCESS_STEP_4_DESC]</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-card">
+                    <div class="demo-header">
+                        <div class="demo-label">Live [SKILL_NAME] Demo</div>
+                        <div class="demo-status">[DEMO_STATUS]</div>
+                    </div>
+                    <div class="demo-item active">
+                        <span>[DEMO_ITEM_1]</span>
+                        <span style="color: #10b981;">?</span>
+                    </div>
+                    <div class="demo-item pending">
+                        <span>[DEMO_ITEM_2]</span>
+                        <span style="color: #fbbf24;">?</span>
+                    </div>
+                    <div class="demo-item future">
+                        <span style="color: #6b7280;">[DEMO_ITEM_3]</span>
+                    </div>
+                    <div style="margin-top: 24px; text-align: center;">
+                        <div style="font-size: 14px; color: #9ca3af;">[DEMO_RESULT]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Capabilities Section -->
+    <section class="section-dark">
+        <div class="container">
+            <h2>Core <span class="gradient-text">Capabilities</span></h2>
+            <p class="section-subtitle">Everything you need for [SKILL_CORE_BENEFIT]</p>
+
+            <div class="capabilities-grid">
+                <!-- Capability 1 -->
+                <div class="capability-card">
+                    <div class="capability-icon" style="background: rgba(6, 182, 212, 0.2);">
+                        <!-- Add appropriate SVG icon -->
+                    </div>
+                    <h3>[CAPABILITY_1_TITLE]</h3>
+                    <p>[CAPABILITY_1_DESC]</p>
+                </div>
+
+                <!-- Capability 2 -->
+                <div class="capability-card">
+                    <div class="capability-icon" style="background: rgba(59, 130, 246, 0.2);">
+                        <!-- Add appropriate SVG icon -->
+                    </div>
+                    <h3>[CAPABILITY_2_TITLE]</h3>
+                    <p>[CAPABILITY_2_DESC]</p>
+                </div>
+
+                <!-- Capability 3 -->
+                <div class="capability-card">
+                    <div class="capability-icon" style="background: rgba(124, 58, 237, 0.2);">
+                        <!-- Add appropriate SVG icon -->
+                    </div>
+                    <h3>[CAPABILITY_3_TITLE]</h3>
+                    <p>[CAPABILITY_3_DESC]</p>
+                </div>
+
+                <!-- Capability 4 -->
+                <div class="capability-card">
+                    <div class="capability-icon" style="background: rgba(236, 72, 153, 0.2);">
+                        <!-- Add appropriate SVG icon -->
+                    </div>
+                    <h3>[CAPABILITY_4_TITLE]</h3>
+                    <p>[CAPABILITY_4_DESC]</p>
+                </div>
+
+                <!-- Capability 5 -->
+                <div class="capability-card">
+                    <div class="capability-icon" style="background: rgba(6, 182, 212, 0.2);">
+                        <!-- Add appropriate SVG icon -->
+                    </div>
+                    <h3>[CAPABILITY_5_TITLE]</h3>
+                    <p>[CAPABILITY_5_DESC]</p>
+                </div>
+
+                <!-- Capability 6 -->
+                <div class="capability-card">
+                    <div class="capability-icon" style="background: rgba(59, 130, 246, 0.2);">
+                        <!-- Add appropriate SVG icon -->
+                    </div>
+                    <h3>[CAPABILITY_6_TITLE]</h3>
+                    <p>[CAPABILITY_6_DESC]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to <span class="gradient-text">[CTA_VALUE]</span>?</h2>
+            <p class="cta-subtitle">
+                [CTA_DESCRIPTION]
+            </p>
+
+            <div class="cta-buttons">
+                <button class="btn-primary">Schedule a Demo</button>
+                <button class="btn-secondary">Try [SKILL_NAME] Free</button>
+            </div>
+
+            <p class="cta-note">
+                No credit card required ? 14-day free trial ? Cancel anytime
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>? 2025 NovaGent. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Create particles dynamically
+        const particleContainer = document.createElement('div');
+        particleContainer.className = 'particle-container';
+        document.querySelector('.hero-section').appendChild(particleContainer);
+
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particleContainer.appendChild(particle);
+        }
+
+        // Dynamic connection lines between nodes
+        const nodes = document.querySelectorAll('.node');
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'absolute';
+        canvas.style.inset = '0';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.opacity = '0.2';
+        document.querySelector('.grid-background').appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawConnections() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 1;
+            
+            nodes.forEach((node, i) => {
+                nodes.forEach((otherNode, j) => {
+                    if (i < j) {
+                        const rect1 = node.getBoundingClientRect();
+                        const rect2 = otherNode.getBoundingClientRect();
+                        
+                        const x1 = rect1.left + rect1.width / 2;
+                        const y1 = rect1.top + rect1.height / 2;
+                        const x2 = rect2.left + rect2.width / 2;
+                        const y2 = rect2.top + rect2.height / 2;
+                        
+                        const distance = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+                        
+                        if (distance < 300) {
+                            ctx.globalAlpha = 1 - (distance / 300);
+                            ctx.beginPath();
+                            ctx.moveTo(x1, y1);
+                            ctx.lineTo(x2, y2);
+                            ctx.stroke();
+                        }
+                    }
+                });
+            });
+            
+            requestAnimationFrame(drawConnections);
+        }
+        
+        drawConnections();
+    </script>
+</body>
+</html>

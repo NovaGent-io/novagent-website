@@ -1,120 +1,123 @@
-"use client"
-
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { ArrowLeft, Users, CheckCircle2, Calendar } from "lucide-react"
+import InteractiveCapabilitiesSection from '@/components/InteractiveCapabilitiesSection'
+import CTASection from '@/components/CTASection'
+import EnhancedHeroSection from '@/components/EnhancedHeroSection'
+import ScheduleCoordinatorWorkflow from '@/components/workflows/ScheduleCoordinatorWorkflow'
+import IntegrationsAndFeaturesSection from '@/components/IntegrationsAndFeaturesSection'
 
 export default function ScheduleCoordinatorPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-purple-900 to-pink-900 text-white py-24 sm:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link 
-              href="/solutions/novasuite"
-              className="inline-flex items-center text-purple-300 hover:text-purple-200 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to NovaSuite
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="mb-6 inline-flex items-center rounded-full bg-purple-500/10 px-4 py-1.5 text-sm font-medium text-purple-300">
-                <Users className="mr-2 h-4 w-4" />
-                Sales & Growth Skill
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-fuchsia-400">
-                  Schedule Coordinator
-                </span>
-              </h1>
-
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                Automate appointment setting with intelligent follow-up sequences. 
-                Books qualified meetings directly into calendars with personalized outreach and AI-driven timing optimization.
-              </p>
-
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">3x</div>
-                  <div className="text-sm text-slate-400">More Meetings</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-400">75%</div>
-                  <div className="text-sm text-slate-400">Show Rate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-fuchsia-400">24/7</div>
-                  <div className="text-sm text-slate-400">Booking</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-purple-600 hover:bg-purple-700" asChild>
-                  <Link href="/contact">Get Started with Schedule Coordinator</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur border-white/20">
-                <CardHeader>
-                  <CardTitle className="text-white">Live Appointment Booking</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">Analyzing prospect engagement...</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">Personalizing outreach sequence...</span>
-                  </div>
-                  <div className="bg-green-500/20 rounded-lg p-3 mt-4">
-                    <span className="text-green-300 font-medium">? Meeting booked for next Tuesday 2PM</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Notice */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Detailed Information
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600"> Coming Soon</span>
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+      <EnhancedHeroSection
+        className="hero-section bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-950 dark:to-slate-900 text-white"
+        headingText="Schedule Coordinator"
+        subheadingText="Eliminate scheduling friction with AI that books meetings, manages calendars, and reduces no-shows automatically."
+        primaryButtonText="See It In Action"
+        primaryButtonHref="#demo"
+        secondaryButtonText="View Pricing"
+        secondaryButtonHref="/pricing"
+        stats={[
+          { value: "92%", label: "Show Rate Improvement" },
+          { value: "73%", label: "Less Time Scheduling" },
+          { value: "24/7", label: "Booking Availability" }
+        ]}
+      />
+      
+      <InteractiveCapabilitiesSection
+        heading="Intelligent Scheduling That Never Stops"
+        subheading="Schedule Coordinator uses advanced AI to handle complex scheduling scenarios, time zones, and preferences automatically."
+        capabilities={[
+          {
+            title: "Smart Calendar Management",
+            description: "AI analyzes your team's availability, preferences, and priorities to find optimal meeting times for everyone involved.",
+            icon: "Calendar",
+            color: "from-blue-500 to-cyan-500",
+            features: [
+              "Multi-calendar synchronization",
+              "Intelligent conflict resolution",
+              "Buffer time optimization",
+              "Team availability balancing"
+            ],
+            metric: { value: "96%", label: "scheduling accuracy" }
+          },
+          {
+            title: "Automated Follow-Up System",
+            description: "Persistent yet polite follow-ups ensure meetings get booked, with smart reminders that maximize attendance rates.",
+            icon: "Bell",
+            color: "from-purple-500 to-pink-500",
+            features: [
+              "Multi-touch reminder sequences",
+              "SMS and email notifications",
+              "Pre-meeting preparation emails",
+              "No-show recovery workflows"
+            ],
+            metric: { value: "89%", label: "show rate achieved" }
+          },
+          {
+            title: "Time Zone Intelligence",
+            description: "Seamlessly handles global scheduling with automatic time zone detection and conversion for all participants.",
+            icon: "Globe",
+            color: "from-emerald-500 to-teal-500",
+            features: [
+              "Automatic timezone detection",
+              "Global availability display",
+              "Cross-timezone optimization",
+              "Daylight saving adjustments"
+            ],
+            metric: { value: "50+", label: "countries supported" }
+          },
+          {
+            title: "Meeting Type Optimization",
+            description: "Different meeting types require different approaches - from quick calls to multi-stakeholder sessions.",
+            icon: "Users",
+            color: "from-orange-500 to-red-500",
+            features: [
+              "Custom meeting templates",
+              "Duration recommendations",
+              "Required attendee logic",
+              "Meeting prep automation"
+            ],
+            metric: { value: "15+", label: "meeting types" }
+          }
+        ]}
+      />
+      
+      <ScheduleCoordinatorWorkflow />
+      
+      <IntegrationsAndFeaturesSection />
+      
+      <div className="relative bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+        <div className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6 text-slate-900 dark:text-white">
+              Measurable Business Impact
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We're building out comprehensive details for each Agent Skill as part of our Lightning Strategy Phase 1 rollout.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <Link href="/contact">Learn More About Schedule Coordinator</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/solutions/novasuite">Back to NovaSuite</Link>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12">
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">78%</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Reduction in scheduling back-and-forth</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">4.2x</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">More meetings booked per week</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">$45K</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Average annual time value saved</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      
+      <CTASection
+        heading="Ready to Eliminate Scheduling Friction?"
+        subheading="Let Schedule Coordinator transform your booking process with AI that works 24/7 to fill your calendar with qualified meetings."
+        primaryButtonText="Schedule a Demo"
+        primaryButtonHref="/contact"
+        secondaryButtonText="Explore Our Platform"
+        secondaryButtonHref="/platform"
+        className="bg-slate-900 dark:bg-slate-950"
+      />
+    </main>
   )
 }

@@ -6,10 +6,11 @@ import VideoIntroSection from "@/components/video-intro-section"
 import HeroSection from "@/hero-section"
 import ProblemSolutionSection from "@/components/problem-solution-section"
 import UVPSection from "@/components/uvp-section"
-import AgentSolutionsSection from "@/components/agent-solutions-section"
-import WhoWeHelpSection from "@/components/who-we-help-section"
-import CredibilitySection from "@/components/credibility-section"
+import AgentSkillsSleek from "@/components/agent-skills-sleek"
+
+import ModularFrameworkSection from "@/components/modular-framework"
 import FinalCTASection from "@/components/final-cta-section"
+import UnlockGrowthSection from "@/components/unlock-growth-section"
 
 export default function HomePage() {
   const heroSectionRef = useRef<HTMLElement>(null)
@@ -20,18 +21,18 @@ export default function HomePage() {
 
   return (
     <>
-      <main>
+      <div className="-mt-16">
         <VideoIntroSection onVideoFinishScroll={handleScrollToHero} />
-        <div ref={heroSectionRef as React.RefObject<HTMLDivElement>}>
+        <div ref={heroSectionRef as React.RefObject<HTMLDivElement>} className="-mt-1">
           <HeroSection />
         </div>
         <ProblemSolutionSection />
         <UVPSection />
-        <AgentSolutionsSection />
-        <WhoWeHelpSection />
-        <CredibilitySection />
+        <AgentSkillsSleek />
+        <UnlockGrowthSection />
+        <ModularFrameworkSection />
         <FinalCTASection />
-      </main>
+      </div>
     </>
   )
 }

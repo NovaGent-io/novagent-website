@@ -11,7 +11,7 @@ interface VideoIntroSectionProps {
 
 export default function VideoIntroSection({ onVideoFinishScroll }: VideoIntroSectionProps) {
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black">
+    <section className="relative h-screen w-full overflow-hidden bg-black mb-0">
       <video
         className="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto object-cover transform -translate-x-1/2 -translate-y-1/2"
         playsInline

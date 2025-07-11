@@ -1,120 +1,144 @@
-"use client"
-
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { ArrowLeft, FileText, CheckCircle2, TrendingUp } from "lucide-react"
+import InteractiveCapabilitiesSection from '@/components/InteractiveCapabilitiesSection'
+import CTASection from '@/components/CTASection'
+import EnhancedHeroSection from '@/components/EnhancedHeroSection'
+import AnimatedHowItWorksSection from '@/components/AnimatedHowItWorksSection'
+import IntegrationsAndFeaturesSection from '@/components/IntegrationsAndFeaturesSection'
 
 export default function LegalLogicHubPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900 text-white py-24 sm:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link 
-              href="/solutions/novasuite"
-              className="inline-flex items-center text-indigo-300 hover:text-indigo-200 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to NovaSuite
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="mb-6 inline-flex items-center rounded-full bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-300">
-                <FileText className="mr-2 h-4 w-4" />
-                Finance & Legal Skill
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-purple-400">
-                  Legal Logic Hub
-                </span>
-              </h1>
-
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                Contract drafting and legal document management powered by AI. 
-                Generate, review, and track legal documents with confidence and compliance.
-              </p>
-
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-400">90%</div>
-                  <div className="text-sm text-slate-400">Faster Drafting</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-400">100%</div>
-                  <div className="text-sm text-slate-400">Compliance</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">75%</div>
-                  <div className="text-sm text-slate-400">Cost Reduction</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700" asChild>
-                  <Link href="/contact">Automate Your Legal Ops</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur border-white/20">
-                <CardHeader>
-                  <CardTitle className="text-white">Document Processing</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">3 contracts generated today...</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">5 documents under review...</span>
-                  </div>
-                  <div className="bg-green-500/20 rounded-lg p-3 mt-4">
-                    <span className="text-green-300 font-medium">? 60 documents processed this month</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Notice */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Detailed Information
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-600"> Coming Soon</span>
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+      <EnhancedHeroSection
+        className="hero-section bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-950 dark:to-slate-900 text-white"
+        headingText="Legal Logic Hub"
+        subheadingText="Streamline legal operations with AI that drafts contracts, manages documents, and ensures compliance automatically."
+        primaryButtonText="See It In Action"
+        primaryButtonHref="#demo"
+        secondaryButtonText="View Pricing"
+        secondaryButtonHref="/pricing"
+        stats={[
+          { value: "95%", label: "Faster Contract Creation" },
+          { value: "99.7%", label: "Accuracy Rate" },
+          { value: "82%", label: "Cost Reduction" }
+        ]}
+      />
+      
+      <InteractiveCapabilitiesSection
+        heading="AI Legal Operations That Scale With You"
+        subheading="Legal Logic Hub combines intelligent document generation with automated workflows to transform how legal work gets done."
+        capabilities={[
+          {
+            title: "Smart Contract Generation",
+            description: "AI creates customized contracts from your templates, ensuring consistency while adapting to specific deal terms.",
+            icon: "FileText",
+            color: "from-blue-500 to-cyan-500",
+            features: [
+              "Template library management",
+              "Dynamic clause selection",
+              "Multi-party coordination",
+              "Version control"
+            ],
+            metric: { value: "10min", label: "avg draft time" }
+          },
+          {
+            title: "Automated Document Review",
+            description: "AI analyzes contracts for risks, missing clauses, and compliance issues before they become problems.",
+            icon: "Search",
+            color: "from-purple-500 to-pink-500",
+            features: [
+              "Risk identification",
+              "Clause extraction",
+              "Compliance checking",
+              "Precedent matching"
+            ],
+            metric: { value: "98%", label: "issue detection" }
+          },
+          {
+            title: "Intelligent Workflow Management",
+            description: "Orchestrate approvals, signatures, and deadlines automatically while maintaining complete audit trails.",
+            icon: "GitBranch",
+            color: "from-emerald-500 to-teal-500",
+            features: [
+              "Approval routing",
+              "E-signature integration",
+              "Deadline tracking",
+              "Audit logging"
+            ],
+            metric: { value: "75%", label: "faster turnaround" }
+          },
+          {
+            title: "Legal Knowledge Base",
+            description: "AI-powered repository that learns from your documents to provide instant answers and precedent recommendations.",
+            icon: "Brain",
+            color: "from-orange-500 to-red-500",
+            features: [
+              "Natural language search",
+              "Precedent analysis",
+              "Clause recommendations",
+              "Regulatory updates"
+            ],
+            metric: { value: "24/7", label: "availability" }
+          }
+        ]}
+      />
+      
+      <AnimatedHowItWorksSection
+        heading="How Legal Logic Hub Works"
+        subheading="A sophisticated system that transforms legal complexity into streamlined efficiency"
+        steps={[
+          {
+            title: "Upload Your Templates",
+            description: "Import your existing contracts, templates, and legal documents to build your personalized AI knowledge base."
+          },
+          {
+            title: "AI Learns Your Style",
+            description: "The system analyzes your documents to understand your preferred language, clauses, and negotiation patterns."
+          },
+          {
+            title: "Automated Drafting",
+            description: "Generate new contracts instantly by providing key terms - AI handles the rest while maintaining your standards."
+          },
+          {
+            title: "Intelligent Management",
+            description: "Track obligations, renewals, and compliance automatically with proactive alerts and recommendations."
+          }
+        ]}
+      />
+      
+      <IntegrationsAndFeaturesSection />
+      
+      <div className="relative bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+        <div className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6 text-slate-900 dark:text-white">
+              Legal Efficiency That Delivers Results
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We're building out comprehensive details for each Agent Skill as part of our Lightning Strategy Phase 2 rollout.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <Link href="/contact">Learn More About Legal Logic Hub</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/solutions/novasuite">Back to NovaSuite</Link>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12">
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">6hrs?15min</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Contract drafting time reduction</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">$450K</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Annual savings on legal operations</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">Zero</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Compliance violations from missed deadlines</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      
+      <CTASection
+        heading="Ready to Transform Your Legal Operations?"
+        subheading="Let Legal Logic Hub revolutionize your legal workflows with AI that drafts faster, reviews smarter, and ensures nothing falls through the cracks."
+        primaryButtonText="Schedule a Demo"
+        primaryButtonHref="/contact"
+        secondaryButtonText="Explore Our Platform"
+        secondaryButtonHref="/platform"
+        className="bg-slate-900 dark:bg-slate-950"
+      />
+    </main>
   )
 }

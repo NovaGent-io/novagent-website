@@ -1,120 +1,144 @@
-"use client"
-
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { ArrowLeft, Search, CheckCircle2, TrendingUp } from "lucide-react"
+import InteractiveCapabilitiesSection from '@/components/InteractiveCapabilitiesSection'
+import CTASection from '@/components/CTASection'
+import EnhancedHeroSection from '@/components/EnhancedHeroSection'
+import AnimatedHowItWorksSection from '@/components/AnimatedHowItWorksSection'
+import IntegrationsAndFeaturesSection from '@/components/IntegrationsAndFeaturesSection'
 
 export default function VisibilityTrustManagerPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-emerald-900 to-purple-900 text-white py-24 sm:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link 
-              href="/solutions/novasuite"
-              className="inline-flex items-center text-emerald-300 hover:text-emerald-200 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to NovaSuite
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="mb-6 inline-flex items-center rounded-full bg-emerald-500/10 px-4 py-1.5 text-sm font-medium text-emerald-300">
-                <Search className="mr-2 h-4 w-4" />
-                Marketing Skill
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400">
-                  Visibility & Trust Manager
-                </span>
-              </h1>
-
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                SEO content generation and reputation monitoring powered by AI. 
-                Build your brand authority with optimized content and proactive reputation management.
-              </p>
-
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-400">10x</div>
-                  <div className="text-sm text-slate-400">Content Output</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-cyan-400">85%</div>
-                  <div className="text-sm text-slate-400">SEO Score Lift</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-400">24/7</div>
-                  <div className="text-sm text-slate-400">Brand Monitoring</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700" asChild>
-                  <Link href="/contact">Boost Your Online Presence</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur border-white/20">
-                <CardHeader>
-                  <CardTitle className="text-white">SEO & Reputation Dashboard</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">4 articles optimized today...</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">17 brand mentions tracked...</span>
-                  </div>
-                  <div className="bg-green-500/20 rounded-lg p-3 mt-4">
-                    <span className="text-green-300 font-medium">? SEO visibility up 45%</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Notice */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Detailed Information
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600"> Coming Soon</span>
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+      <EnhancedHeroSection
+        className="hero-section bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-950 dark:to-slate-900 text-white"
+        headingText="Visibility & Trust Manager"
+        subheadingText="Build and protect your brand reputation with AI that monitors, manages, and amplifies your online presence 24/7."
+        primaryButtonText="See It In Action"
+        primaryButtonHref="#demo"
+        secondaryButtonText="View Pricing"
+        secondaryButtonHref="/pricing"
+        stats={[
+          { value: "4.7?", label: "Average Rating Achieved" },
+          { value: "82%", label: "More Positive Reviews" },
+          { value: "3x", label: "Higher Search Visibility" }
+        ]}
+      />
+      
+      <InteractiveCapabilitiesSection
+        heading="AI-Powered Brand Protection & Growth"
+        subheading="Visibility & Trust Manager combines reputation monitoring, review management, and SEO optimization to build unstoppable brand authority."
+        capabilities={[
+          {
+            title: "Real-Time Reputation Monitoring",
+            description: "AI monitors mentions across 100+ platforms, alerting you instantly to reviews, comments, and brand discussions.",
+            icon: "Eye",
+            color: "from-blue-500 to-cyan-500",
+            features: [
+              "Multi-platform monitoring",
+              "Sentiment analysis",
+              "Competitive tracking",
+              "Alert prioritization"
+            ],
+            metric: { value: "24/7", label: "monitoring coverage" }
+          },
+          {
+            title: "Intelligent Review Management",
+            description: "Automatically request reviews from happy customers and respond to feedback with personalized, brand-aligned messages.",
+            icon: "Star",
+            color: "from-purple-500 to-pink-500",
+            features: [
+              "Automated review requests",
+              "AI-powered responses",
+              "Review platform sync",
+              "Crisis detection"
+            ],
+            metric: { value: "95%", label: "response rate" }
+          },
+          {
+            title: "SEO Content Generation",
+            description: "Create search-optimized content that ranks, drives traffic, and establishes your expertise in your industry.",
+            icon: "FileText",
+            color: "from-emerald-500 to-teal-500",
+            features: [
+              "Keyword research automation",
+              "Content optimization",
+              "Local SEO management",
+              "Schema markup generation"
+            ],
+            metric: { value: "250%", label: "traffic increase" }
+          },
+          {
+            title: "Brand Sentiment Analysis",
+            description: "Track and analyze how customers feel about your brand over time, identifying trends and opportunities for improvement.",
+            icon: "TrendingUp",
+            color: "from-orange-500 to-red-500",
+            features: [
+              "Emotion detection",
+              "Trend identification",
+              "Competitor benchmarking",
+              "Actionable insights"
+            ],
+            metric: { value: "89%", label: "insight accuracy" }
+          }
+        ]}
+      />
+      
+      <AnimatedHowItWorksSection
+        heading="How Visibility & Trust Manager Works"
+        subheading="A comprehensive system that protects and promotes your brand automatically"
+        steps={[
+          {
+            title: "Connect Your Profiles",
+            description: "Link your Google Business Profile, social media accounts, review platforms, and website for unified management."
+          },
+          {
+            title: "AI Monitors Everything",
+            description: "Our AI continuously scans for mentions, reviews, and ranking changes across all platforms and search engines."
+          },
+          {
+            title: "Automated Response & Action",
+            description: "The system responds to reviews, creates SEO content, and manages your online presence based on best practices."
+          },
+          {
+            title: "Measure & Optimize",
+            description: "Track improvements in ratings, rankings, and sentiment while the AI continuously refines its approach."
+          }
+        ]}
+      />
+      
+      <IntegrationsAndFeaturesSection />
+      
+      <div className="relative bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+        <div className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6 text-slate-900 dark:text-white">
+              Reputation Results You Can Measure
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We're building out comprehensive details for each Agent Skill as part of our Lightning Strategy Phase 2 rollout.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <Link href="/contact">Learn More About Visibility & Trust Manager</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/solutions/novasuite">Back to NovaSuite</Link>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12">
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">340%</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Increase in positive reviews within 90 days</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">Top 3</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Google ranking for local search terms</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">$125K</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Average revenue increase from reputation improvement</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      
+      <CTASection
+        heading="Ready to Build Unshakeable Brand Trust?"
+        subheading="Let Visibility & Trust Manager protect and promote your reputation with AI that works 24/7 to build your brand authority."
+        primaryButtonText="Schedule a Demo"
+        primaryButtonHref="/contact"
+        secondaryButtonText="Explore Our Platform"
+        secondaryButtonHref="/platform"
+        className="bg-slate-900 dark:bg-slate-950"
+      />
+    </main>
   )
 }

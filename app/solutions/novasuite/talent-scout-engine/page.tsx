@@ -1,120 +1,144 @@
-"use client"
-
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { ArrowLeft, Briefcase, CheckCircle2, TrendingUp } from "lucide-react"
+import InteractiveCapabilitiesSection from '@/components/InteractiveCapabilitiesSection'
+import CTASection from '@/components/CTASection'
+import EnhancedHeroSection from '@/components/EnhancedHeroSection'
+import AnimatedHowItWorksSection from '@/components/AnimatedHowItWorksSection'
+import IntegrationsAndFeaturesSection from '@/components/IntegrationsAndFeaturesSection'
 
 export default function TalentScoutEnginePage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white py-24 sm:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link 
-              href="/solutions/novasuite"
-              className="inline-flex items-center text-indigo-300 hover:text-indigo-200 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to NovaSuite
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="mb-6 inline-flex items-center rounded-full bg-indigo-500/10 px-4 py-1.5 text-sm font-medium text-indigo-300">
-                <Briefcase className="mr-2 h-4 w-4" />
-                HR & Operations Skill
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-                  Talent Scout Engine
-                </span>
-              </h1>
-
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                End-to-end recruitment and candidate management powered by AI. 
-                Find, screen, and hire top talent faster with intelligent matching and automated workflows.
-              </p>
-
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-indigo-400">75%</div>
-                  <div className="text-sm text-slate-400">Faster Hiring</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">3x</div>
-                  <div className="text-sm text-slate-400">Better Matches</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-pink-400">50%</div>
-                  <div className="text-sm text-slate-400">Cost Reduction</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-indigo-600 hover:bg-indigo-700" asChild>
-                  <Link href="/contact">Revolutionize Your Hiring</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur border-white/20">
-                <CardHeader>
-                  <CardTitle className="text-white">Recruitment Pipeline</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">247 candidates screened...</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">15 interviews scheduled...</span>
-                  </div>
-                  <div className="bg-green-500/20 rounded-lg p-3 mt-4">
-                    <span className="text-green-300 font-medium">? 8 offers extended this week</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Notice */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Detailed Information
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600"> Coming Soon</span>
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+      <EnhancedHeroSection
+        className="hero-section bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-950 dark:to-slate-900 text-white"
+        headingText="Talent Scout Engine"
+        subheadingText="Find and attract top talent with AI that sources candidates, screens applications, and identifies perfect matches 24/7."
+        primaryButtonText="See It In Action"
+        primaryButtonHref="#demo"
+        secondaryButtonText="View Pricing"
+        secondaryButtonHref="/pricing"
+        stats={[
+          { value: "92%", label: "Quality of Hire Score" },
+          { value: "73%", label: "Faster Time to Fill" },
+          { value: "4.6x", label: "More Qualified Candidates" }
+        ]}
+      />
+      
+      <InteractiveCapabilitiesSection
+        heading="AI Recruiting That Finds Hidden Gems"
+        subheading="Talent Scout Engine combines deep sourcing capabilities with intelligent screening to build a pipeline of exceptional candidates automatically."
+        capabilities={[
+          {
+            title: "Multi-Channel Talent Sourcing",
+            description: "AI searches across job boards, social networks, and talent databases to find both active and passive candidates.",
+            icon: "Search",
+            color: "from-blue-500 to-cyan-500",
+            features: [
+              "LinkedIn deep search",
+              "GitHub talent mining",
+              "Boolean query optimization",
+              "Passive candidate identification"
+            ],
+            metric: { value: "10M+", label: "profiles accessed" }
+          },
+          {
+            title: "Intelligent Resume Screening",
+            description: "Advanced NLP analyzes resumes beyond keywords, understanding context, experience quality, and cultural fit.",
+            icon: "FileText",
+            color: "from-purple-500 to-pink-500",
+            features: [
+              "Contextual skill matching",
+              "Experience validation",
+              "Culture fit scoring",
+              "Bias-free screening"
+            ],
+            metric: { value: "96%", label: "screening accuracy" }
+          },
+          {
+            title: "Automated Candidate Engagement",
+            description: "Personalized outreach sequences that nurture relationships and keep top talent engaged throughout the process.",
+            icon: "MessageSquare",
+            color: "from-emerald-500 to-teal-500",
+            features: [
+              "Personalized messaging",
+              "Interview scheduling",
+              "Status updates",
+              "Candidate experience tracking"
+            ],
+            metric: { value: "68%", label: "response rate" }
+          },
+          {
+            title: "Predictive Hiring Analytics",
+            description: "AI predicts candidate success, retention likelihood, and team fit based on historical data and performance patterns.",
+            icon: "Brain",
+            color: "from-orange-500 to-red-500",
+            features: [
+              "Success prediction",
+              "Retention forecasting",
+              "Team dynamics analysis",
+              "Offer acceptance probability"
+            ],
+            metric: { value: "89%", label: "prediction accuracy" }
+          }
+        ]}
+      />
+      
+      <AnimatedHowItWorksSection
+        heading="How Talent Scout Engine Works"
+        subheading="A comprehensive system that transforms recruiting from reactive to proactive"
+        steps={[
+          {
+            title: "Define Your Ideal Profile",
+            description: "Set requirements including skills, experience, culture fit, and other criteria that matter for the role."
+          },
+          {
+            title: "AI Hunts Everywhere",
+            description: "The engine searches multiple platforms simultaneously, identifying candidates that match your exact needs."
+          },
+          {
+            title: "Smart Screening & Ranking",
+            description: "Applications are analyzed, scored, and ranked based on fit, with detailed insights on each candidate."
+          },
+          {
+            title: "Automated Engagement",
+            description: "Top candidates receive personalized outreach, interview invitations, and are guided through your hiring process."
+          }
+        ]}
+      />
+      
+      <IntegrationsAndFeaturesSection />
+      
+      <div className="relative bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+        <div className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6 text-slate-900 dark:text-white">
+              Recruiting Results That Build Great Teams
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We're building out comprehensive details for each Agent Skill as part of our Lightning Strategy Phase 2 rollout.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <Link href="/contact">Learn More About Talent Scout Engine</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/solutions/novasuite">Back to NovaSuite</Link>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12">
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">21?7</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Days to hire reduced from 21 to 7</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">$8,400</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Average cost per hire reduction</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">94%</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">New hire retention after 12 months</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      
+      <CTASection
+        heading="Ready to Build Your Dream Team Faster?"
+        subheading="Let Talent Scout Engine transform your hiring with AI that finds, screens, and engages the perfect candidates for every role."
+        primaryButtonText="Schedule a Demo"
+        primaryButtonHref="/contact"
+        secondaryButtonText="Explore Our Platform"
+        secondaryButtonHref="/platform"
+        className="bg-slate-900 dark:bg-slate-950"
+      />
+    </main>
   )
 }

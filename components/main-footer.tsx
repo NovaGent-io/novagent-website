@@ -31,6 +31,7 @@ export default function MainFooter() {
       title: "Resources",
       links: [
         { href: "/blog", text: "Blog & Insights" },
+        { href: "/platform/integrations", text: "Integrations" },
         { href: "/contact", text: "Contact Support" },
         // Add FAQ or Help Center link here if available
       ],

@@ -591,12 +591,10 @@ export default function HowItWorksPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-xl text-center lg:max-w-4xl mb-12">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-              The Three Pillars Behind{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                NovaGent's
-              </span>{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 to-purple-600">
-                Lightning Strategy
+              The Three Pillars Behind
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600">
+                NovaGent's Lightning Strategy
               </span>
             </h2>
             <p className="mt-4 sm:mt-6 text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
@@ -605,8 +603,30 @@ export default function HowItWorksPage() {
             </p>
           </div>
           
+          <div className="mt-12 sm:mt-16 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+            {platformPillars.map((pillar, index) => (
+              <div
+                key={pillar.title}
+                className="group rounded-xl bg-white dark:bg-slate-800/80 p-4 sm:p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-slate-200 dark:border-slate-700 hover:border-purple-500/30 dark:hover:border-purple-400/30 flex flex-col h-full"
+              >
+                <div className="mb-4 sm:mb-5 flex justify-center">{pillar.icon}</div>
+                <h3 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 sm:mb-4 text-center leading-tight">
+                  {pillar.title}
+                </h3>
+                <ul className="space-y-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-left flex-grow">
+                  {pillar.bullets.map((bullet, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <Zap className="h-4 w-4 mr-2 mt-1 flex-shrink-0 text-purple-500" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          
           {/* Interactive Agent Feature Banner */}
-          <div className="max-w-5xl mx-auto mb-12">
+          <div className="max-w-5xl mx-auto mt-12">
             <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-fuchsia-500/10 border border-purple-500/20 p-6 sm:p-8">
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-fuchsia-500/5 animate-pulse"></div>
               <div className="relative flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
@@ -631,28 +651,6 @@ export default function HowItWorksPage() {
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div className="mt-12 sm:mt-16 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
-            {platformPillars.map((pillar, index) => (
-              <div
-                key={pillar.title}
-                className="group rounded-xl bg-white dark:bg-slate-800/80 p-4 sm:p-6 shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 border border-slate-200 dark:border-slate-700 hover:border-purple-500/30 dark:hover:border-purple-400/30 flex flex-col h-full"
-              >
-                <div className="mb-4 sm:mb-5 flex justify-center">{pillar.icon}</div>
-                <h3 className="text-lg sm:text-xl font-semibold text-slate-800 dark:text-slate-100 mb-3 sm:mb-4 text-center leading-tight">
-                  {pillar.title}
-                </h3>
-                <ul className="space-y-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 text-left flex-grow">
-                  {pillar.bullets.map((bullet, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <Zap className="h-4 w-4 mr-2 mt-1 flex-shrink-0 text-purple-500" />
-                      <span>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
         </div>
       </section>

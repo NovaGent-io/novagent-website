@@ -22,7 +22,14 @@ import {
   Layers,
   Info,
   ExternalLink,
-  Sparkles
+  Sparkles,
+  Package,
+  Grid,
+  Table,
+  ClipboardList,
+  FolderOpen,
+  HardDrive,
+  ShoppingBag
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -40,7 +47,7 @@ interface Integration {
   name: string
   category: string
   icon: React.ReactElement
-  status: 'native' | 'available' | 'coming-soon' | 'request'
+  status: 'native' | 'available'
   description: string
   features?: string[]
   setupTime?: string
@@ -87,8 +94,98 @@ const integrations: Integration[] = [
     description: 'Connect with Zoho CRM for lead and contact management',
     setupTime: '25 mins'
   },
+  {
+    id: 'copper',
+    name: 'Copper',
+    category: 'CRM & Sales',
+    icon: <Database className="h-5 w-5" />,
+    status: 'available',
+    description: 'CRM that works seamlessly with Google Workspace',
+    features: ['Gmail integration', 'Pipeline management', 'Contact tracking'],
+    setupTime: '20 mins'
+  },
+  {
+    id: 'agile-crm',
+    name: 'Agile CRM',
+    category: 'CRM & Sales',
+    icon: <Layers className="h-5 w-5" />,
+    status: 'available',
+    description: 'All-in-one CRM with sales, marketing, and service automation',
+    setupTime: '25 mins'
+  },
+  {
+    id: 'clickup-monday',
+    name: 'ClickUp Monday CRM',
+    category: 'CRM & Sales',
+    icon: <Layers className="h-5 w-5" />,
+    status: 'available',
+    description: 'Project management and CRM functionality combined',
+    setupTime: '30 mins'
+  },
+  {
+    id: 'activecamp',
+    name: 'ActiveCampaign',
+    category: 'CRM & Sales',
+    icon: <Mail className="h-5 w-5" />,
+    status: 'available',
+    description: 'Email marketing, marketing automation, and CRM',
+    features: ['Email automation', 'Lead scoring', 'Sales automation'],
+    setupTime: '35 mins'
+  },
+  
+  // Marketing
+  {
+    id: 'google-ads',
+    name: 'Google Ads',
+    category: 'Marketing',
+    icon: <Globe className="h-5 w-5" />,
+    status: 'native',
+    description: 'Manage and optimize Google Ads campaigns',
+    features: ['Campaign management', 'Bid optimization', 'Reporting', 'Keyword research'],
+    setupTime: '45 mins'
+  },
+  {
+    id: 'mailchimp',
+    name: 'Mailchimp',
+    category: 'Marketing',
+    icon: <Mail className="h-5 w-5" />,
+    status: 'available',
+    description: 'Email marketing automation and campaign management',
+    features: ['Email campaigns', 'Audience segmentation', 'Analytics', 'Templates'],
+    setupTime: '25 mins'
+  },
   
   // Communication
+  {
+    id: 'slack',
+    name: 'Slack',
+    category: 'Communication',
+    icon: <MessageSquare className="h-5 w-5" />,
+    status: 'native',
+    description: 'Send notifications and messages to Slack channels',
+    features: ['Channel messaging', 'DMs', 'File sharing', 'Webhooks'],
+    setupTime: '5 mins'
+  },
+  {
+    id: 'zoom',
+    name: 'Zoom',
+    category: 'Communication',
+    icon: <Users className="h-5 w-5" />,
+    status: 'available',
+    description: 'Video conferencing and meeting scheduling',
+    features: ['Meeting creation', 'Recording access', 'Calendar sync'],
+    setupTime: '15 mins'
+  },
+  {
+    id: 'teams',
+    name: 'Microsoft Teams',
+    category: 'Communication',
+    icon: <Users className="h-5 w-5" />,
+    status: 'available',
+    description: 'Integrate with Teams for enterprise communication',
+    features: ['Channel messaging', 'Meeting scheduling', 'File collaboration'],
+    setupTime: '20 mins'
+  },
   {
     id: 'gmail',
     name: 'Gmail',
@@ -101,7 +198,7 @@ const integrations: Integration[] = [
   },
   {
     id: 'outlook',
-    name: 'Microsoft Outlook',
+    name: 'Outlook',
     category: 'Communication',
     icon: <Mail className="h-5 w-5" />,
     status: 'native',
@@ -109,41 +206,12 @@ const integrations: Integration[] = [
     features: ['Email management', 'Calendar sync', 'Contact sync'],
     setupTime: '15 mins'
   },
-  {
-    id: 'slack',
-    name: 'Slack',
-    category: 'Communication',
-    icon: <MessageSquare className="h-5 w-5" />,
-    status: 'native',
-    description: 'Send notifications and messages to Slack channels',
-    features: ['Channel messaging', 'DMs', 'File sharing', 'Webhooks'],
-    setupTime: '5 mins'
-  },
-  {
-    id: 'teams',
-    name: 'Microsoft Teams',
-    category: 'Communication',
-    icon: <Users className="h-5 w-5" />,
-    status: 'available',
-    description: 'Integrate with Teams for enterprise communication',
-    setupTime: '20 mins'
-  },
-  {
-    id: 'twilio',
-    name: 'Twilio',
-    category: 'Communication',
-    icon: <Phone className="h-5 w-5" />,
-    status: 'native',
-    description: 'SMS and voice call capabilities',
-    features: ['SMS sending', 'Voice calls', 'Phone number management'],
-    setupTime: '30 mins'
-  },
   
-  // Calendar & Scheduling
+  // Scheduling
   {
     id: 'google-calendar',
     name: 'Google Calendar',
-    category: 'Calendar & Scheduling',
+    category: 'Scheduling',
     icon: <Calendar className="h-5 w-5" />,
     status: 'native',
     description: 'Full calendar integration for scheduling',
@@ -153,88 +221,142 @@ const integrations: Integration[] = [
   {
     id: 'calendly',
     name: 'Calendly',
-    category: 'Calendar & Scheduling',
+    category: 'Scheduling',
     icon: <Calendar className="h-5 w-5" />,
     status: 'available',
     description: 'Automated scheduling with Calendly',
-    setupTime: '15 mins'
-  },
-  {
-    id: 'outlook-calendar',
-    name: 'Outlook Calendar',
-    category: 'Calendar & Scheduling',
-    icon: <Calendar className="h-5 w-5" />,
-    status: 'native',
-    description: 'Microsoft calendar integration',
+    features: ['Link generation', 'Booking management', 'Calendar sync'],
     setupTime: '15 mins'
   },
   
-  // Marketing & Analytics
+  // Productivity & Collaboration
   {
-    id: 'google-ads',
-    name: 'Google Ads',
-    category: 'Marketing & Analytics',
-    icon: <Globe className="h-5 w-5" />,
+    id: 'google-sheets',
+    name: 'Google Sheets',
+    category: 'Productivity',
+    icon: <Table className="h-5 w-5" />,
     status: 'native',
-    description: 'Manage and optimize Google Ads campaigns',
-    features: ['Campaign management', 'Bid optimization', 'Reporting', 'Keyword research'],
-    setupTime: '45 mins'
+    description: 'Spreadsheet automation and data management',
+    features: ['Data sync', 'Formula execution', 'Report generation'],
+    setupTime: '10 mins'
   },
   {
-    id: 'facebook-ads',
-    name: 'Facebook Ads',
-    category: 'Marketing & Analytics',
-    icon: <Globe className="h-5 w-5" />,
+    id: 'airtable',
+    name: 'Airtable',
+    category: 'Productivity',
+    icon: <Grid className="h-5 w-5" />,
     status: 'available',
-    description: 'Facebook and Instagram advertising',
-    setupTime: '30 mins'
-  },
-  {
-    id: 'google-analytics',
-    name: 'Google Analytics',
-    category: 'Marketing & Analytics',
-    icon: <BarChart className="h-5 w-5" />,
-    status: 'available',
-    description: 'Website analytics and reporting',
+    description: 'Database and spreadsheet hybrid for flexible data management',
+    features: ['Record management', 'Views & filters', 'Automation triggers'],
     setupTime: '20 mins'
   },
   {
-    id: 'mailchimp',
-    name: 'Mailchimp',
-    category: 'Marketing & Analytics',
-    icon: <Mail className="h-5 w-5" />,
+    id: 'notion',
+    name: 'Notion',
+    category: 'Productivity',
+    icon: <FileText className="h-5 w-5" />,
     status: 'available',
-    description: 'Email marketing automation',
+    description: 'All-in-one workspace for notes, docs, and databases',
+    features: ['Page creation', 'Database sync', 'Content management'],
     setupTime: '25 mins'
   },
+  {
+    id: 'trello',
+    name: 'Trello',
+    category: 'Productivity',
+    icon: <ClipboardList className="h-5 w-5" />,
+    status: 'available',
+    description: 'Visual project management with boards and cards',
+    features: ['Card creation', 'Board management', 'Automation'],
+    setupTime: '15 mins'
+  },
+  {
+    id: 'asana',
+    name: 'Asana',
+    category: 'Productivity',
+    icon: <ClipboardList className="h-5 w-5" />,
+    status: 'available',
+    description: 'Work management platform for teams',
+    features: ['Task management', 'Project tracking', 'Timeline views'],
+    setupTime: '20 mins'
+  },
   
-  // Finance & Payment
+  // Storage
+  {
+    id: 'google-drive',
+    name: 'Google Drive',
+    category: 'Storage',
+    icon: <FolderOpen className="h-5 w-5" />,
+    status: 'native',
+    description: 'Cloud storage and file management',
+    features: ['File upload/download', 'Folder organization', 'Sharing permissions'],
+    setupTime: '10 mins'
+  },
+  {
+    id: 'dropbox',
+    name: 'Dropbox',
+    category: 'Storage',
+    icon: <Package className="h-5 w-5" />,
+    status: 'available',
+    description: 'Cloud storage and file synchronization',
+    features: ['File sync', 'Sharing', 'Version history'],
+    setupTime: '15 mins'
+  },
+  
+  // Databases
+  {
+    id: 'postgresql',
+    name: 'PostgreSQL',
+    category: 'Databases',
+    icon: <HardDrive className="h-5 w-5" />,
+    status: 'native',
+    description: 'Direct PostgreSQL database connections',
+    features: ['Query execution', 'Data sync', 'Real-time updates'],
+    setupTime: '30 mins'
+  },
+  {
+    id: 'mysql',
+    name: 'MySQL',
+    category: 'Databases',
+    icon: <HardDrive className="h-5 w-5" />,
+    status: 'available',
+    description: 'MySQL database integration',
+    features: ['Query support', 'Data import/export', 'Schema management'],
+    setupTime: '30 mins'
+  },
+  
+  // Finance & E-commerce
   {
     id: 'stripe',
     name: 'Stripe',
-    category: 'Finance & Payment',
+    category: 'Finance',
     icon: <CreditCard className="h-5 w-5" />,
     status: 'available',
     description: 'Payment processing and subscription management',
+    features: ['Payment automation', 'Invoice generation', 'Subscription handling'],
     setupTime: '30 mins'
+  },
+  {
+    id: 'shopify',
+    name: 'Shopify',
+    category: 'E-commerce',
+    icon: <ShoppingBag className="h-5 w-5" />,
+    status: 'available',
+    description: 'E-commerce platform integration',
+    features: ['Order management', 'Inventory sync', 'Customer data'],
+    setupTime: '35 mins'
   },
   {
     id: 'quickbooks',
     name: 'QuickBooks',
-    category: 'Finance & Payment',
+    category: 'Finance',
     icon: <FileText className="h-5 w-5" />,
     status: 'available',
     description: 'Accounting and invoice automation',
+    features: ['Invoice creation', 'Expense tracking', 'Financial reports'],
     setupTime: '40 mins'
   },
-  {
-    id: 'square',
-    name: 'Square',
-    category: 'Finance & Payment',
-    icon: <CreditCard className="h-5 w-5" />,
-    status: 'coming-soon',
-    description: 'Point of sale and payment processing'
-  },
+
   
   // Support & Service
   {
@@ -256,14 +378,7 @@ const integrations: Integration[] = [
     description: 'Customer messaging and support',
     setupTime: '25 mins'
   },
-  {
-    id: 'freshdesk',
-    name: 'Freshdesk',
-    category: 'Support & Service',
-    icon: <Users className="h-5 w-5" />,
-    status: 'coming-soon',
-    description: 'Multi-channel customer support'
-  },
+
   
   // Enterprise & Security
   {
@@ -284,14 +399,7 @@ const integrations: Integration[] = [
     description: 'Microsoft AD integration for enterprise',
     setupTime: '90 mins'
   },
-  {
-    id: 'aws',
-    name: 'AWS',
-    category: 'Enterprise & Security',
-    icon: <Cloud className="h-5 w-5" />,
-    status: 'coming-soon',
-    description: 'Amazon Web Services integration'
-  }
+
 ]
 
 const categories = [...new Set(integrations.map(i => i.category))]
@@ -314,17 +422,13 @@ export default function IntegrationChecker() {
         return <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Native</Badge>
       case 'available':
         return <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Available</Badge>
-      case 'coming-soon':
-        return <Badge className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">Coming Soon</Badge>
-      case 'request':
-        return <Badge className="bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200">By Request</Badge>
     }
   }
 
   const stats = {
     native: integrations.filter(i => i.status === 'native').length,
     available: integrations.filter(i => i.status === 'available').length,
-    total: integrations.filter(i => i.status === 'native' || i.status === 'available').length
+    total: integrations.length
   }
 
   return (
@@ -337,7 +441,7 @@ export default function IntegrationChecker() {
         </Card>
         <Card className="p-4 text-center bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border-blue-200 dark:border-blue-700">
           <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">{stats.available}</div>
-          <p className="text-sm text-blue-600 dark:text-blue-300">Available Now</p>
+          <p className="text-sm text-blue-600 dark:text-blue-300">Additional Available</p>
         </Card>
         <Card className="p-4 text-center bg-gradient-to-br from-purple-50 to-fuchsia-50 dark:from-purple-900/20 dark:to-fuchsia-900/20 border-purple-200 dark:border-purple-700">
           <div className="text-2xl font-bold text-purple-700 dark:text-purple-400">{stats.total}+</div>
@@ -486,21 +590,13 @@ export default function IntegrationChecker() {
               )}
 
               <div className="flex gap-3">
-                {(selectedIntegration.status === 'native' || selectedIntegration.status === 'available') ? (
-                  <>
-                    <Button className="bg-purple-600 hover:bg-purple-700">
-                      Add to My Configuration
-                    </Button>
-                    <Button variant="outline">
-                      Learn More
-                      <ExternalLink className="ml-2 h-3 w-3" />
-                    </Button>
-                  </>
-                ) : (
-                  <Button variant="outline">
-                    Join Waitlist
-                  </Button>
-                )}
+                <Button className="bg-purple-600 hover:bg-purple-700">
+                  Add to My Configuration
+                </Button>
+                <Button variant="outline">
+                  Learn More
+                  <ExternalLink className="ml-2 h-3 w-3" />
+                </Button>
               </div>
             </Card>
           </motion.div>
@@ -512,8 +608,8 @@ export default function IntegrationChecker() {
         <div className="flex items-start space-x-3">
           <Info className="h-5 w-5 text-slate-600 dark:text-slate-400 flex-shrink-0 mt-0.5" />
           <div className="text-sm text-slate-600 dark:text-slate-400">
-            <p className="font-medium mb-1">Don't see your tool?</p>
-            <p>We're constantly adding new integrations. Contact us to request a specific integration or learn about our API for custom connections.</p>
+            <p className="font-medium mb-1">And many more!</p>
+            <p>We support hundreds of additional integrations and are constantly adding new ones. Contact us to request a specific integration or learn about our API for custom connections.</p>
           </div>
         </div>
       </div>

@@ -37,6 +37,11 @@ interface UsageMetrics {
 interface EstimatedCosts {
   aiCredits: number
   basePlatform: number
+  planName: string
+  includedCredits: number
+  overageCredits: number
+  overageCost: number
+  needsScalePlan: boolean
   total: number
   breakdown: {
     [key: string]: {
@@ -81,17 +86,32 @@ export default function UsageEstimator() {
     })
 
     // Determine recommended plan based on usage
-    let basePlatform = 349 // Starter
-    if (totalCredits > 20000) {
-      basePlatform = 1749 // Growth
-    } else if (totalCredits > 5000) {
-      basePlatform = 1749 // Growth
+    let basePlatform = 349 // Starter Plan (includes 5,000 credits)
+    let planName = 'Starter Plan'
+    let includedCredits = 5000
+    
+    if (totalCredits > 5000) {
+      basePlatform = 1749 // Growth Plan (includes 20,000 credits)
+      planName = 'Growth Plan'
+      includedCredits = 20000
     }
+    
+    // Flag if usage significantly exceeds Growth plan
+    const needsScalePlan = totalCredits > 50000 // Suggest Scale plan for very high usage
+    
+    // Calculate overage credits if usage exceeds plan allowance
+    const overageCredits = Math.max(0, totalCredits - includedCredits)
+    const overageCost = overageCredits * 0.05 // $0.05 per credit overage
 
     return {
       aiCredits: totalCredits,
       basePlatform,
-      total: basePlatform + (totalCredits * 0.05),
+      planName,
+      includedCredits,
+      overageCredits,
+      overageCost,
+      needsScalePlan,
+      total: basePlatform + overageCost,
       breakdown
     }
   }
@@ -218,7 +238,7 @@ export default function UsageEstimator() {
               <div>
                 <h4 className="font-semibold">Recommended Plan</h4>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  {estimates.basePlatform === 349 ? 'Starter Plan' : 'Growth Plan'}
+                  {estimates.planName}
                 </p>
               </div>
               <div className="text-right">
@@ -234,13 +254,35 @@ export default function UsageEstimator() {
                 <span>Base Platform Fee</span>
                 <span>${estimates.basePlatform}</span>
               </div>
-              <div className="flex justify-between">
-                <span>AI Credits ({estimates.aiCredits.toLocaleString()})</span>
-                <span>${(estimates.aiCredits * 0.05).toFixed(2)}</span>
+              <div className="flex justify-between text-green-600 dark:text-green-400">
+                <span>Included Credits</span>
+                <span>{estimates.includedCredits.toLocaleString()}</span>
               </div>
+              {estimates.overageCredits > 0 && (
+                <div className="flex justify-between text-orange-600 dark:text-orange-400">
+                  <span>Overage Credits ({estimates.overageCredits.toLocaleString()})</span>
+                  <span>${estimates.overageCost.toFixed(2)}</span>
+                </div>
+              )}
             </div>
           </div>
         </Card>
+
+        {/* Scale Plan Recommendation */}
+        {estimates.needsScalePlan && (
+          <Card className="p-4 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700">
+            <div className="flex items-start space-x-3">
+              <Info className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+              <div className="text-sm">
+                <p className="font-medium text-amber-800 dark:text-amber-200 mb-1">Consider our Scale Plan</p>
+                <p className="text-amber-700 dark:text-amber-300">
+                  Your usage exceeds typical Growth plan limits. Our Scale plan offers unlimited Agent Skills, 
+                  custom credit pools, and dedicated infrastructure for high-volume operations.
+                </p>
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* ROI Insight */}
         <Card className="p-4 bg-green-50 dark:bg-green-900/20">

@@ -1,8 +1,8 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, type LucideIcon, Sparkles } from "lucide-react";
+import { ArrowRight, Check, type LucideIcon, Sparkles, AlertCircle, TrendingDown, Clock, Star, DollarSign, Phone } from "lucide-react";
 import { type IndustryData } from '@/lib/industry-data'; // Use 'type' for type-only imports
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -87,10 +87,26 @@ export function IndustryHero({ industry }: { industry: IndustryData }) {
                         className="text-4xl font-bold tracking-tight text-white sm:text-6xl"
                         variants={wordAnimation}
                     >
-                        {industry.hero.title.replace(industry.name, "")}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-500">
-                            {industry.name}
-                        </span>
+                        {industry.hero.title.split('\n').map((line, index) => {
+                            // Check if this line contains the industry name
+                            const isIndustryLine = line.includes(industry.name);
+                            if (isIndustryLine) {
+                                return (
+                                    <React.Fragment key={index}>
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-fuchsia-400 to-pink-500">
+                                            {line}
+                                        </span>
+                                        {index < industry.hero.title.split('\n').length - 1 && <br />}
+                                    </React.Fragment>
+                                );
+                            }
+                            return (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    {index < industry.hero.title.split('\n').length - 1 && <br />}
+                                </React.Fragment>
+                            );
+                        })}
                     </motion.h1>
 
                     <motion.p
@@ -114,172 +130,74 @@ export function IndustryHero({ industry }: { industry: IndustryData }) {
     );
 }
 
-// NEW: Circular Progress Card Component for Challenges Section
-function CircularChallengeCard({ item, index }: { item: { icon: React.ReactElement<typeof LucideIcon>, title: string, points: string[] }, index: number }) {
-    const [isHovered, setIsHovered] = React.useState(false);
-    const circumference = 2 * Math.PI * 80; // radius is 80 for 160px diameter
-    const progressPercentage = 75 + (index * 5); // Vary progress for visual interest
-    const strokeDashoffset = circumference - (progressPercentage / 100) * circumference;
-
-    return (
-        <motion.div 
-            className="text-center relative group cursor-pointer"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1, duration: 0.5 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            {/* Circular Progress Container */}
-            <div className="relative w-40 h-40 mx-auto mb-6">
-                <svg className="w-40 h-40 transform -rotate-90">
-                    <defs>
-                        <linearGradient id={`gradient-challenge-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#06b6d4" />
-                            <stop offset="50%" stopColor="#8b5cf6" />
-                            <stop offset="100%" stopColor="#ec4899" />
-                        </linearGradient>
-                    </defs>
-                    
-                    {/* Background circle */}
-                    <circle
-                        cx="80"
-                        cy="80"
-                        r="72"
-                        stroke="currentColor"
-                        strokeWidth="12"
-                        fill="none"
-                        className="text-slate-200 dark:text-slate-800/50"
-                    />
-                    
-                    {/* Progress circle */}
-                    <motion.circle
-                        cx="80"
-                        cy="80"
-                        r="72"
-                        stroke={`url(#gradient-challenge-${index})`}
-                        strokeWidth="12"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeDasharray={circumference}
-                        initial={{ strokeDashoffset: circumference }}
-                        animate={{ strokeDashoffset }}
-                        transition={{ duration: 1.5, delay: index * 0.2, ease: "easeOut" }}
-                        className="filter drop-shadow-lg"
-                    />
-                </svg>
-                
-                {/* Icon in center */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                        animate={{ 
-                            scale: isHovered ? 1.15 : 1,
-                            rotate: isHovered ? 10 : 0
-                        }}
-                        transition={{ duration: 0.3, type: "spring", stiffness: 200 }}
-                        className="relative"
-                    >
-                        <div className="relative">
-                            {React.cloneElement(item.icon, { 
-                                className: "h-12 w-12 text-slate-700 dark:text-slate-300"
-                            })}
-                            {/* Gradient overlay on hover */}
-                            <motion.div
-                                className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-full blur-xl"
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ 
-                                    opacity: isHovered ? 0.5 : 0,
-                                    scale: isHovered ? 1.5 : 0.5
-                                }}
-                                transition={{ duration: 0.3 }}
-                            />
-                        </div>
-                    </motion.div>
-                </div>
-
-                {/* Progress percentage */}
-                <motion.div
-                    className="absolute bottom-0 right-0 bg-white dark:bg-slate-900 rounded-full px-2 py-1 shadow-lg"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: index * 0.2 + 0.5, type: "spring" }}
-                >
-                    <span className="text-xs font-bold bg-gradient-to-r from-cyan-600 to-purple-600 bg-clip-text text-transparent">
-                        {progressPercentage}%
-                    </span>
-                </motion.div>
-            </div>
-
-            {/* Title */}
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 px-2">
-                {item.title}
-            </h3>
-
-            {/* Short description when not hovered */}
-            <motion.p 
-                className="text-sm text-slate-600 dark:text-slate-400 px-4 mb-3"
-                animate={{ 
-                    opacity: isHovered ? 0 : 1,
-                    height: isHovered ? 0 : "auto"
-                }}
-                transition={{ duration: 0.2 }}
-            >
-                {item.points[0].split('.')[0]}
-            </motion.p>
-
-            {/* Detailed points - shows on hover */}
-            <motion.div 
-                className="overflow-hidden px-4"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ 
-                    height: isHovered ? "auto" : 0,
-                    opacity: isHovered ? 1 : 0
-                }}
-                transition={{ duration: 0.3 }}
-            >
-                <ul className="space-y-2 text-left">
-                    {item.points.map((point, pointIndex) => (
-                        <motion.li 
-                            key={pointIndex}
-                            className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400"
-                            initial={{ x: -10, opacity: 0 }}
-                            animate={{ 
-                                x: isHovered ? 0 : -10,
-                                opacity: isHovered ? 1 : 0
-                            }}
-                            transition={{ delay: isHovered ? pointIndex * 0.1 : 0 }}
-                        >
-                            <Check className="h-4 w-4 text-cyan-500 flex-shrink-0 mt-0.5" />
-                            <span>{point}</span>
-                        </motion.li>
-                    ))}
-                </ul>
-            </motion.div>
-
-            {/* Hover indicator */}
-            <motion.div 
-                className="mt-3 flex items-center justify-center gap-1"
-                animate={{ opacity: isHovered ? 0 : 0.6 }}
-            >
-                <div className="w-1 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full animate-pulse" />
-                <div className="w-1 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full animate-pulse delay-75" />
-                <div className="w-1 h-1 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full animate-pulse delay-150" />
-            </motion.div>
-        </motion.div>
-    );
-}
-
-// UPDATED: ChallengesSection with Circular Progress Design
+// UPDATED: ChallengesSection with Real-Time Cost Counter
 export function ChallengesSection({ industry }: { industry: IndustryData }) {
+  const [lostRevenue, setLostRevenue] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLostRevenue(prev => prev + 23.50);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <SectionWrapper className="bg-slate-50 dark:bg-slate-900">
-      <SectionTitle title={industry.challenges.title} subtitle={industry.challenges.subtitle} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-7xl mx-auto">
-        {industry.challenges.items.map((item, index) => (
-          <CircularChallengeCard key={index} item={item} index={index} />
-        ))}
+    <section className="bg-black text-white py-24 overflow-hidden">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <motion.h2 
+            className="text-5xl md:text-6xl font-bold mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {industry.challenges.title}
+          </motion.h2>
+          {industry.challenges.subtitle && (
+            <motion.p 
+              className="text-xl md:text-2xl text-gray-400 mt-4 mb-8"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              {industry.challenges.subtitle}
+            </motion.p>
+          )}
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {industry.challenges.items.map((item, index) => {
+            const colors = [
+              { bg: 'bg-red-950/50', border: 'border-red-500/30', text: 'text-red-400' },
+              { bg: 'bg-orange-950/50', border: 'border-orange-500/30', text: 'text-orange-400' },
+              { bg: 'bg-yellow-950/50', border: 'border-yellow-500/30', text: 'text-yellow-400' }
+            ];
+            const colorSet = colors[index % colors.length];
+            
+            return (
+              <motion.div 
+                key={index}
+                className={`${colorSet.bg} border ${colorSet.border} rounded-2xl p-8`}
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {React.cloneElement(item.icon, { className: `h-12 w-12 ${colorSet.text} mb-4` })}
+                <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
+                <ul className="space-y-2">
+                  {item.points.map((point, pointIndex) => (
+                    <li key={pointIndex} className="text-gray-300 text-sm flex items-start">
+                      <span className={`${colorSet.text} mr-2`}>?</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
-    </SectionWrapper>
+    </section>
   );
 }
 
@@ -351,6 +269,123 @@ export function SolutionsSection({ industry }: { industry: IndustryData }) {
         {industry.solutions.items.map((item, index) => <BulletPointFeatureCard key={index} item={item} />)}
       </div>
     </SectionWrapper>
+  );
+}
+
+// NEW: Problem Cards Grid Section
+export function ProblemCardsGrid() {
+  const problems = [
+    {
+      icon: Phone,
+      title: "18-Hour Response Time",
+      description: "While winners respond in under 5 minutes",
+      stat: "78%",
+      statLabel: "of buyers choose first responder",
+      severity: "high",
+      color: "red"
+    },
+    {
+      icon: Clock,
+      title: "67% Time Wasted",
+      description: "Service advisors stuck on routine tasks",
+      stat: "$500",
+      statLabel: "lost per empty bay daily",
+      severity: "high",
+      color: "orange"
+    },
+    {
+      icon: Star,
+      title: "Invisible Online",
+      description: "88% check reviews before visiting",
+      stat: "40%",
+      statLabel: "traffic loss from bad reviews",
+      severity: "medium",
+      color: "yellow"
+    },
+    {
+      icon: DollarSign,
+      title: "Hidden Costs",
+      description: "Manual processes bleeding profits",
+      stat: "$1.2M",
+      statLabel: "annual revenue loss",
+      severity: "critical",
+      color: "red"
+    }
+  ];
+
+  return (
+    <section className="bg-slate-950 py-24">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <motion.h2 
+            className="text-5xl font-bold text-white mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            Your Dealership's Profit Killers
+          </motion.h2>
+          <p className="text-xl text-gray-400">Every problem = Lost revenue. Every day = Deeper hole.</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {problems.map((problem, index) => (
+            <motion.div
+              key={index}
+              className={`relative overflow-hidden rounded-2xl border ${
+                problem.severity === 'critical' 
+                  ? 'border-red-500/50 bg-red-950/20' 
+                  : problem.severity === 'high'
+                  ? 'border-orange-500/50 bg-orange-950/20'
+                  : 'border-yellow-500/50 bg-yellow-950/20'
+              }`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+            >
+              <div className="p-6">
+                <div className={`inline-flex p-3 rounded-full mb-4 ${
+                  problem.color === 'red' ? 'bg-red-500/20' :
+                  problem.color === 'orange' ? 'bg-orange-500/20' :
+                  'bg-yellow-500/20'
+                }`}>
+                  <problem.icon className={`h-8 w-8 ${
+                    problem.color === 'red' ? 'text-red-400' :
+                    problem.color === 'orange' ? 'text-orange-400' :
+                    'text-yellow-400'
+                  }`} />
+                </div>
+                
+                <h3 className="text-xl font-bold text-white mb-2">{problem.title}</h3>
+                <p className="text-gray-400 text-sm mb-4">{problem.description}</p>
+                
+                <div className="border-t border-gray-800 pt-4">
+                  <div className={`text-3xl font-bold ${
+                    problem.color === 'red' ? 'text-red-400' :
+                    problem.color === 'orange' ? 'text-orange-400' :
+                    'text-yellow-400'
+                  }`}>{problem.stat}</div>
+                  <p className="text-xs text-gray-500 mt-1">{problem.statLabel}</p>
+                </div>
+              </div>
+              
+              {/* Animated background effect */}
+              <motion.div
+                className="absolute inset-0 opacity-10"
+                animate={{
+                  background: [
+                    `radial-gradient(circle at 20% 80%, ${problem.color} 0%, transparent 50%)`,
+                    `radial-gradient(circle at 80% 20%, ${problem.color} 0%, transparent 50%)`,
+                    `radial-gradient(circle at 20% 80%, ${problem.color} 0%, transparent 50%)`,
+                  ],
+                }}
+                transition={{ duration: 5, repeat: Infinity }}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

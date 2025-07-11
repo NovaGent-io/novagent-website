@@ -43,7 +43,7 @@ export default function AgentSolutionsSection() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 text-white">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 sm:whitespace-nowrap">
@@ -64,7 +64,7 @@ export default function AgentSolutionsSection() {
             {agentCategories.map((category, index) => (
               <div
                 key={index}
-                className="flex flex-col sm:flex-row items-start sm:space-x-6 md:space-x-8 p-6 rounded-xl bg-slate-800/70 border border-slate-700 shadow-lg"
+                className="flex flex-col sm:flex-row items-start sm:space-x-6 md:space-x-8 p-6 rounded-xl bg-slate-800/70 dark:bg-slate-800/70 border border-slate-700 dark:border-slate-700 shadow-lg"
               >
                 <div
                   className={`mb-4 sm:mb-0 p-3 md:p-4 rounded-full bg-gradient-to-br ${category.gradientFromTo} self-start`}
@@ -94,7 +94,7 @@ export default function AgentSolutionsSection() {
           <Button
             asChild
             size="lg"
-            className="bg-white text-slate-900 hover:bg-slate-200 h-12 px-8 text-base font-semibold shadow-md hover:shadow-lg transition-all duration-300 group"
+            className="h-12 px-8 text-base font-semibold bg-white text-purple-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 group"
           >
             <Link href="/capabilities">
               <span className="flex items-center">

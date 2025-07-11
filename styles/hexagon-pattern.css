@@ -1,0 +1,76 @@
+.hexagon-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(
+      30deg,
+      transparent,
+      transparent 50px,
+      rgba(139, 92, 246, 0.03) 50px,
+      rgba(139, 92, 246, 0.03) 51px
+    ),
+    repeating-linear-gradient(
+      -30deg,
+      transparent,
+      transparent 50px,
+      rgba(139, 92, 246, 0.03) 50px,
+      rgba(139, 92, 246, 0.03) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgba(139, 92, 246, 0.03) 50px,
+      rgba(139, 92, 246, 0.03) 51px
+    );
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 0%,
+    transparent 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.hexagon-pattern.dark {
+  background-image: 
+    repeating-linear-gradient(
+      30deg,
+      transparent,
+      transparent 50px,
+      rgba(139, 92, 246, 0.08) 50px,
+      rgba(139, 92, 246, 0.08) 51px
+    ),
+    repeating-linear-gradient(
+      -30deg,
+      transparent,
+      transparent 50px,
+      rgba(139, 92, 246, 0.08) 50px,
+      rgba(139, 92, 246, 0.08) 51px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 50px,
+      rgba(139, 92, 246, 0.08) 50px,
+      rgba(139, 92, 246, 0.08) 51px
+    );
+}
+
+/* Animated hexagon pulse effect */
+@keyframes hexagon-pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hexagon-grid-container {
+  animation: hexagon-pulse 8s ease-in-out infinite;
+}

@@ -17,44 +17,44 @@ interface FloatingAgent {
 
 const agents: Omit<FloatingAgent, "x" | "y" | "delay" | "size">[] = [
   {
-    id: "lead-gen",
-    name: "Lead Gen",
+    id: "prospect-hunter",
+    name: "Prospect Hunter",
     icon: <Target className="h-4 w-4" />,
     color: "from-blue-400 to-blue-600",
   },
   {
-    id: "appointment",
-    name: "Appointment",
+    id: "schedule-coordinator",
+    name: "Schedule Coordinator",
     icon: <Users className="h-4 w-4" />,
     color: "from-fuchsia-400 to-fuchsia-600",
   },
   {
-    id: "dialer",
-    name: "AI Dialer",
+    id: "smart-dialer",
+    name: "Smart Dialer",
     icon: <PhoneCall className="h-4 w-4" />,
     color: "from-sky-400 to-sky-600",
   },
   {
-    id: "support",
-    name: "Support",
+    id: "support-concierge",
+    name: "Support Concierge",
     icon: <MessageSquare className="h-4 w-4" />,
     color: "from-emerald-400 to-emerald-600",
   },
   {
-    id: "seo",
-    name: "SEO Rep",
+    id: "visibility-manager",
+    name: "Visibility Manager",
     icon: <Search className="h-4 w-4" />,
     color: "from-amber-400 to-amber-600",
   },
   {
-    id: "ads",
-    name: "Ad Manager",
+    id: "insight-intelligence",
+    name: "Insight Intelligence",
     icon: <BarChart2 className="h-4 w-4" />,
     color: "from-rose-400 to-rose-600",
   },
   {
-    id: "social",
-    name: "Social Media",
+    id: "workflow-navigator",
+    name: "Workflow Navigator",
     icon: <Share2 className="h-4 w-4" />,
     color: "from-indigo-400 to-indigo-600",
   },
@@ -230,31 +230,31 @@ const FloatingAgentCards: React.FC = () => {
       })}
 
       <style jsx>{`
-        @keyframes float-gentle-lead-gen {
+        @keyframes float-gentle-prospect-hunter {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-8px); }
         }
-        @keyframes float-gentle-appointment {
+        @keyframes float-gentle-schedule-coordinator {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-6px); }
         }
-        @keyframes float-gentle-dialer {
+        @keyframes float-gentle-smart-dialer {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-10px); }
         }
-        @keyframes float-gentle-support {
+        @keyframes float-gentle-support-concierge {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-7px); }
         }
-        @keyframes float-gentle-seo {
+        @keyframes float-gentle-visibility-manager {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-9px); }
         }
-        @keyframes float-gentle-ads {
+        @keyframes float-gentle-insight-intelligence {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-5px); }
         }
-        @keyframes float-gentle-social {
+        @keyframes float-gentle-workflow-navigator {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-8px); }
         }

@@ -1,120 +1,144 @@
-"use client"
-
-import React from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
-import { ArrowLeft, Building, CheckCircle2, TrendingUp } from "lucide-react"
+import InteractiveCapabilitiesSection from '@/components/InteractiveCapabilitiesSection'
+import CTASection from '@/components/CTASection'
+import EnhancedHeroSection from '@/components/EnhancedHeroSection'
+import AnimatedHowItWorksSection from '@/components/AnimatedHowItWorksSection'
+import IntegrationsAndFeaturesSection from '@/components/IntegrationsAndFeaturesSection'
 
 export default function PropertyIntelligenceManagerPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-amber-900 to-orange-900 text-white py-24 sm:py-32">
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link 
-              href="/solutions/novasuite"
-              className="inline-flex items-center text-amber-300 hover:text-amber-200 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to NovaSuite
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Badge */}
-              <div className="mb-6 inline-flex items-center rounded-full bg-amber-500/10 px-4 py-1.5 text-sm font-medium text-amber-300">
-                <Building className="mr-2 h-4 w-4" />
-                Industry Specific Skill
-              </div>
-
-              {/* Main Heading */}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400">
-                  Property Intelligence Manager
-                </span>
-              </h1>
-
-              <p className="text-xl text-slate-300 mb-8 leading-relaxed">
-                Real estate operations and MLS integration powered by AI. 
-                Automate listings, manage properties, and close deals faster with intelligent workflow automation.
-              </p>
-
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-amber-400">50%</div>
-                  <div className="text-sm text-slate-400">Faster Closings</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-orange-400">3x</div>
-                  <div className="text-sm text-slate-400">More Listings</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-400">24/7</div>
-                  <div className="text-sm text-slate-400">MLS Sync</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-amber-600 hover:bg-amber-700" asChild>
-                  <Link href="/contact">Transform Your Real Estate Ops</Link>
-                </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10" asChild>
-                  <Link href="/pricing">View Pricing</Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <Card className="bg-white/10 backdrop-blur border-white/20">
-                <CardHeader>
-                  <CardTitle className="text-white">Property Dashboard</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">12 new listings synced...</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                    <span className="text-white/80">5 showings scheduled today...</span>
-                  </div>
-                  <div className="bg-green-500/20 rounded-lg p-3 mt-4">
-                    <span className="text-green-300 font-medium">? 150 properties managed</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Notice */}
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              Detailed Information
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600"> Coming Soon</span>
+    <main className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
+      <EnhancedHeroSection
+        className="hero-section bg-gradient-to-b from-slate-900 to-slate-950 dark:from-slate-950 dark:to-slate-900 text-white"
+        headingText="Property Intelligence Manager"
+        subheadingText="Revolutionize real estate operations with AI that manages listings, analyzes markets, and automates transactions 24/7."
+        primaryButtonText="See It In Action"
+        primaryButtonHref="#demo"
+        secondaryButtonText="View Pricing"
+        secondaryButtonHref="/pricing"
+        stats={[
+          { value: "87%", label: "Faster Property Turnover" },
+          { value: "94%", label: "Listing Accuracy" },
+          { value: "3.2x", label: "More Qualified Leads" }
+        ]}
+      />
+      
+      <InteractiveCapabilitiesSection
+        heading="AI-Powered Real Estate That Sells Itself"
+        subheading="Property Intelligence Manager combines market intelligence with automated workflows to transform how properties are marketed, sold, and managed."
+        capabilities={[
+          {
+            title: "Smart Listing Management",
+            description: "AI creates compelling property listings, syncs across platforms, and optimizes descriptions for maximum visibility.",
+            icon: "Home",
+            color: "from-blue-500 to-cyan-500",
+            features: [
+              "Multi-platform syndication",
+              "SEO-optimized descriptions",
+              "Virtual tour integration",
+              "Automatic updates"
+            ],
+            metric: { value: "15min", label: "to list everywhere" }
+          },
+          {
+            title: "Market Intelligence Engine",
+            description: "Real-time analysis of market trends, comparable properties, and pricing strategies to maximize property value.",
+            icon: "TrendingUp",
+            color: "from-purple-500 to-pink-500",
+            features: [
+              "Comparative market analysis",
+              "Price optimization",
+              "Trend forecasting",
+              "Investment insights"
+            ],
+            metric: { value: "96%", label: "pricing accuracy" }
+          },
+          {
+            title: "Lead Qualification System",
+            description: "AI engages with inquiries, qualifies buyers/renters, and schedules viewings automatically based on their needs.",
+            icon: "UserCheck",
+            color: "from-emerald-500 to-teal-500",
+            features: [
+              "24/7 inquiry response",
+              "Financial pre-qualification",
+              "Preference matching",
+              "Viewing coordination"
+            ],
+            metric: { value: "82%", label: "lead quality score" }
+          },
+          {
+            title: "Transaction Automation",
+            description: "Streamline the entire transaction process from offer to closing with intelligent document management and tracking.",
+            icon: "FileCheck",
+            color: "from-orange-500 to-red-500",
+            features: [
+              "Document generation",
+              "Compliance verification",
+              "Timeline management",
+              "Stakeholder coordination"
+            ],
+            metric: { value: "65%", label: "faster closings" }
+          }
+        ]}
+      />
+      
+      <AnimatedHowItWorksSection
+        heading="How Property Intelligence Manager Works"
+        subheading="A comprehensive system that transforms real estate chaos into seamless transactions"
+        steps={[
+          {
+            title: "Connect Your Portfolio",
+            description: "Import your property listings, connect MLS access, and integrate with your existing real estate tools."
+          },
+          {
+            title: "AI Analyzes Everything",
+            description: "The system evaluates market conditions, property features, and buyer behavior to optimize every aspect."
+          },
+          {
+            title: "Automated Marketing",
+            description: "Properties are marketed across all channels with AI-optimized listings, photos, and targeted campaigns."
+          },
+          {
+            title: "Intelligent Management",
+            description: "From lead engagement to closing coordination, AI handles the details while you focus on relationships."
+          }
+        ]}
+      />
+      
+      <IntegrationsAndFeaturesSection />
+      
+      <div className="relative bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900">
+        <div className="container mx-auto px-4 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-6 text-slate-900 dark:text-white">
+              Real Estate Results That Close Deals
             </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-              We're building out comprehensive details for each Agent Skill as part of our Lightning Strategy Phase 2 rollout.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild>
-                <Link href="/contact">Learn More About Property Intelligence Manager</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href="/solutions/novasuite">Back to NovaSuite</Link>
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12">
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">42%</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Higher selling prices through market optimization</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">28?9</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Days on market reduced from 28 to 9</p>
+              </div>
+              <div className="bg-white dark:bg-slate-800/50 rounded-lg p-6 backdrop-blur-sm shadow-lg dark:shadow-none">
+                <div className="text-4xl font-bold text-pink-600 dark:text-pink-400 mb-2">$2.1M</div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">Additional commission revenue per year</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+      
+      <CTASection
+        heading="Ready to Dominate Your Real Estate Market?"
+        subheading="Let Property Intelligence Manager transform your real estate business with AI that markets smarter, sells faster, and manages everything automatically."
+        primaryButtonText="Schedule a Demo"
+        primaryButtonHref="/contact"
+        secondaryButtonText="Explore Our Platform"
+        secondaryButtonHref="/platform"
+        className="bg-slate-900 dark:bg-slate-950"
+      />
+    </main>
   )
 }

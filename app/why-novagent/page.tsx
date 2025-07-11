@@ -2,218 +2,273 @@
 
 import { Button } from "@/components/ui/button"
 import AnimatedBackground from "@/components/animated-background"
-import { Lightbulb, Award, Sparkles, BarChartBig, ArrowDown, Zap, Target, BarChart4, Users } from "lucide-react"
+import { Brain, Shield, TrendingUp, Users, Sparkles, ArrowRight, Building2, Rocket, Eye, ChevronRight, Cpu, Layers, BarChart3, Clock, Target, Zap, Award, CheckCircle } from "lucide-react"
 import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { useState, useEffect } from "react"
-import ContrastPanelsSection from "@/components/contrast-panels-section"
-import ExperienceTimelineSection from "@/components/experience-timeline-section"
-import FounderStorySection from "@/components/founder-story-section"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { useState, useEffect, useRef } from "react"
+import { ThemeToggle } from "@/components/theme-toggle"
+
+// Import sections directly
+import PhilosophySection from "@/components/why-novagent/philosophy-section"
+import ProblemSection from "@/components/why-novagent/problem-section"
+import SolutionSection from "@/components/why-novagent/solution-section"
+import JourneySection from "@/components/why-novagent/journey-section"
+import NovaGentAdvantage from "@/components/why-novagent/novagent-advantage"
 
 const WhyNovaGentPage = () => {
-  const [headlineIndex, setHeadlineIndex] = useState(0)
-  const headlines = [
-    { text: "Tired of AI Promises?", gradient: "linear-gradient(to right, #f59e0b, #f97316)" },
-    { text: "Demand Verifiable Outcomes.", gradient: "linear-gradient(to right, #22d3ee, #d946ef)" },
+  const [activePhilosophy, setActivePhilosophy] = useState(0)
+  const [isClient, setIsClient] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+  
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8])
+
+  // Hero rotating text
+  const [textIndex, setTextIndex] = useState(0)
+  const rotatingTexts = [
+    "Where AI Meets Accountability",
+    "Where Technology Meets Expertise",
+    "Where Innovation Meets Results"
   ]
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setHeadlineIndex((prevIndex) => (prevIndex + 1) % headlines.length)
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextIndex((prev) => (prev + 1) % rotatingTexts.length)
     }, 3000)
-    return () => clearTimeout(timer)
-  }, [headlineIndex])
+    return () => clearInterval(interval)
+  }, [])
 
-  const fadeInSlideUp = (delay: number) => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay },
+  // Philosophy pillars
+  const philosophyPillars = [
+    {
+      icon: <Shield className="w-6 h-6" />,
+      title: "Single-Tenant Security",
+      description: "Every client gets their own dedicated AI instance. No shared resources, no data mixing, just pure isolated intelligence working exclusively for you.",
+      color: "from-cyan-500 to-cyan-600"
     },
-  })
+    {
+      icon: <Brain className="w-6 h-6" />,
+      title: "One Agent, Infinite Skills",
+      description: "Instead of juggling multiple bots, you get one sophisticated AI agent that can be equipped with any combination of our 14+ specialized skills.",
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: <Users className="w-6 h-6" />,
+      title: "Human + AI Partnership",
+      description: "Our expert team designs, deploys, and continuously optimizes your AI agent. You get the power of AI with the wisdom of human oversight.",
+      color: "from-fuchsia-500 to-fuchsia-600"
+    }
+  ]
 
-  const iconVariants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 150,
-        damping: 10,
-        delay: 1.5 + i * 0.2,
-      },
-    }),
-  }
+  // Journey steps
+  const journeySteps = [
+    {
+      phase: "Discovery",
+      icon: <Eye className="w-8 h-8" />,
+      title: "We Learn Your Business",
+      description: "Deep dive into your challenges, workflows, and objectives",
+      details: [
+        "Strategic consultation with our AI architects",
+        "Process mapping and opportunity identification",
+        "Custom agent personality design",
+        "ROI projection and success metrics definition"
+      ]
+    },
+    {
+      phase: "Deployment",
+      icon: <Rocket className="w-8 h-8" />,
+      title: "We Build Your Solution",
+      description: "Expert configuration and seamless integration",
+      details: [
+        "Single-tenant infrastructure provisioning",
+        "Skill selection and configuration",
+        "Integration with your existing tools",
+        "Rigorous testing and optimization"
+      ]
+    },
+    {
+      phase: "Partnership",
+      icon: <TrendingUp className="w-8 h-8" />,
+      title: "We Grow Together",
+      description: "Continuous improvement and expansion",
+      details: [
+        "Real-time performance monitoring",
+        "Proactive optimization recommendations",
+        "New skill deployment as needs evolve",
+        "Dedicated success manager support"
+      ]
+    }
+  ]
+
+  // Differentiators grid
+  const differentiators = [
+    {
+      traditional: "Multiple disconnected bots",
+      novagent: "One unified AI agent",
+      icon: <Cpu className="w-5 h-5" />
+    },
+    {
+      traditional: "DIY setup and management",
+      novagent: "Fully managed service",
+      icon: <Users className="w-5 h-5" />
+    },
+    {
+      traditional: "Black box operations",
+      novagent: "Transparent dashboards",
+      icon: <Eye className="w-5 h-5" />
+    },
+    {
+      traditional: "Fixed capabilities",
+      novagent: "Modular skill system",
+      icon: <Layers className="w-5 h-5" />
+    },
+    {
+      traditional: "Pay for potential",
+      novagent: "Pay for outcomes",
+      icon: <Target className="w-5 h-5" />
+    },
+    {
+      traditional: "Static performance",
+      novagent: "Continuous optimization",
+      icon: <TrendingUp className="w-5 h-5" />
+    }
+  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-800 via-purple-700/30 to-slate-800 text-gray-100">
-      {/* === Hero Section === */}
-      <section className="relative py-24 md:py-40 text-center overflow-hidden min-h-[80vh] md:min-h-screen flex flex-col justify-center items-center">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-slate-50 dark:from-slate-900 dark:via-purple-900/20 dark:to-slate-900">
+      <ThemeToggle />
+      
+      {/* Hero Section - Completely Redesigned */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <AnimatedBackground />
-        <div className="container mx-auto px-6 relative z-20 flex flex-col items-center">
-          <div className="mb-6 min-h-[4rem] sm:min-h-[5rem] md:min-h-[6rem] lg:min-h-[7rem] flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              <motion.h1
-                key={headlineIndex}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.7, ease: "easeInOut" }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: headlines[headlineIndex].gradient,
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
+        
+        {/* Floating particles - Only render on client */}
+        {isClient && (
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(10)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-purple-400/30 rounded-full"
+                initial={{ 
+                  x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                  y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000)
                 }}
-              >
-                {headlines[headlineIndex].text}
-              </motion.h1>
-            </AnimatePresence>
+                animate={{
+                  x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                  y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+                }}
+                transition={{
+                  duration: Math.random() * 30 + 30,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+            ))}
           </div>
+        )}
 
-          <motion.div className="max-w-3xl mx-auto" variants={fadeInSlideUp(0.8)} initial="hidden" animate="visible">
-            <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
-              NovaGent was built to bridge the gap between AI's promise and its practical application. Our unique
-              'Managed-AI' model ensures your business achieves{" "}
-              <span className="font-semibold text-cyan-400">verifiable results</span> through{" "}
-              <span className="font-semibold text-fuchsia-400">expert-managed</span> solutions that deliver{" "}
-              <span className="font-semibold text-purple-400">continuous ROI</span>.
-            </p>
-          </motion.div>
-
+        <div className="container mx-auto px-6 relative z-10">
           <motion.div
-            className="flex justify-center items-center gap-8 md:gap-12 mt-10"
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-5xl mx-auto"
           >
+            {/* New tagline */}
             <motion.div
-              custom={0}
-              variants={iconVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center gap-2"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-full mb-8"
             >
-              <Award className="w-7 h-7 text-cyan-400" />
-              <span className="text-xs text-slate-400">Results</span>
+              <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+              <span className="text-sm font-medium text-purple-800 dark:text-purple-300">
+                The Future of Managed AI
+              </span>
             </motion.div>
-            <motion.div
-              custom={1}
-              variants={iconVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center gap-2"
-            >
-              <Sparkles className="w-7 h-7 text-fuchsia-400" />
-              <span className="text-xs text-slate-400">Expertise</span>
-            </motion.div>
-            <motion.div
-              custom={2}
-              variants={iconVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center gap-2"
-            >
-              <BarChartBig className="w-7 h-7 text-purple-400" />
-              <span className="text-xs text-slate-400">Growth</span>
-            </motion.div>
+
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+              <span className="text-gray-900 dark:text-gray-100">Why Choose</span>
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-purple-500 to-fuchsia-500">
+                NovaGent?
+              </span>
+            </h1>
+
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={textIndex}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-8"
+              >
+                {rotatingTexts[textIndex]}
+              </motion.p>
+            </AnimatePresence>
+
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-12">
+              We've reimagined AI implementation from the ground up. One powerful agent, 
+              infinite possibilities, zero complexity. This is enterprise AI done right.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                asChild
+              >
+                <Link href="/contact">
+                  Experience the Difference
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-purple-300 dark:border-purple-700 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+                asChild
+              >
+                <Link href="/platform">Explore Our Platform</Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
 
+        {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 z-30"
-          variants={fadeInSlideUp(2.5)}
-          initial="hidden"
-          animate="visible"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
         >
-          <a href="#next-section" aria-label="Scroll down to next section">
-            <ArrowDown className="w-8 h-8 text-slate-400 hover:text-slate-200 transition-colors animate-bounce" />
-          </a>
+          <ChevronRight className="w-6 h-6 text-gray-400 animate-bounce" />
         </motion.div>
       </section>
 
-      {/* === Contrast Panels Section === */}
-      <ContrastPanelsSection />
+      {/* Philosophy Section */}
+      <PhilosophySection />
 
-      {/* === NEW Experience Timeline Section === */}
-      <ExperienceTimelineSection />
+      {/* Problem Section */}
+      <ProblemSection />
 
-      {/* === Founder Story Section === */}
-      <FounderStorySection />
+      {/* Solution Section */}
+      <SolutionSection />
 
-      {/* Final CTA Section (Redesigned) */}
-      <section className="py-20 md:py-32 bg-gradient-to-t from-slate-800 to-purple-700/30">
-        <div className="container mx-auto px-6">
-          {/* Headline with Gradient */}
-          <div className="text-center mb-12">
-            <Lightbulb className="w-16 h-16 text-fuchsia-400 mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-purple-500">
-              Experience the NovaGent Difference
-            </h2>
-            <p className="text-2xl font-semibold text-gray-100">Let's Engineer Your AI Success Story, Together</p>
-          </div>
+      {/* Journey Section - The NovaGent Process */}
+      <JourneySection />
 
-          {/* Modern Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              {
-                icon: <Target className="w-8 h-8 text-cyan-400" />,
-                title: "Targeted Solutions",
-                description: "AI solutions engineered specifically for your unique business challenges",
-              },
-              {
-                icon: <Users className="w-8 h-8 text-fuchsia-400" />,
-                title: "Expert Management",
-                description: "Fully managed by our team of AI specialists and business strategists",
-              },
-              {
-                icon: <BarChart4 className="w-8 h-8 text-purple-400" />,
-                title: "Measurable Results",
-                description: "Clear metrics and transparent reporting on your AI investment",
-              },
-              {
-                icon: <Zap className="w-8 h-8 text-amber-400" />,
-                title: "Transformative Impact",
-                description: "Fundamentally transform your revenue, marketing, and operations",
-              },
-            ].map((benefit, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="bg-slate-800/40 backdrop-blur-sm border border-slate-700 hover:border-slate-600 rounded-lg p-6 flex flex-col items-center text-center transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
-              >
-                <div className="mb-4">{benefit.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-100 mb-2">{benefit.title}</h3>
-                <p className="text-sm text-gray-300">{benefit.description}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA Buttons (Unchanged Design) */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-center">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
-              asChild
-            >
-              <Link href="/contact">Schedule Your Strategic AI Consultation</Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-cyan-400 border-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
-              asChild
-            >
-              <Link href="/solutions/ai-agent-suite">See Our Core Agent Suite</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* The NovaGent Advantage Section - Last before footer */}
+      <NovaGentAdvantage />
     </div>
   )
 }
