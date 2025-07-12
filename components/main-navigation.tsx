@@ -373,6 +373,7 @@ interface SolutionLink {
 export function MainNavigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobilePlatformOpen, setIsMobilePlatformOpen] = useState(false)
   const [isMobileSolutionsOpen, setIsMobileSolutionsOpen] = useState(false)
   const [isMobileIndustriesOpen, setIsMobileIndustriesOpen] = useState(false)
   const [isMobileAboutUsOpen, setIsMobileAboutUsOpen] = useState(false)
@@ -829,10 +830,10 @@ export function MainNavigation() {
         </NavigationMenu>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          {/* Theme Toggle for Desktop View */}
-          <div className="hidden lg:flex">
-             <ThemeToggle />
-          </div>
+        {/* Theme Toggle for Desktop View */}
+        <div className="hidden lg:flex">
+        <ThemeToggle />
+        </div>
           <Button
             asChild
             variant="ghost"
@@ -851,6 +852,7 @@ export function MainNavigation() {
             onOpenChange={(isOpen) => {
               setIsMobileMenuOpen(isOpen)
               if (!isOpen) {
+                setIsMobilePlatformOpen(false)
                 setIsMobileSolutionsOpen(false)
                 setIsMobileIndustriesOpen(false)
                 setIsMobileAboutUsOpen(false)
@@ -876,6 +878,7 @@ export function MainNavigation() {
               side="right"
               className="w-full max-w-xs bg-white dark:bg-slate-900 p-0 shadow-xl"
               onOpenAutoFocus={(e) => e.preventDefault()}
+              showClose={false}
             >
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 p-4">
@@ -883,6 +886,7 @@ export function MainNavigation() {
                     href="/"
                     onClick={() => {
                       setIsMobileMenuOpen(false)
+                      setIsMobilePlatformOpen(false)
                       setIsMobileSolutionsOpen(false)
                       setIsMobileIndustriesOpen(false)
                       setIsMobileAboutUsOpen(false)
@@ -904,56 +908,67 @@ export function MainNavigation() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="rounded-md p-1.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-700/50"
+                      className="rounded-md p-1.5 text-slate-700 hover:bg-slate-200/50 dark:text-slate-300 dark:hover:bg-slate-700/50"
+                      aria-label="Close mobile menu"
                     >
                       <X className="h-5 w-5" />
-                      <span className="sr-only">Close menu</span>
                     </Button>
                   </SheetClose>
                 </div>
                 <nav className="flex-grow space-y-1 p-4 overflow-y-auto">
                   <div>
-                    <SheetClose asChild>
-                      <Link
-                        href="/platform"
-                        className={cn(
-                          "block rounded-md px-3 py-2.5 text-base font-medium transition-colors",
-                          pathname === "/platform"
-                            ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
-                            : "text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
-                        )}
-                      >
-                        Platform
-                      </Link>
-                    </SheetClose>
-                    <div className="ml-4 mt-1 border-l border-slate-200 dark:border-slate-700 pl-3">
-                      <SheetClose asChild>
-                        <Link
-                          href="/platform/integrations"
-                          className={cn(
-                            "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                            pathname === "/platform/integrations"
-                              ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
-                              : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
-                          )}
-                        >
-                          Integrations
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link
-                          href="/platform/security"
-                          className={cn(
-                            "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                            pathname === "/platform/security"
-                              ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
-                              : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
-                          )}
-                        >
-                          Security
-                        </Link>
-                      </SheetClose>
-                    </div>
+                    <button
+                      onClick={() => setIsMobilePlatformOpen(!isMobilePlatformOpen)}
+                      className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-base font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
+                    >
+                      Platform
+                      <ChevronDown
+                        className={cn("h-4 w-4 transition-transform", isMobilePlatformOpen && "rotate-180")}
+                      />
+                    </button>
+                    {isMobilePlatformOpen && (
+                      <div className="ml-4 mt-1 space-y-1 border-l border-slate-200 dark:border-slate-700 pl-3 py-1">
+                        <SheetClose asChild>
+                          <Link
+                            href="/platform"
+                            className={cn(
+                              "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                              pathname === "/platform"
+                                ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
+                            )}
+                          >
+                            Platform Overview
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/platform/integrations"
+                            className={cn(
+                              "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                              pathname === "/platform/integrations"
+                                ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
+                            )}
+                          >
+                            Integrations
+                          </Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link
+                            href="/platform/security"
+                            className={cn(
+                              "block rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                              pathname === "/platform/security"
+                                ? "bg-fuchsia-500/10 text-fuchsia-600 dark:bg-fuchsia-500/20 dark:text-fuchsia-400"
+                                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800",
+                            )}
+                          >
+                            Security
+                          </Link>
+                        </SheetClose>
+                      </div>
+                    )}
                   </div>
 
                   <SheetClose asChild>
@@ -1008,7 +1023,7 @@ export function MainNavigation() {
                                 : "text-purple-600 hover:from-purple-100 hover:to-blue-100 dark:text-purple-400 dark:hover:from-purple-800/30 dark:hover:to-blue-800/30",
                             )}
                           >
-                            ? NovaSuite - Configure Your Agent
+                          NovaSuite - Configure Your Agent
                           </Link>
                         </SheetClose>
                         
