@@ -133,7 +133,7 @@ export default function ProspectHunterPage() {
             </p>
             <Button asChild className="bg-white text-slate-900 hover:bg-slate-100">
               <Link href="/capabilities">
-                View All Capabilities
+                View All Capabilities.
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
