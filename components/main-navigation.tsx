@@ -56,6 +56,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from '@/components/theme-toggle'
+import { MobileThemeToggle } from '@/components/mobile-theme-toggle'
 
 const getNavItemClasses = (
   currentPathname: string,
@@ -1186,7 +1187,7 @@ export function MainNavigation() {
                 <div className="border-t border-slate-200 dark:border-slate-800 p-4 space-y-3">
                   {/* Theme Toggle for Mobile View */}
                   <div className="flex justify-center pt-2 pb-4">
-                    <ThemeToggle />
+                    <MobileThemeToggle isScrolled={isScrolled} pathname={pathname} />
                   </div>
                   <Button
                     asChild
